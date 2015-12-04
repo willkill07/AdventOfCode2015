@@ -11,15 +11,15 @@ main (int argc, char* argv []) {
   std::cin >> input;
 
   int index { 1 };
-	if (!part2) {
-		while (md5 (input + std::to_string (index)).compare (0, 5, "00000") != 0) {
-			++index;
-		}
-	} else {
-		while (md5 (input + std::to_string (index)).compare (0, 6, "000000") != 0) {
-			++index;
-		}
-	}
-	std::cout << index << std::endl;
+  if (!part2) {
+    while (md5 (input + std::to_string (index)).compare (0, 5, "00000") != 0) {
+      ++index;
+    }
+  } else {
+    while (md5 (input + std::to_string (index)).compare (0, 6, "000000") != 0) {
+      ++index;
+    }
+  }
+  std::cout << index << std::endl;
   return 0;
 }
