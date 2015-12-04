@@ -4,6 +4,8 @@ CPPFLAGS := -Iutil/include
 CXXFLAGS := -O3 -march=native -std=c++14
 vpath day%.cpp src
 
+.PHONY : clean distclean all run_all help
+
 help :
 	@echo "Specify a day to run"
 	@echo " e.g. make dayN && make run_dayN"
@@ -31,7 +33,7 @@ run_% : %
 
 all : $(DAYS)
 
-.PHONY : clean distclean
+# Cleanup
 
 clean :
 	@-rm -v *.o util/lib/*.o
