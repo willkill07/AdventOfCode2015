@@ -7,14 +7,11 @@
 using box = std::array <int, 3>;
 
 box
-parseLine (const std::string& line) {
+parseLine (std::string line) {
+	std::replace (std::begin (line), std::end (line), 'x', ' ');
 	std::istringstream iss { line };
-	std::string s;
-	int index { 0 };
-	box b {{ 0, 0, 0 }};
-	while (std::getline (iss, s, 'x')) {
-		b [ index++ ] = std::stoi (s);
-	}
+	box b;
+	iss >> b[0] >> b[1] >> b[2];
 	return b;
 }
 
