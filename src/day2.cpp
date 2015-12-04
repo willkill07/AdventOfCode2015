@@ -11,12 +11,12 @@ parseLine (std::string line) {
 	box b;
 	std::replace (std::begin (line), std::end (line), 'x', ' ');
 	std::istringstream iss { line };
-	std::copy (std::istream_iterator <int> {iss}, std::istream_iterator <int> {}, std::begin (b));
+	std::copy (std::istream_iterator <int> { iss }, std::istream_iterator <int> { }, std::begin (b));
 	return b;
 }
 
 int
-main (int argc, char* argv[]) {
+main (int argc, char* argv []) {
 	bool part2 { argc == 2 };
 	int total { 0 };
 
