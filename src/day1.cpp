@@ -11,6 +11,7 @@ int main (int argc, char* argv[]) {
 		floor += (c == ')') ? -1 : 1;
 		if (part2 && floor == -1) {
 			std::cout << count << std::endl;
+			break;
 		}
 	}
 	if (!part2) {
