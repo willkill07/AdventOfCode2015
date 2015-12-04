@@ -1,9 +1,9 @@
 #include <iostream>
 
-int main (int ac, char* av[]) {
+int main (int argc, char* argv[]) {
+	bool part2 { argc == 2 };
 	int floor { 0 };
 	int count { 0 };
-	bool part2 { ac == 2 };
 
 	char c;
 	while (std::cin >> c) {
