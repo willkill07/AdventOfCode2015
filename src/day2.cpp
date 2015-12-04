@@ -1,8 +1,9 @@
+#include <algorithm>
 #include <array>
+#include <iostream>
+#include <iterator>
 #include <sstream>
 #include <string>
-#include <iostream>
-#include <algorithm>
 
 using box = std::array <int, 3>;
 

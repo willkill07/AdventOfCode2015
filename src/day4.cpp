@@ -1,12 +1,11 @@
-#include <string>
 #include <iostream>
-#include <algorithm>
-
+#include <string>
 #include "md5.hpp"
 
 int
 main (int argc, char* argv []) {
   bool part2 { argc == 2 };
+
   std::string input;
   std::cin >> input;
 
