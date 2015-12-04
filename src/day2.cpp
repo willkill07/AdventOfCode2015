@@ -7,19 +7,16 @@
 using box = std::array <int, 3>;
 
 box
-parseLine (const std::string& line) {
+parseLine (std::string line) {
+	box b;
+	std::replace (std::begin (line), std::end (line), 'x', ' ');
 	std::istringstream iss { line };
-	std::string s;
-	int index { 0 };
-	box b {{ 0, 0, 0 }};
-	while (std::getline (iss, s, 'x')) {
-		b [ index++ ] = std::stoi (s);
-	}
+	std::copy (std::istream_iterator <int> { iss }, std::istream_iterator <int> { }, std::begin (b));
 	return b;
 }
 
 int
-main (int argc, char* argv[]) {
+main (int argc, char* argv []) {
 	bool part2 { argc == 2 };
 	int total { 0 };
 
@@ -28,9 +25,9 @@ main (int argc, char* argv[]) {
 		box b = parseLine (line);
 		std::sort (std::begin (b), std::end (b));
 		if (!part2) {
-			total += 3 * b[0] * b[1] + 2 * b[2] * (b[0] + b[1]);
+			total += 3 * (b[0] * b[1]) + 2 * b[2] * (b[0] + b[1]);
 		} else {
-			total += 2 * (b[0] + b[1]) + b[0] * b[1] * b[2];
+			total += 2 * (b[0] + b[1]) + (b[0] * b[1] * b[2]);
 		}
 	}
 	std::cout << total << std::endl;
