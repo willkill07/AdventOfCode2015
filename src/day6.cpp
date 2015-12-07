@@ -19,25 +19,22 @@ std::string replace { "$1 $2 $3 $4 $5" };
 
 ActionRule
 buildFromLine (std::string line, bool part2) {
-  std::istringstream iss { std::regex_replace (line, parser, replace) };
-
-  std::string str;
-  iss >> str;
+  std::smatch fields;
+  std::regex_search (line, fields, parser);
 
   Action a;
-  if (str.compare ("toggle") == 0) {
+  if (fields [1].compare ("toggle") == 0) {
     a = TOGGLE;
   } else {
-    iss >> str;
-    if (str.compare ("on") == 0) {
+    if (std::string { fields [1] }.find ("on") != std::string::npos) {
       a = ON;
     } else {
       a = OFF;
     }
   }
 
-  int x1,y1,x2,y2;
-  iss >> x1 >> y1 >> x2 >> y2;
+  int x1 { std::stoi (fields [2]) }, y1 { std::stoi (fields [3]) },
+      x2 { std::stoi (fields [4]) }, y2 { std::stoi (fields [5]) };
 
   if (!part2) {
     return [a,x1,y1,x2,y2] (int &state, int x, int y) {
@@ -69,9 +66,6 @@ main (int argc, char* argv []) {
                     return buildFromLine (x, part2);
                   });
 
-  unsigned int threadCount { std::thread::hardware_concurrency() };
-  std::vector <std::future <int> > threads;
-
   auto task = [&] (unsigned threadID) {
     int count { 0 };
     for (unsigned int x { threadID }; x < 1000; x += threadCount) {
@@ -86,10 +80,11 @@ main (int argc, char* argv []) {
     return count;
   };
 
+  unsigned int threadCount { std::thread::hardware_concurrency() };
+  std::vector <std::future <int> > threads;
   for (int tID { 0 }; tID < threadCount; ++tID) {
     threads.push_back (std::async (task, tID));
   }
-
   int totalCount { 0 };
   for (auto && futureVal : threads) {
     totalCount += futureVal.get();
