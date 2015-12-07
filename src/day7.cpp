@@ -64,10 +64,10 @@ Wire::getValue (GateMap & gates, ValueMap & values) {
   }
   auto loc = values.find (lookup);
   if (loc != std::end (values)) {
-    return loc->second;
+    return loc -> second;
   }
-  gates.find (lookup)->second.apply (gates, values);
-  return values.find (lookup)->second;
+  gates.find (lookup) -> second.apply (gates, values);
+  return values.find (lookup) -> second;
 }
 
 void
@@ -145,8 +145,7 @@ main (int argc, char* argv []) {
   }
 
   if (part2) {
-    gates.erase (toInt ("b"));
-    gates.emplace (toInt ("b"), split ("956 -> b"));
+    gates.find (toInt ("b")) -> second = Gate { split ("956 -> b") };
   }
 
   Int index { toInt ("a") };
