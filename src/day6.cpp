@@ -69,31 +69,31 @@ main (int argc, char* argv []) {
                     return buildFromLine (x, part2);
                   });
 
-	unsigned int threadCount { std::thread::hardware_concurrency() };
-	std::vector <std::future <int> > threads;
+  unsigned int threadCount { std::thread::hardware_concurrency() };
+  std::vector <std::future <int> > threads;
 
-	auto task = [&] (unsigned threadID) {
-		int count { 0 };
-	  for (unsigned int x { threadID }; x < 1000; x += threadCount) {
-			for (unsigned int y { 0 }; y < 1000; ++y) {
-				int light { 0 };
-				for (auto && r : rules) {
-					r (light, x, y);
-				}
-				count += light;
-			}
-		}
-		return count;
-	};
+  auto task = [&] (unsigned threadID) {
+    int count { 0 };
+    for (unsigned int x { threadID }; x < 1000; x += threadCount) {
+      for (unsigned int y { 0 }; y < 1000; ++y) {
+        int light { 0 };
+        for (auto && r : rules) {
+          r (light, x, y);
+        }
+        count += light;
+      }
+    }
+    return count;
+  };
 
-	for (int tID { 0 }; tID < threadCount; ++tID) {
-		threads.push_back (std::async (task, tID));
-	}
+  for (int tID { 0 }; tID < threadCount; ++tID) {
+    threads.push_back (std::async (task, tID));
+  }
 
-	int totalCount { 0 };
-	for (auto && futureVal : threads) {
-		totalCount += futureVal.get();
-	}
+  int totalCount { 0 };
+  for (auto && futureVal : threads) {
+    totalCount += futureVal.get();
+  }
 
   std::cout << totalCount << std::endl;
   return 0;
