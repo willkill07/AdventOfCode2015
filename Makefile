@@ -30,7 +30,7 @@ all : $(DAYS)
 
 # Execution rules
 run_all : all
-	make $(addprefix run_,$(DAYS))
+	@make $(addprefix run_,$(DAYS))
 
 run_% : %
 	@echo "Running $<"
