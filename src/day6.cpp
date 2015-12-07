@@ -65,6 +65,7 @@ main (int argc, char* argv []) {
                     return buildFromLine (x, part2);
                   });
 
+  unsigned int threadCount { std::thread::hardware_concurrency() };
   auto task = [&] (unsigned threadID) {
     int count { 0 };
     for (unsigned int x { threadID }; x < 1000; x += threadCount) {
@@ -79,7 +80,6 @@ main (int argc, char* argv []) {
     return count;
   };
 
-  unsigned int threadCount { std::thread::hardware_concurrency() };
   std::vector <std::future <int> > threads;
   for (int tID { 0 }; tID < threadCount; ++tID) {
     threads.push_back (std::async (task, tID));
