@@ -1,7 +1,7 @@
 CC := clang++
 CXX := clang++
 CPPFLAGS := -Iutil/include
-CXXFLAGS := -O3 -march=native -std=c++14
+CXXFLAGS := -O3 -march=native -std=c++14 -Wall -pedantic
 vpath day%.cpp src
 
 .PHONY : clean distclean all run_all help
