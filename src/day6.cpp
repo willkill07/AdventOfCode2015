@@ -1,4 +1,5 @@
 #include <functional>
+#include <future>
 #include <iostream>
 #include <iterator>
 #include <regex>
@@ -68,18 +69,32 @@ main (int argc, char* argv []) {
                     return buildFromLine (x, part2);
                   });
 
-  int count { 0 };
+  unsigned int threadCount { std::thread::hardware_concurrency() };
+  std::vector <std::future <int> > threads;
 
-  for (int x { 0 }; x < 1000; ++x) {
-    for (int y { 0 }; y < 1000; ++y) {
-      int light { 0 };
-      for (auto r : rules) {
-        r (light, x, y);
+  auto task = [&] (unsigned threadID) {
+    int count { 0 };
+    for (unsigned int x { threadID }; x < 1000; x += threadCount) {
+      for (unsigned int y { 0 }; y < 1000; ++y) {
+        int light { 0 };
+        for (auto && r : rules) {
+          r (light, x, y);
+        }
+        count += light;
       }
-      count += light;
     }
+    return count;
+  };
+
+  for (int tID { 0 }; tID < threadCount; ++tID) {
+    threads.push_back (std::async (task, tID));
   }
 
-  std::cout << count << std::endl;
+  int totalCount { 0 };
+  for (auto && futureVal : threads) {
+    totalCount += futureVal.get();
+  }
+
+  std::cout << totalCount << std::endl;
   return 0;
 }
