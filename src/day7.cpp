@@ -3,15 +3,13 @@
 #include <sstream>
 #include <string>
 #include <tuple>
-#include <vector>
-#include <cstdlib>
+#include <regex>
 
 struct Gate;
 
 using Int = std::uint16_t;
 using FnType = std::function < Int (Int, Int)>;
 using GateMap = std::map <Int, Gate>;
-using ValueMap = std::map <Int, Int>;
 using Args = std::vector <std::string>;
 
 static const std::map <std::string, FnType> FN_MAP {
@@ -22,6 +20,10 @@ static const std::map <std::string, FnType> FN_MAP {
   {"LSHIFT", [] (Int a, Int b) -> Int { return a << b; }},
   {"RSHIFT", [] (Int a, Int b) -> Int { return a >> b; }}
 };
+
+std::regex ASSIGN_OP { "(\\w+) -> (\\w+)" };
+std::regex NOT_OP { "NOT (\\w+) -> (\\w+)" };
+std::regex BINARY_OP { "(\\w+) (AND|OR|LSHIFT|RSHIFT) (\\w+) -> (\\w+)" };
 
 Int
 toInt (std::string s) {
@@ -44,10 +46,10 @@ Wire {
   Wire (std::string id) : lookup { toInt (id) }, isValue { false } { }
   Wire (Int val) : value { val }, isValue { true } { }
 
-  Int getValue (GateMap & gates, ValueMap & values);
+  Int getValue (GateMap & gates);
 
   static
-  Wire constructFrom (std::string str) {
+  Wire constructFrom (std::string && str) {
     try {
       return Wire { static_cast <Int> (std::stoi (str)) };
     } catch (...) {
@@ -61,61 +63,45 @@ Gate {
   Wire wire1;
   Wire wire2;
   Int out;
-  FnType function;
   std::string fn;
-  int count;
+  FnType function;
+  Int value;
+  bool memoized;
 
-  Gate (Args data) : wire1 { }, wire2 { }, out { }, function { }, count { 0 } {
-    switch (data.size()) {
-    case 3: // Value assign
-      wire1 = Wire::constructFrom (data [0]);
-      fn = "ASSIGN";
-      count = 1;
-      break;
-    case 4: // Unary op assign
+  Gate (std::string line) : wire1 { }, wire2 { }, out { 0 }, fn { }, function { }, value { 0 }, memoized { false } {
+    std::smatch data;
+    if (std::regex_match (line, data, ASSIGN_OP)) {
       wire1 = Wire::constructFrom (data [1]);
-      fn = data [0];
-      count = 1;
-      break;
-    case 5: // Binary op assign
-      wire1 = Wire::constructFrom (data [0]);
-      wire2 = Wire::constructFrom (data [2]);
-      fn = data [1];
-      count = 2;
-      break;
+      fn = "ASSIGN";
+    } else if (std::regex_match (line, data, NOT_OP)) {
+      wire1 = Wire::constructFrom (data [1]);
+      fn = "NOT";
+    } else if (std::regex_match (line, data, BINARY_OP)) {
+      wire1 = Wire::constructFrom (data [1]);
+      wire2 = Wire::constructFrom (data [3]);
+      fn = data [2];
     }
     function = FN_MAP.at (fn);
-    out = toInt (data.back());
+    out = toInt (data [data.size() - 1]);
   }
 
-  void
-  apply (GateMap & gates, ValueMap & values) {
-    values [out] = function (wire1.getValue (gates, values), wire2.getValue (gates, values));
+  Int
+  apply (GateMap & gates) {
+    value = function (wire1.getValue (gates), wire2.getValue (gates));
+    memoized = true;
+    return value;
   }
 };
 
 Int
-Wire::getValue (GateMap & gates, ValueMap & values) {
-  if (isValue) {
+Wire::getValue (GateMap & gates) {
+  if (isValue)
     return value;
-  }
-  auto loc = values.find (lookup);
-  if (loc != std::end (values)) {
-    return loc -> second;
-  }
-  gates.find (lookup) -> second.apply (gates, values);
-  return values.find (lookup) -> second;
-}
-
-std::vector <std::string>
-split (const std::string & line) {
-  std::istringstream iss { line };
-  std::vector <std::string> list;
-  std::string word;
-  while (iss >> word) {
-    list.push_back (word);
-  }
-  return list;
+  auto & loc = gates.find (lookup) -> second;
+  if (loc.memoized)
+    return loc.value;
+  loc.apply (gates);
+  return loc.value;
 }
 
 int
@@ -123,20 +109,17 @@ main (int argc, char* argv []) {
   bool part2 { argc == 2 };
 
   GateMap gates;
-  ValueMap values;
-
   std::string line;
   while (std::getline (std::cin, line)) {
-    auto list = split (line);
-    gates.emplace ( toInt (list.back()), list);
+    Gate g { line };
+    gates.emplace ( g.out, g );
   }
 
   if (part2) {
-    gates.find (toInt ("b")) -> second = Gate { split ("956 -> b") };
+    gates.find (toInt ("b")) -> second = Gate { "956 -> b" };
   }
 
-  Int index { toInt ("a") };
-  gates.at (index).apply (gates, values);
-  std::cout << values.at (index) << std::endl;
+  auto & a = gates.at (toInt ("a"));
+  std::cout << a.apply (gates) << std::endl;
   return 0;
 }
