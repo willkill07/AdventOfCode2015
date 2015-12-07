@@ -1,156 +1,80 @@
 #include <iostream>
 #include <map>
-#include <sstream>
 #include <string>
+#include <regex>
 #include <tuple>
-#include <vector>
-#include <cstdlib>
-
-struct Gate;
+#include "timer.hpp"
 
 using Int = std::uint16_t;
-using FnType = std::function < Int (Int, Int)>;
-using GateMap = std::map <Int, Gate>;
-using ValueMap = std::map <Int, Int>;
+using Callback = std::function <Int()>;
+using RegexData = std::tuple <Callback, std::string, std::string>;
+using Cache = std::map <std::string, Int>;
+using Eval = std::map <std::string, RegexData>;
 
-using Args = std::vector <std::string>;
+static const std::regex ASSIGN_OP { "(\\w+) -> (\\w+)" };
+static const std::regex NOT_OP { "NOT (\\w+) -> (\\w+)" };
+static const std::regex BINARY_OP { "(\\w+) (AND|OR|LSHIFT|RSHIFT) (\\w+) -> (\\w+)" };
 
-Int
-toInt (std::string s) {
-  if (s.size() == 1) {
-    return (Int)s[0];
-  } else {
-    return (((Int)s[0]) << 8) | ((Int)s[1]);
-  }
-}
-
-struct
-Wire {
-  union {
-    Int lookup;
-    Int value;
-  };
-  bool isValue;
-
-  Wire ();
-  Wire (std::string);
-  Wire (Int);
-
-  Int getValue (GateMap & gates, ValueMap & values);
-};
-
-Wire::Wire () : lookup { 0 }, isValue { false } { }
-Wire::Wire (std::string id) : lookup { toInt (id) }, isValue { false } { }
-Wire::Wire (Int val) : value { val }, isValue { true } { }
-
-struct
-Gate {
-  Wire wire1;
-  Wire wire2;
-  Int out;
-  FnType function;
-  std::string fn;
-  int count;
-
-  Gate (Args);
-  void apply (GateMap &, ValueMap &);
-};
-
+Cache cache;
+Eval lookup;
 
 Int
-Wire::getValue (GateMap & gates, ValueMap & values) {
-  if (isValue) {
-    return value;
-  }
-  auto loc = values.find (lookup);
-  if (loc != std::end (values)) {
-    return loc->second;
-  }
-  gates.find (lookup)->second.apply (gates, values);
-  return values.find (lookup)->second;
-}
-
-void
-constructFrom (std::string str, Wire & w) {
+getValue (std::string value) {
   try {
-    w = std::move (Wire { static_cast <Int> (std::stoi (str)) });
+    return std::stoi (value);
   } catch (...) {
-    w = std::move (Wire { str });
+    auto loc = cache.find (value);
+    if (loc != std::end (cache))
+      return loc->second;
+    auto val = std::get <0> (lookup [value])();
+    cache.emplace (value, val);
+    return val;
   }
 }
 
-Gate::Gate (Args data) : wire1 { }, wire2 { }, out { }, function { }, count { 0 } {
-  switch (data.size()) {
-  case 3: // Value assign
-    constructFrom (data [0], wire1);
-    function = [] (Int a, Int b) -> Int { return a; };
-    fn = "Assign";
-    count = 1;
-    break;
-  case 4: // Unary op assign
-    constructFrom (data [1], wire1);
-    function = [] (Int a, Int b) -> Int { return ~a; };
-    fn = data [0];
-    count = 1;
-    break;
-  case 5: // Binary op assign
-    constructFrom (data [0], wire1);
-    constructFrom (data [2], wire2);
-    fn = data [1];
-    if (fn.compare ("AND") == 0)
-      function = [] (Int a, Int b) -> Int { return a & b; };
-    else if (fn.compare ("OR") == 0)
-      function = [] (Int a, Int b) -> Int { return a | b; };
-    else if (fn.compare ("LSHIFT") == 0)
-      function = [] (Int a, Int b) -> Int { return a << b; };
-    else if (fn.compare ("RSHIFT") == 0)
-      function = [] (Int a, Int b) -> Int { return a >> b; };
-    count = 2;
-    break;
-  }
-  out = toInt (data.back());
+template <size_t N>
+std::string
+getID (std::string n) {
+  return std::get <N + 1> (lookup [n]);
 }
 
-void
-Gate::apply (GateMap & gates, ValueMap & values) {
-  if (count == 1) {
-    values [out] = function (wire1.getValue (gates, values), Int { });
+Eval::value_type
+parseLine (std::string line) {
+  std::smatch data;
+  if (std::regex_match (line, data, ASSIGN_OP)) {
+    std::string val { data [1] }, out { data [2] };
+    return { out, { [out] () -> Int {
+          return getValue (getID <0> (out));
+        }, val, std::string { } } };
+  } else if (std::regex_match (line, data, NOT_OP)) {
+    std::string val { data [1] }, out { data [2] };
+    return { out, { [out] () -> Int {
+          return ~getValue ( getID <0> (out));
+        }, val, std::string { } } };
+  } else if (std::regex_match (line, data, BINARY_OP)) {
+    std::string val1 { data [1] }, op { data [2] }, val2 { data [3] }, out { data [4] };
+    return { out, { [out, op] () -> Int {
+          Int v1 { getValue (getID <0> (out)) }, v2 { getValue (getID <1> (out)) };
+          return ((op.compare ("AND") == 0) ? (v1 & v2) :
+                  ((op.compare ("OR") == 0) ? (v1 | v2) :
+                   ((op.compare ("LSHIFT") == 0) ? (v1 << v2) :
+                    ((v1 >> v2)))));
+        }, val1, val2 } };
   } else {
-    values [out] = function (wire1.getValue (gates, values), wire2.getValue (gates, values));
+    return std::make_pair (std::string { }, RegexData { });
   }
-}
-
-std::vector <std::string>
-split (const std::string & line) {
-  std::istringstream iss { line };
-  std::vector <std::string> list;
-  std::string word;
-  while (iss >> word) {
-    list.push_back (word);
-  }
-  return list;
 }
 
 int
 main (int argc, char* argv []) {
+  Timer t;
   bool part2 { argc == 2 };
 
-  GateMap gates;
-  ValueMap values;
-
   std::string line;
-  while (std::getline (std::cin, line)) {
-    auto list = split (line);
-    gates.emplace ( toInt (list.back()), list);
-  }
-
-  if (part2) {
-    gates.erase (toInt ("b"));
-    gates.emplace (toInt ("b"), split ("956 -> b"));
-  }
-
-  Int index { toInt ("a") };
-  gates.at (index).apply (gates, values);
-  std::cout << values.at (index) << std::endl;
+  while (std::getline (std::cin, line))
+    lookup.emplace (parseLine (line));
+  if (part2)
+    cache ["b"] = 956;
+  std::cout << getValue ("a") << std::endl;
   return 0;
 }
