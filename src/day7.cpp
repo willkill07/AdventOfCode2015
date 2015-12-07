@@ -1,8 +1,6 @@
 #include <iostream>
 #include <map>
-#include <sstream>
 #include <string>
-#include <tuple>
 #include <regex>
 
 struct Gate;
@@ -80,7 +78,8 @@ Gate {
 
   Int
   apply (GateMap & gates) {
-    std::tie (value, memoized) = std::make_tuple (function (wire1.getValue (gates), wire2.getValue (gates)), true);
+    value = function (wire1.getValue (gates), wire2.getValue (gates));
+    memoized = true;
     return value;
   }
 };
