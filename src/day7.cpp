@@ -21,17 +21,13 @@ static const std::map <std::string, FnType> FN_MAP {
   {"RSHIFT", [] (Int a, Int b) -> Int { return a >> b; }}
 };
 
-std::regex ASSIGN_OP { "(\\w+) -> (\\w+)" };
-std::regex NOT_OP { "NOT (\\w+) -> (\\w+)" };
-std::regex BINARY_OP { "(\\w+) (AND|OR|LSHIFT|RSHIFT) (\\w+) -> (\\w+)" };
+static const std::regex ASSIGN_OP { "(\\w+) -> (\\w+)" };
+static const std::regex NOT_OP { "NOT (\\w+) -> (\\w+)" };
+static const std::regex BINARY_OP { "(\\w+) (AND|OR|LSHIFT|RSHIFT) (\\w+) -> (\\w+)" };
 
 Int
 toInt (std::string s) {
-  if (s.size() == 1) {
-    return (Int)s[0];
-  } else {
-    return (((Int)s[0]) << 8) | ((Int)s[1]);
-  }
+	return *reinterpret_cast <const Int*> (s.c_str());
 }
 
 struct
@@ -60,36 +56,32 @@ Wire {
 
 struct
 Gate {
-  Wire wire1;
-  Wire wire2;
+  Wire wire1, wire2;
   Int out;
-  std::string fn;
   FnType function;
   Int value;
   bool memoized;
 
-  Gate (std::string line) : wire1 { }, wire2 { }, out { 0 }, fn { }, function { }, value { 0 }, memoized { false } {
+  Gate (std::string line) : wire1 { }, wire2 { }, out { 0 }, function { }, value { 0 }, memoized { false } {
     std::smatch data;
     if (std::regex_match (line, data, ASSIGN_OP)) {
       wire1 = Wire::constructFrom (data [1]);
-      fn = "ASSIGN";
+      function = FN_MAP.at ("ASSIGN");
     } else if (std::regex_match (line, data, NOT_OP)) {
       wire1 = Wire::constructFrom (data [1]);
-      fn = "NOT";
+      function = FN_MAP.at ("NOT");
     } else if (std::regex_match (line, data, BINARY_OP)) {
       wire1 = Wire::constructFrom (data [1]);
       wire2 = Wire::constructFrom (data [3]);
-      fn = data [2];
+      function = FN_MAP.at (data [2]);
     }
-    function = FN_MAP.at (fn);
     out = toInt (data [data.size() - 1]);
   }
 
   Int
   apply (GateMap & gates) {
-    value = function (wire1.getValue (gates), wire2.getValue (gates));
-    memoized = true;
-    return value;
+		std::tie (value, memoized) = std::make_tuple (function (wire1.getValue (gates), wire2.getValue (gates)), true);
+		return value;
   }
 };
 
@@ -98,10 +90,8 @@ Wire::getValue (GateMap & gates) {
   if (isValue)
     return value;
   auto & loc = gates.find (lookup) -> second;
-  if (loc.memoized)
-    return loc.value;
-  loc.apply (gates);
-  return loc.value;
+  loc.memoized || loc.apply (gates);
+	return loc.value;
 }
 
 int
@@ -116,7 +106,7 @@ main (int argc, char* argv []) {
   }
 
   if (part2) {
-    gates.find (toInt ("b")) -> second = Gate { "956 -> b" };
+    gates.at (toInt ("b")) = Gate { "956 -> b" };
   }
 
   auto & a = gates.at (toInt ("a"));
