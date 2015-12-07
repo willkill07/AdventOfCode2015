@@ -27,7 +27,7 @@ static const std::regex BINARY_OP { "(\\w+) (AND|OR|LSHIFT|RSHIFT) (\\w+) -> (\\
 
 Int
 toInt (std::string s) {
-	return *reinterpret_cast <const Int*> (s.c_str());
+  return *reinterpret_cast <const Int*> (s.c_str());
 }
 
 struct
@@ -80,8 +80,8 @@ Gate {
 
   Int
   apply (GateMap & gates) {
-		std::tie (value, memoized) = std::make_tuple (function (wire1.getValue (gates), wire2.getValue (gates)), true);
-		return value;
+    std::tie (value, memoized) = std::make_tuple (function (wire1.getValue (gates), wire2.getValue (gates)), true);
+    return value;
   }
 };
 
@@ -91,7 +91,7 @@ Wire::getValue (GateMap & gates) {
     return value;
   auto & loc = gates.find (lookup) -> second;
   loc.memoized || loc.apply (gates);
-	return loc.value;
+  return loc.value;
 }
 
 int
