@@ -12,8 +12,16 @@ using Int = std::uint16_t;
 using FnType = std::function < Int (Int, Int)>;
 using GateMap = std::map <Int, Gate>;
 using ValueMap = std::map <Int, Int>;
-
 using Args = std::vector <std::string>;
+
+static const std::map <std::string, FnType> FN_MAP {
+  {"ASSIGN", [] (Int a, Int b) -> Int { return a; }},
+  {"NOT", [] (Int a, Int b) -> Int { return ~a; }},
+  {"AND", [] (Int a, Int b) -> Int { return a & b; }},
+  {"OR", [] (Int a, Int b) -> Int { return a | b; }},
+  {"LSHIFT", [] (Int a, Int b) -> Int { return a << b; }},
+  {"RSHIFT", [] (Int a, Int b) -> Int { return a >> b; }}
+};
 
 Int
 toInt (std::string s) {
@@ -32,16 +40,21 @@ Wire {
   };
   bool isValue;
 
-  Wire ();
-  Wire (std::string);
-  Wire (Int);
+  Wire () : value { 0 }, isValue { true } { }
+  Wire (std::string id) : lookup { toInt (id) }, isValue { false } { }
+  Wire (Int val) : value { val }, isValue { true } { }
 
   Int getValue (GateMap & gates, ValueMap & values);
-};
 
-Wire::Wire () : lookup { 0 }, isValue { false } { }
-Wire::Wire (std::string id) : lookup { toInt (id) }, isValue { false } { }
-Wire::Wire (Int val) : value { val }, isValue { true } { }
+  static
+  Wire constructFrom (std::string str) {
+    try {
+      return Wire { static_cast <Int> (std::stoi (str)) };
+    } catch (...) {
+      return Wire { str };
+    }
+  }
+};
 
 struct
 Gate {
@@ -52,10 +65,34 @@ Gate {
   std::string fn;
   int count;
 
-  Gate (Args);
-  void apply (GateMap &, ValueMap &);
-};
+  Gate (Args data) : wire1 { }, wire2 { }, out { }, function { }, count { 0 } {
+    switch (data.size()) {
+    case 3: // Value assign
+      wire1 = Wire::constructFrom (data [0]);
+      fn = "ASSIGN";
+      count = 1;
+      break;
+    case 4: // Unary op assign
+      wire1 = Wire::constructFrom (data [1]);
+      fn = data [0];
+      count = 1;
+      break;
+    case 5: // Binary op assign
+      wire1 = Wire::constructFrom (data [0]);
+      wire2 = Wire::constructFrom (data [2]);
+      fn = data [1];
+      count = 2;
+      break;
+    }
+    function = FN_MAP.at (fn);
+    out = toInt (data.back());
+  }
 
+  void
+  apply (GateMap & gates, ValueMap & values) {
+    values [out] = function (wire1.getValue (gates, values), wire2.getValue (gates, values));
+  }
+};
 
 Int
 Wire::getValue (GateMap & gates, ValueMap & values) {
@@ -68,56 +105,6 @@ Wire::getValue (GateMap & gates, ValueMap & values) {
   }
   gates.find (lookup) -> second.apply (gates, values);
   return values.find (lookup) -> second;
-}
-
-void
-constructFrom (std::string str, Wire & w) {
-  try {
-    w = std::move (Wire { static_cast <Int> (std::stoi (str)) });
-  } catch (...) {
-    w = std::move (Wire { str });
-  }
-}
-
-Gate::Gate (Args data) : wire1 { }, wire2 { }, out { }, function { }, count { 0 } {
-  switch (data.size()) {
-  case 3: // Value assign
-    constructFrom (data [0], wire1);
-    function = [] (Int a, Int b) -> Int { return a; };
-    fn = "Assign";
-    count = 1;
-    break;
-  case 4: // Unary op assign
-    constructFrom (data [1], wire1);
-    function = [] (Int a, Int b) -> Int { return ~a; };
-    fn = data [0];
-    count = 1;
-    break;
-  case 5: // Binary op assign
-    constructFrom (data [0], wire1);
-    constructFrom (data [2], wire2);
-    fn = data [1];
-    if (fn.compare ("AND") == 0)
-      function = [] (Int a, Int b) -> Int { return a & b; };
-    else if (fn.compare ("OR") == 0)
-      function = [] (Int a, Int b) -> Int { return a | b; };
-    else if (fn.compare ("LSHIFT") == 0)
-      function = [] (Int a, Int b) -> Int { return a << b; };
-    else if (fn.compare ("RSHIFT") == 0)
-      function = [] (Int a, Int b) -> Int { return a >> b; };
-    count = 2;
-    break;
-  }
-  out = toInt (data.back());
-}
-
-void
-Gate::apply (GateMap & gates, ValueMap & values) {
-  if (count == 1) {
-    values [out] = function (wire1.getValue (gates, values), Int { });
-  } else {
-    values [out] = function (wire1.getValue (gates, values), wire2.getValue (gates, values));
-  }
 }
 
 std::vector <std::string>
