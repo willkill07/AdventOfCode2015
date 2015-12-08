@@ -2,17 +2,15 @@
 #include <map>
 #include <string>
 #include <regex>
-#include <tuple>
 #include "timer.hpp"
 
 using Int = std::uint16_t;
 using Callback = std::function <Int()>;
 struct Data {
-  Callback fn { };
-  std::string val1 { };
-  std::string val2 { };
+  Callback fn;
+  std::string val1, val2;
   bool memoized { false };
-  Int value { 0 };
+  Int value;
   Data (std::string v1, std::string v2, Callback f) : fn { f }, val1 { v1 }, val2 { v2 } { }
   Data (std::string v1, Callback f) : Data (v1, { }, f) { };
   Data (Int val) : memoized { true }, value { val } { };
@@ -25,13 +23,11 @@ static const std::regex BINARY_OP { "(\\w+) (AND|OR|LSHIFT|RSHIFT) (\\w+) -> (\\
 
 Eval lookup;
 
-void
-set (std::string key, Int v) {
+void set (std::string key, Int v) {
   lookup.at (key) = Data { v };
 }
 
-Int
-get (std::string value) {
+Int get (std::string value) {
   try {
     return std::stoi (value);
   } catch (...) {
@@ -44,33 +40,31 @@ get (std::string value) {
   }
 }
 
-void
-parseLine (std::string line, Eval &l) {
+void parseLine (std::string line, Eval &l) {
   std::smatch m;
   if (std::regex_match (line, m, ASSIGN_OP)) {
     std::string out { m [2] };
     l.emplace (out, Data { m [1], [out, &l] () {
-          return get (l.at (out).val1);
-        } });
+      return get (l.at (out).val1);
+    } });
   } else if (std::regex_match (line, m, NOT_OP)) {
     std::string out { m [2] };
     l.emplace (out, Data { m [1], [out, &l] () {
-          return ~get (l.at (out).val1);
-        } });
+      return ~get (l.at (out).val1);
+    } });
   } else if (std::regex_match (line, m, BINARY_OP)) {
     std::string op { m [2] }, out { m [4] };
     l.emplace (out, Data { m [1], m [3], [out, op, &l] () {
-          Data & d { l.at (out) };
-          return ((op.compare ("AND") == 0) ? (get (d.val1) & get (d.val2)) :
-                  ((op.compare ("OR") == 0) ? (get (d.val1) | get (d.val2)) :
-                   ((op.compare ("LSHIFT") == 0) ? (get (d.val1) << get (d.val2)) :
-                    ((get (d.val1) >> get (d.val2))))));
-        } });
+      Data & d { l.at (out) };
+      return ((op.compare ("AND") == 0) ? (get (d.val1) & get (d.val2)) :
+       ((op.compare ("OR") == 0) ? (get (d.val1) | get (d.val2)) :
+        ((op.compare ("LSHIFT") == 0) ? (get (d.val1) << get (d.val2)) :
+         ((get (d.val1) >> get (d.val2))))));
+    } });
   }
 }
 
-int
-main (int argc, char* argv []) {
+int main (int argc, char* argv []) {
   Timer t;
   bool part2 { argc == 2 };
   std::string line;
