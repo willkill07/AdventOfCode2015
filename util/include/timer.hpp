@@ -13,7 +13,10 @@ Timer
   Point begin;
 
 public:
-  Timer() : begin { Timing::now() } { }
+  Timer()
+		: begin { Timing::now() }
+		{ }
+
   ~Timer() {
     Point end { Timing::now() };
     std::cout << "timing: " << std::chrono::duration <double> { end - begin }.count() << "s" << std::endl;

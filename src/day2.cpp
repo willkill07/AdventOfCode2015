@@ -1,31 +1,22 @@
 #include <algorithm>
-#include <array>
 #include <iostream>
 #include <regex>
 #include <string>
 #include "timer.hpp"
 
-using Box = std::array <int, 3>;
+static const std::regex PARSE { "(\\d+)x(\\d+)x(\\d+)" };
 
-const static std::regex PARSE { "(\\d+)x(\\d+)x(\\d+)" };
-
-Box
-parseLine (std::string line) {
-  std::smatch fields;
-  std::regex_search (line, fields, PARSE);
-  return Box { { std::stoi (fields [1]), std::stoi (fields [2]), std::stoi (fields [3]) } };
-}
-
-int
-main (int argc, char* argv []) {
+int main (int argc, char* argv []) {
   Timer t;
   bool part2 { argc == 2 };
   int total { 0 };
-
+  int b[3];
+  std::smatch m;
   std::string line;
   while (std::getline (std::cin, line)) {
-    Box b { parseLine (line) };
-    std::sort (std::begin (b), std::end (b));
+    std::regex_search (line, m, PARSE);
+    std::transform (++m.begin(), m.end(), b, [] (const auto &o) { return std::stoi (o); });
+    std::sort (b, b + 3);
     total += ((part2) ? (2 * (b[0] + b[1]) + (b[0] * b[1] * b[2])) : (3 * (b[0] * b[1]) + 2 * b[2] * (b[0] + b[1])));
   }
   std::cout << total << std::endl;
