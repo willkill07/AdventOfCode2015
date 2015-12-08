@@ -24,11 +24,11 @@ struct Gate {
 struct Circuit {
   std::map <std::string, Gate> lookup;
 
-	void set (std::string key, Int v) {
+  void set (std::string key, Int v) {
     lookup.at (key) = Gate { v };
   }
 
-	Int get (std::string value) {
+  Int get (std::string value) {
     try {
       return std::stoi (value);
     } catch (...) {
