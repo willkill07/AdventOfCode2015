@@ -12,14 +12,15 @@ main (int argc, char* argv []) {
   std::cin >> input;
 
   int index { 1 };
-  if (!part2) {
-    while (md5 (input + std::to_string (index)).compare (0, 5, "00000") != 0) {
-      ++index;
+  while (true) {
+    std::string parse { input + std::to_string (index) };
+    std::string md5sum { md5 (parse) };
+    if ((!part2 && (md5sum.find ("00000") == 0)) ||
+        (part2 && (md5sum.find ("000000") == 0))) {
+      std::cout << index << std::endl;
+      break;
     }
-  } else {
-    while (md5 (input + std::to_string (index)).compare (0, 6, "000000") != 0) {
-      ++index;
-    }
+    ++index;
   }
   std::cout << index << std::endl;
   return 0;
