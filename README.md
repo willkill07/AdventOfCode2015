@@ -9,7 +9,7 @@ Day | Lines | sloc | Bytes | Source
 3 | 47 | 42 | 971 | [day3.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day3.cpp)
 4 | 26 | 23 | 522 | [day4.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day4.cpp)
 5 | 27 | 24 | 788 | [day5.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day5.cpp)
-6 | 95 | 82 | 2374 | [day6.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day6.cpp)
+6 | 66 | 58 | 1876 | [day6.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day6.cpp)
 7 | 77 | 71 | 2193 | [day7.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day7.cpp)
 8 | 29 | 26 | 897 | [day8.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day8.cpp)
-**TOTAL** | **355** | **315** | **8935** |
+**TOTAL** | **326** | **291** | **8437** |
