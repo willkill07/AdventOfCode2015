@@ -35,7 +35,7 @@ getValue (std::string value) {
 template <size_t N>
 std::string
 getID (std::string n) {
-	return std::get <N + 1> (lookup [n]);
+  return std::get <N + 1> (lookup [n]);
 }
 
 Eval::value_type
@@ -44,22 +44,22 @@ parseLine (std::string line) {
   if (std::regex_match (line, data, ASSIGN_OP)) {
     std::string val { data [1] }, out { data [2] };
     return { out, { [out] () -> Int {
-					return getValue (getID <0> (out));
-				}, val, std::string { } } };
+          return getValue (getID <0> (out));
+        }, val, std::string { } } };
   } else if (std::regex_match (line, data, NOT_OP)) {
     std::string val { data [1] }, out { data [2] };
     return { out, { [out] () -> Int {
-					return ~getValue ( getID <0> (out));
-				}, val, std::string { } } };
+          return ~getValue ( getID <0> (out));
+        }, val, std::string { } } };
   } else if (std::regex_match (line, data, BINARY_OP)) {
     std::string val1 { data [1] }, op { data [2] }, val2 { data [3] }, out { data [4] };
     return { out, { [out, op] () -> Int {
-					Int v1 { getValue (getID <0> (out)) }, v2 { getValue (getID <1> (out)) };
-					return ((op.compare ("AND") == 0) ? (v1 & v2) :
-									((op.compare ("OR") == 0) ? (v1 | v2) :
-									 ((op.compare ("LSHIFT") == 0) ? (v1 << v2) :
-										((v1 >> v2)))));
-				}, val1, val2 } };
+          Int v1 { getValue (getID <0> (out)) }, v2 { getValue (getID <1> (out)) };
+          return ((op.compare ("AND") == 0) ? (v1 & v2) :
+                  ((op.compare ("OR") == 0) ? (v1 | v2) :
+                   ((op.compare ("LSHIFT") == 0) ? (v1 << v2) :
+                    ((v1 >> v2)))));
+        }, val1, val2 } };
   } else {
     return std::make_pair (std::string { }, RegexData { });
   }
