@@ -8,33 +8,39 @@
 using Int = std::uint16_t;
 using Callback = std::function <Int()>;
 struct Data {
-  Callback fn;
-  std::string val1;
-  std::string val2;
+  Callback fn { };
+  std::string val1 { };
+  std::string val2 { };
+	bool memoized { false };
+	Int value { 0 };
   Data (std::string v1, std::string v2, Callback f) : fn { f }, val1 { v1 }, val2 { v2 } { }
   Data (std::string v1, Callback f) : Data (v1, { }, f) { };
+	Data (Int val) : memoized { true }, value { val } { };
 };
-using Cache = std::map <std::string, Int>;
 using Eval = std::map <std::string, Data>;
 
 static const std::regex ASSIGN_OP { "(\\w+) -> (\\w+)" };
 static const std::regex NOT_OP { "NOT (\\w+) -> (\\w+)" };
 static const std::regex BINARY_OP { "(\\w+) (AND|OR|LSHIFT|RSHIFT) (\\w+) -> (\\w+)" };
 
-Cache cache;
 Eval lookup;
+
+void
+set (std::string key, Int v) {
+	lookup.at (key) = Data { v };
+}
 
 Int
 get (std::string value) {
   try {
     return std::stoi (value);
   } catch (...) {
-    auto loc = cache.find (value);
-    if (loc != std::end (cache))
-      return loc->second;
-    auto val = lookup.at (value).fn ();
-    cache.emplace (value, val);
-    return val;
+		auto & d = lookup.at (value);
+		if (d.memoized)
+			return d.value;
+		d.value = d.fn();
+		d.memoized = true;
+		return d.value;
   }
 }
 
@@ -71,7 +77,7 @@ main (int argc, char* argv []) {
   while (std::getline (std::cin, line))
     parseLine (line, lookup);
   if (part2)
-    cache ["b"] = 956;
+    set ("b", 956);
   std::cout << get ("a") << std::endl;
   return 0;
 }
