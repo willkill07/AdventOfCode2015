@@ -4,7 +4,7 @@ CPPFLAGS := -Iutil/include
 CXXFLAGS := -O3 -march=native -std=c++14 -Wall -pedantic
 vpath day%.cpp src
 
-.PHONY : clean distclean all run_all help
+.PHONY : clean distclean all run_all help readme
 
 help :
 	@echo "This Makefile has two main options:"
@@ -18,6 +18,9 @@ help :
 	@echo "Entire Advent:"
 	@echo " $ make all        # compiles all days"
 	@echo " $ make run_all    # runs all days"
+
+readme :
+	./genREADME.sh
 
 # Variable to store days implemented
 DAYS := $(basename $(notdir $(wildcard src/day*.cpp)))
