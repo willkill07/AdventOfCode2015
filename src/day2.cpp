@@ -5,7 +5,7 @@
 #include <string>
 #include "timer.hpp"
 
-const static std::regex PARSE { "(\\d+)x(\\d+)x(\\d+)" };
+static const std::regex PARSE { "(\\d+)x(\\d+)x(\\d+)" };
 
 using Box = std::array <int, 3>;
 
