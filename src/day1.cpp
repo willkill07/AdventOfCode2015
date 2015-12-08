@@ -1,7 +1,8 @@
 #include <iostream>
 #include "timer.hpp"
 
-int main (int argc, char* argv[]) {
+int
+main (int argc, char* argv[]) {
   Timer t;
   bool part2 { argc == 2 };
 
