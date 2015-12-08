@@ -7,9 +7,15 @@
 
 using Int = std::uint16_t;
 using Callback = std::function <Int()>;
-using RegexData = std::tuple <Callback, std::string, std::string>;
+struct Data {
+  Callback fn;
+  std::string val1;
+  std::string val2;
+  Data (std::string v1, std::string v2, Callback f) : fn { f }, val1 { v1 }, val2 { v2 } { }
+  Data (std::string v1, Callback f) : Data (v1, { }, f) { };
+};
 using Cache = std::map <std::string, Int>;
-using Eval = std::map <std::string, RegexData>;
+using Eval = std::map <std::string, Data>;
 
 static const std::regex ASSIGN_OP { "(\\w+) -> (\\w+)" };
 static const std::regex NOT_OP { "NOT (\\w+) -> (\\w+)" };
@@ -19,49 +25,41 @@ Cache cache;
 Eval lookup;
 
 Int
-getValue (std::string value) {
+get (std::string value) {
   try {
     return std::stoi (value);
   } catch (...) {
     auto loc = cache.find (value);
     if (loc != std::end (cache))
       return loc->second;
-    auto val = std::get <0> (lookup [value])();
+    auto val = lookup.at (value).fn ();
     cache.emplace (value, val);
     return val;
   }
 }
 
-template <size_t N>
-std::string
-getID (std::string n) {
-  return std::get <N + 1> (lookup [n]);
-}
-
-Eval::value_type
-parseLine (std::string line) {
-  std::smatch data;
-  if (std::regex_match (line, data, ASSIGN_OP)) {
-    std::string val { data [1] }, out { data [2] };
-    return { out, { [out] () {
-          return getValue (getID <0> (out));
-        }, val, std::string { } } };
-  } else if (std::regex_match (line, data, NOT_OP)) {
-    std::string val { data [1] }, out { data [2] };
-    return { out, { [out] () {
-          return ~getValue ( getID <0> (out));
-        }, val, std::string { } } };
-  } else if (std::regex_match (line, data, BINARY_OP)) {
-    std::string val1 { data [1] }, op { data [2] }, val2 { data [3] }, out { data [4] };
-    return { out, { [out, op] () {
-          Int v1 { getValue (getID <0> (out)) }, v2 { getValue (getID <1> (out)) };
-          return ((op.compare ("AND") == 0) ? (v1 & v2) :
-                  ((op.compare ("OR") == 0) ? (v1 | v2) :
-                   ((op.compare ("LSHIFT") == 0) ? (v1 << v2) :
-                    ((v1 >> v2)))));
-        }, val1, val2 } };
-  } else {
-    return { };
+void
+parseLine (std::string line, Eval &l) {
+  std::smatch m;
+  if (std::regex_match (line, m, ASSIGN_OP)) {
+    std::string out { m [2] };
+    l.emplace (out, Data { m [1], [out, &l] () {
+          return get (l.at (out).val1);
+        } });
+  } else if (std::regex_match (line, m, NOT_OP)) {
+    std::string out { m [2] };
+    l.emplace (out, Data { m [1], [out, &l] () {
+          return ~get (l.at (out).val1);
+        } });
+  } else if (std::regex_match (line, m, BINARY_OP)) {
+    std::string op { m [2] }, out { m [4] };
+    l.emplace (out, Data { m [1], m [3], [out, op, &l] () {
+          Data & d { l.at (out) };
+          return ((op.compare ("AND") == 0) ? (get (d.val1) & get (d.val2)) :
+                  ((op.compare ("OR") == 0) ? (get (d.val1) | get (d.val2)) :
+                   ((op.compare ("LSHIFT") == 0) ? (get (d.val1) << get (d.val2)) :
+                    ((get (d.val1) >> get (d.val2))))));
+        } });
   }
 }
 
@@ -69,12 +67,11 @@ int
 main (int argc, char* argv []) {
   Timer t;
   bool part2 { argc == 2 };
-
   std::string line;
   while (std::getline (std::cin, line))
-    lookup.emplace (parseLine (line));
+    parseLine (line, lookup);
   if (part2)
     cache ["b"] = 956;
-  std::cout << getValue ("a") << std::endl;
+  std::cout << get ("a") << std::endl;
   return 0;
 }
