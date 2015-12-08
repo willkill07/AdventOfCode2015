@@ -16,14 +16,14 @@ main (int argc, char* argv[]) {
   int count { 0 };
   std::string s;
   while (std::cin >> s) {
-		count += 2;
-		if (!part2) {
-			count += std::distance (sIter { std::begin (s), std::end (s), REDUCE }, sIter { });
-			count += 3 * std::distance (sIter { std::begin (s), std::end (s), HEX }, sIter { });
-		} else {
-			count += std::distance (sIter { std::begin (s), std::end (s), EXPAND }, sIter { });
-		}
-	}
+    count += 2;
+    if (!part2) {
+      count += std::distance (sIter { std::begin (s), std::end (s), REDUCE }, sIter { });
+      count += 3 * std::distance (sIter { std::begin (s), std::end (s), HEX }, sIter { });
+    } else {
+      count += std::distance (sIter { std::begin (s), std::end (s), EXPAND }, sIter { });
+    }
+  }
   std::cout << count << std::endl;
   return 0;
 }
