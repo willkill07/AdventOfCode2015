@@ -331,18 +331,23 @@ MD5& MD5::finalize()
 
 //////////////////////////////
 
+static char LOOKUP [16] = {
+  '0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'
+};
+
 // return hex representation of digest as string
 std::string MD5::hexdigest() const
 {
   if (!finalized)
     return "";
 
-  char buf[33];
-  for (int i=0; i<16; i++)
-    sprintf(buf+i*2, "%02x", digest[i]);
-  buf[32]=0;
-
-  return std::string(buf);
+  static char buffer [33];
+  buffer [32] = '\0';
+  for (int i=0; i<16; i++) {
+    buffer [i*2] = LOOKUP [digest[i] >> 4];
+    buffer [i*2 + 1] = LOOKUP [digest[i] & 0xFF];
+  }
+  return std::string { buffer };
 }
 
 //////////////////////////////
