@@ -11,11 +11,11 @@ struct Data {
   Callback fn { };
   std::string val1 { };
   std::string val2 { };
-	bool memoized { false };
-	Int value { 0 };
+  bool memoized { false };
+  Int value { 0 };
   Data (std::string v1, std::string v2, Callback f) : fn { f }, val1 { v1 }, val2 { v2 } { }
   Data (std::string v1, Callback f) : Data (v1, { }, f) { };
-	Data (Int val) : memoized { true }, value { val } { };
+  Data (Int val) : memoized { true }, value { val } { };
 };
 using Eval = std::map <std::string, Data>;
 
@@ -27,7 +27,7 @@ Eval lookup;
 
 void
 set (std::string key, Int v) {
-	lookup.at (key) = Data { v };
+  lookup.at (key) = Data { v };
 }
 
 Int
@@ -35,12 +35,12 @@ get (std::string value) {
   try {
     return std::stoi (value);
   } catch (...) {
-		auto & d = lookup.at (value);
-		if (d.memoized)
-			return d.value;
-		d.value = d.fn();
-		d.memoized = true;
-		return d.value;
+    auto & d = lookup.at (value);
+    if (d.memoized)
+      return d.value;
+    d.value = d.fn();
+    d.memoized = true;
+    return d.value;
   }
 }
 
