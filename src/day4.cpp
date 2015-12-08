@@ -17,7 +17,6 @@ main (int argc, char* argv []) {
     std::string md5sum { md5 (parse) };
     if ((!part2 && (md5sum.find ("00000") == 0)) ||
         (part2 && (md5sum.find ("000000") == 0))) {
-      std::cout << index << std::endl;
       break;
     }
     ++index;
