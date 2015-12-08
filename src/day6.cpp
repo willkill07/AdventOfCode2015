@@ -14,13 +14,12 @@ Action {
 
 using ActionRule = std::function <void (int&, int, int)>;
 
-static const std::regex parser { "(turn off|turn on|toggle) (\\d+),(\\d+) through (\\d+),(\\d+)" };
-static const std::string replace { "$1 $2 $3 $4 $5" };
+static const std::regex PARSER { "(turn off|turn on|toggle) (\\d+),(\\d+) through (\\d+),(\\d+)" };
 
 ActionRule
 buildFromLine (std::string line, bool part2) {
   std::smatch fields;
-  std::regex_search (line, fields, parser);
+  std::regex_search (line, fields, PARSER);
 
   Action a;
   if (fields [1].compare ("toggle") == 0) {
