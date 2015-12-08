@@ -4,11 +4,12 @@
 #include <regex>
 #include "timer.hpp"
 
-struct Data;
+static const std::regex ASSIGN_OP { "(\\w+) -> (\\w+)" };
+static const std::regex NOT_OP { "NOT (\\w+) -> (\\w+)" };
+static const std::regex BINARY_OP { "(\\w+) (AND|OR|LSHIFT|RSHIFT) (\\w+) -> (\\w+)" };
+
 using Int = std::uint16_t;
 using Callback = std::function <Int()>;
-using Eval = std::map <std::string, Data>;
-
 struct Data {
   Callback fn;
   std::string val1, val2;
@@ -18,10 +19,7 @@ struct Data {
   Data (std::string v1, Callback f) : Data (v1, { }, f) { };
   Data (Int val) : memoized { true }, value { val } { };
 };
-
-static const std::regex ASSIGN_OP { "(\\w+) -> (\\w+)" };
-static const std::regex NOT_OP { "NOT (\\w+) -> (\\w+)" };
-static const std::regex BINARY_OP { "(\\w+) (AND|OR|LSHIFT|RSHIFT) (\\w+) -> (\\w+)" };
+using Eval = std::map <std::string, Data>;
 
 Eval lookup;
 

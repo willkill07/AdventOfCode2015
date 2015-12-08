@@ -7,11 +7,11 @@
 #include <vector>
 #include "timer.hpp"
 
+static const std::regex PARSER { "(turn off|turn on|toggle) (\\d+),(\\d+) through (\\d+),(\\d+)" };
+
 enum Action {
   ON = 1, OFF = -1, TOGGLE = 2
 };
-
-static const std::regex PARSER { "(turn off|turn on|toggle) (\\d+),(\\d+) through (\\d+),(\\d+)" };
 
 using ActionRule = std::function <void (int&, int, int)>;
 
@@ -32,12 +32,10 @@ ActionRule buildFromLine (std::string line, bool part2) {
 int main (int argc, char* argv []) {
   Timer t;
   bool part2 { argc == 2 };
-
   std::vector <ActionRule> rules;
   std::string input;
   while (std::getline (std::cin, input))
     rules.push_back (buildFromLine (input, part2));
-
   unsigned int threadCount { std::thread::hardware_concurrency() };
   auto task = [&] (unsigned threadID) {
     int count { 0 };
@@ -51,7 +49,6 @@ int main (int argc, char* argv []) {
     }
     return count;
   };
-
   std::vector <std::future <int> > threads;
   for (int tID { 0 }; tID < threadCount; ++tID)
     threads.push_back (std::async (task, tID));

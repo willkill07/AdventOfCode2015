@@ -5,16 +5,14 @@
 #include <string>
 #include "timer.hpp"
 
-using SI = std::sregex_iterator;
-
 static const std::regex REDUCE { R"(\\(\\|\"|x[0-9a-f]{2}))" };
 static const std::regex EXPAND { R"(\"|\\)" };
 
 auto fn1 = [] (int c, auto &s) -> int {
-  return c + std::accumulate (SI { s.begin(), s.end(), REDUCE }, { }, 2, [](int v, auto &m) -> int { return v + m.length() - 1; });
+  return c + std::accumulate (std::sregex_iterator { s.begin(), s.end(), REDUCE }, { }, 2, [](int v, auto &m) -> int { return v + m.length() - 1; });
 };
 auto fn2 = [] (int c, auto &s) -> int {
-  return c + 2 + std::distance (SI { s.begin(), s.end(), EXPAND }, { });
+  return c + 2 + std::distance (std::sregex_iterator { s.begin(), s.end(), EXPAND }, { });
 };
 
 int main (int argc, char* argv[]) {

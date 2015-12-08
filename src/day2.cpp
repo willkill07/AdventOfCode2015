@@ -5,9 +5,9 @@
 #include <string>
 #include "timer.hpp"
 
-using Box = std::array <int, 3>;
-
 const static std::regex PARSE { "(\\d+)x(\\d+)x(\\d+)" };
+
+using Box = std::array <int, 3>;
 
 Box parseLine (std::string line) {
   std::smatch fields;
@@ -19,7 +19,6 @@ int main (int argc, char* argv []) {
   Timer t;
   bool part2 { argc == 2 };
   int total { 0 };
-
   std::string line;
   while (std::getline (std::cin, line)) {
     Box b { parseLine (line) };
