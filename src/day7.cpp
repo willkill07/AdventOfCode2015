@@ -43,17 +43,17 @@ parseLine (std::string line) {
   std::smatch data;
   if (std::regex_match (line, data, ASSIGN_OP)) {
     std::string val { data [1] }, out { data [2] };
-    return { out, { [out] () -> Int {
+    return { out, { [out] () {
           return getValue (getID <0> (out));
         }, val, std::string { } } };
   } else if (std::regex_match (line, data, NOT_OP)) {
     std::string val { data [1] }, out { data [2] };
-    return { out, { [out] () -> Int {
+    return { out, { [out] () {
           return ~getValue ( getID <0> (out));
         }, val, std::string { } } };
   } else if (std::regex_match (line, data, BINARY_OP)) {
     std::string val1 { data [1] }, op { data [2] }, val2 { data [3] }, out { data [4] };
-    return { out, { [out, op] () -> Int {
+    return { out, { [out, op] () {
           Int v1 { getValue (getID <0> (out)) }, v2 { getValue (getID <1> (out)) };
           return ((op.compare ("AND") == 0) ? (v1 & v2) :
                   ((op.compare ("OR") == 0) ? (v1 | v2) :
@@ -61,7 +61,7 @@ parseLine (std::string line) {
                     ((v1 >> v2)))));
         }, val1, val2 } };
   } else {
-    return std::make_pair (std::string { }, RegexData { });
+    return { };
   }
 }
 
