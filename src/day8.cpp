@@ -5,8 +5,8 @@
 #include <string>
 #include "timer.hpp"
 
-static const std::regex REDUCE { "\\\\(\\\\|\"|x[0-9a-f]{2})" };
-static const std::regex EXPAND { "(\"|\\\\)" };
+static const std::regex REDUCE { R"(\\(\\|\"|x[0-9a-f]{2}))" };
+static const std::regex EXPAND { R"(\"|\\)" };
 using SI = std::sregex_iterator;
 
 auto fn1 = [] (int c, auto &s) -> int {
