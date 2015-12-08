@@ -7,17 +7,15 @@
 #include <vector>
 #include "timer.hpp"
 
-enum
-Action {
+enum Action {
   ON = 1, OFF = -1, TOGGLE = 2
 };
 
-using ActionRule = std::function <void (int&, int, int)>;
-
 static const std::regex PARSER { "(turn off|turn on|toggle) (\\d+),(\\d+) through (\\d+),(\\d+)" };
 
-ActionRule
-buildFromLine (std::string line, bool part2) {
+using ActionRule = std::function <void (int&, int, int)>;
+
+ActionRule buildFromLine (std::string line, bool part2) {
   std::smatch m;
   std::regex_search (line, m, PARSER);
   Action a = ((m [1].compare ("toggle") == 0) ? TOGGLE : ((m [1].str().find ("on") != std::string::npos) ? ON : OFF));
@@ -31,8 +29,7 @@ buildFromLine (std::string line, bool part2) {
   };
 }
 
-int
-main (int argc, char* argv []) {
+int main (int argc, char* argv []) {
   Timer t;
   bool part2 { argc == 2 };
 

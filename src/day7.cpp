@@ -6,6 +6,7 @@
 
 using Int = std::uint16_t;
 using Callback = std::function <Int()>;
+
 struct Data {
   Callback fn;
   std::string val1, val2;
@@ -15,6 +16,7 @@ struct Data {
   Data (std::string v1, Callback f) : Data (v1, { }, f) { };
   Data (Int val) : memoized { true }, value { val } { };
 };
+
 using Eval = std::map <std::string, Data>;
 
 static const std::regex ASSIGN_OP { "(\\w+) -> (\\w+)" };

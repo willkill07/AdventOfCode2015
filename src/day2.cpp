@@ -9,15 +9,13 @@ using Box = std::array <int, 3>;
 
 const static std::regex PARSE { "(\\d+)x(\\d+)x(\\d+)" };
 
-Box
-parseLine (std::string line) {
+Box parseLine (std::string line) {
   std::smatch fields;
   std::regex_search (line, fields, PARSE);
   return Box { { std::stoi (fields [1]), std::stoi (fields [2]), std::stoi (fields [3]) } };
 }
 
-int
-main (int argc, char* argv []) {
+int main (int argc, char* argv []) {
   Timer t;
   bool part2 { argc == 2 };
   int total { 0 };

@@ -14,7 +14,6 @@ main (int argc, char* argv []) {
   Timer t;
   bool part2 { argc == 2 };
   int niceCount { 0 };
-
   std::string str;
   while (std::getline (std::cin, str)) {
     if ((!part2 && std::regex_search (str, threeVowels) && std::regex_search (str, doubleLetter) && !std::regex_search (str, bad)) ||
