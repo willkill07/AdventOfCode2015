@@ -19,9 +19,6 @@ help :
 	@echo " $ make all        # compiles all days"
 	@echo " $ make run_all    # runs all days"
 
-readme :
-	./genREADME.sh
-
 # Variable to store days implemented
 DAYS := $(basename $(notdir $(wildcard src/day*.cpp)))
 
