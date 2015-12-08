@@ -23,7 +23,7 @@ isNice2 (const std::string& str) {
 
 int
 main (int argc, char* argv []) {
-	Timer t;
+  Timer t;
   bool part2 { argc == 2 };
   int niceCount { 0 };
 

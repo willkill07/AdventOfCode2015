@@ -5,7 +5,7 @@
 
 int
 main (int argc, char* argv []) {
-	Timer t;
+  Timer t;
   bool part2 { argc == 2 };
 
   std::string input;
