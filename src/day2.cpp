@@ -1,20 +1,19 @@
 #include <algorithm>
 #include <array>
 #include <iostream>
-#include <iterator>
-#include <sstream>
+#include <regex>
 #include <string>
 #include "timer.hpp"
 
-using box = std::array <int, 3>;
+using Box = std::array <int, 3>;
 
-box
+const static std::regex PARSE { "(\\d+)x(\\d+)x(\\d+)" };
+
+Box
 parseLine (std::string line) {
-  box b;
-  std::replace (std::begin (line), std::end (line), 'x', ' ');
-  std::istringstream iss { line };
-  std::copy (std::istream_iterator <int> { iss }, std::istream_iterator <int> { }, std::begin (b));
-  return b;
+  std::smatch fields;
+  std::regex_search (line, fields, PARSE);
+  return Box { { std::stoi (fields [1]), std::stoi (fields [2]), std::stoi (fields [3]) } };
 }
 
 int
@@ -25,13 +24,9 @@ main (int argc, char* argv []) {
 
   std::string line;
   while (std::getline (std::cin, line)) {
-    box b = parseLine (line);
+    Box b { parseLine (line) };
     std::sort (std::begin (b), std::end (b));
-    if (!part2) {
-      total += 3 * (b[0] * b[1]) + 2 * b[2] * (b[0] + b[1]);
-    } else {
-      total += 2 * (b[0] + b[1]) + (b[0] * b[1] * b[2]);
-    }
+    total += ((part2) ? (2 * (b[0] + b[1]) + (b[0] * b[1] * b[2])) : (3 * (b[0] * b[1]) + 2 * b[2] * (b[0] + b[1])));
   }
   std::cout << total << std::endl;
   return 0;
