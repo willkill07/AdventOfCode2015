@@ -4,8 +4,10 @@
 #include <regex>
 #include "timer.hpp"
 
+struct Data;
 using Int = std::uint16_t;
 using Callback = std::function <Int()>;
+using Eval = std::map <std::string, Data>;
 
 struct Data {
   Callback fn;
@@ -16,8 +18,6 @@ struct Data {
   Data (std::string v1, Callback f) : Data (v1, { }, f) { };
   Data (Int val) : memoized { true }, value { val } { };
 };
-
-using Eval = std::map <std::string, Data>;
 
 static const std::regex ASSIGN_OP { "(\\w+) -> (\\w+)" };
 static const std::regex NOT_OP { "NOT (\\w+) -> (\\w+)" };
