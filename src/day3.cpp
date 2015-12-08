@@ -1,6 +1,7 @@
 #include <iostream>
 #include <map>
 #include <tuple>
+#include "timer.hpp"
 
 using position = std::tuple <int, int>;
 
@@ -14,10 +15,10 @@ void updatePosition (position& p, char c) {
 }
 
 int main (int argc, char* argv[]) {
+	Timer t;
   bool part2 { argc == 2 };
 
-  std::map <position,  int> places;
-
+	std::map <position,  int> places;
   if (!part2) {
     char input;
     position p { 0, 0 };

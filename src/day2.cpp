@@ -4,6 +4,7 @@
 #include <iterator>
 #include <sstream>
 #include <string>
+#include "timer.hpp"
 
 using box = std::array <int, 3>;
 
@@ -18,6 +19,7 @@ parseLine (std::string line) {
 
 int
 main (int argc, char* argv []) {
+	Timer t;
   bool part2 { argc == 2 };
   int total { 0 };
 

@@ -1,9 +1,11 @@
 #include <iostream>
 #include <string>
 #include "md5.hpp"
+#include "timer.hpp"
 
 int
 main (int argc, char* argv []) {
+	Timer t;
   bool part2 { argc == 2 };
 
   std::string input;

@@ -5,6 +5,7 @@
 #include <regex>
 #include <string>
 #include <vector>
+#include "timer.hpp"
 
 enum
 Action {
@@ -13,8 +14,8 @@ Action {
 
 using ActionRule = std::function <void (int&, int, int)>;
 
-std::regex parser { "(turn off|turn on|toggle) (\\d+),(\\d+) through (\\d+),(\\d+)" };
-std::string replace { "$1 $2 $3 $4 $5" };
+static const std::regex parser { "(turn off|turn on|toggle) (\\d+),(\\d+) through (\\d+),(\\d+)" };
+static const std::string replace { "$1 $2 $3 $4 $5" };
 
 ActionRule
 buildFromLine (std::string line, bool part2) {
@@ -50,6 +51,7 @@ buildFromLine (std::string line, bool part2) {
 
 int
 main (int argc, char* argv []) {
+	Timer t;
   bool part2 { argc == 2 };
 
   std::vector <std::string> lines;

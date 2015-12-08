@@ -1,7 +1,9 @@
+#include <chrono>
 #include <iostream>
 #include <map>
 #include <string>
 #include <regex>
+#include "timer.hpp"
 
 struct Gate;
 
@@ -95,6 +97,7 @@ Wire::getValue (GateMap & gates) {
 
 int
 main (int argc, char* argv []) {
+	Timer t;
   bool part2 { argc == 2 };
 
   GateMap gates;
@@ -109,6 +112,6 @@ main (int argc, char* argv []) {
   }
 
   auto & a = gates.at (toInt ("a"));
-  std::cout << a.apply (gates) << std::endl;
+	std::cout << a.apply (gates) << std::endl;
   return 0;
 }
