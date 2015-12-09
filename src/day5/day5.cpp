@@ -10,7 +10,7 @@ int main (int argc, char* argv []) {
   int niceCount { 0 };
   std::string str;
   while (std::getline (std::cin, str)) {
-    niceCount += ((!part2 && std::regex_search (str, VOW3) && std::regex_search (str, LET2) && !std::regex_search (str, BAD)) || (part2 && std::regex_search (str, PAIR) && std::regex_search (str, POST)))
+    niceCount += ((!part2 && std::regex_search (str, VOW3) && std::regex_search (str, LET2) && !std::regex_search (str, BAD)) || (part2 && std::regex_search (str, PAIR) && std::regex_search (str, POST)));
   }
   std::cout << niceCount << std::endl;
   return 0;
