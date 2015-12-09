@@ -7,7 +7,6 @@
 static const std::regex PARSE { "(\\d+)x(\\d+)x(\\d+)" };
 
 int main (int argc, char* argv []) {
-  Timer t;
   bool part2 { argc == 2 };
   int total { 0 }, b[3];
   std::smatch m;

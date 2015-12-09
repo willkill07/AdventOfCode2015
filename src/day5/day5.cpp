@@ -5,10 +5,8 @@
 
 static const std::regex VOW3 { "([aeiou].*){3,}" }, LET2 { "(.)\\1" }, BAD { "(ab|cd|pq|xy)" }, PAIR { "(..).*\\1" }, POST { "(.).\\1" };
 
-int
-main (int argc, char* argv []) {
-  Timer t;
-  bool part2 { argc == 2 };
+int main (int argc, char* argv []) {
+	bool part2 { argc == 2 };
   int niceCount { 0 };
   std::string str;
   while (std::getline (std::cin, str)) {

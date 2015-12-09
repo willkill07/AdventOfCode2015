@@ -7,13 +7,13 @@
 #include <vector>
 #include "timer.hpp"
 
+using ActionRule = std::function <void (int&, int, int)>;
+
 static const std::regex PARSER { R"((turn (off|on)|toggle) (\d+),(\d+) through (\d+),(\d+))" };
 
 enum Action {
   ON = 1, OFF = -1, TOGGLE = 2
 };
-
-using ActionRule = std::function <void (int&, int, int)>;
 
 ActionRule buildFromLine (std::string line, bool part2) {
   std::smatch m;
@@ -30,7 +30,6 @@ ActionRule buildFromLine (std::string line, bool part2) {
 }
 
 int main (int argc, char* argv []) {
-  Timer t;
   bool part2 { argc == 2 };
   std::vector <ActionRule> rules;
   std::string input;

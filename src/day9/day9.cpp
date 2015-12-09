@@ -16,7 +16,6 @@ Road get (City a, City b) {
 }
 
 int main (int argc, char* argv[]) {
-  Timer t;
   bool part2 { argc == 2 };
   std::map <Road, int> dist;
   std::set <City> p;

@@ -16,7 +16,6 @@ Pos& apply (Pos& p, char c) {
 }
 
 int main (int argc, char* argv[]) {
-  Timer t;
   bool part2 { argc == 2 };
   std::map <Pos, int> places;
   Pos p1 { 0, 0 }, p2 { 0, 0 };

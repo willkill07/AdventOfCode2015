@@ -4,12 +4,10 @@
 #include <regex>
 #include "timer.hpp"
 
-static const std::regex ASSIGN_OP { R"((\w+) -> (\w+))" };
-static const std::regex NOT_OP { R"(NOT (\w+) -> (\w+))" };
-static const std::regex BINARY_OP { R"((\w+) (AND|OR|(L|R)SHIFT) (\w+) -> (\w+))" };
-
 using Int = std::uint16_t;
 using Callback = std::function <Int()>;
+
+static const std::regex ASSIGN_OP { R"((\w+) -> (\w+))" }, NOT_OP { R"(NOT (\w+) -> (\w+))" } ,BINARY_OP { R"((\w+) (AND|OR|(L|R)SHIFT) (\w+) -> (\w+))" };
 
 struct Gate {
   Callback fn;

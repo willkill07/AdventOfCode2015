@@ -4,7 +4,6 @@
 #include "timer.hpp"
 
 int main (int argc, char* argv []) {
-  Timer t;
   bool part2 { argc == 2 };
   const std::string Z { "000000" };
   std::string input;

@@ -23,4 +23,6 @@ public:
   }
 };
 
+Timer t;
+
 #endif
