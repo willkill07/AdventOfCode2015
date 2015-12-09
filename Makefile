@@ -2,29 +2,34 @@ CC := clang++
 CXX := clang++
 CPPFLAGS := -Iutil/include
 CXXFLAGS := -O3 -march=native -std=c++14 -Wall -pedantic
-vpath day%.cpp src
+
+# Variable to store days implemented
+DAYS := $(wildcard src/day*)
+EXES := $(DAYS:src/%=%)
+
+pathify = $(subst $(eval) ,:,$(wildcard $1))
+vpath day%.cpp $(call pathify,$(DAYS))
 
 .PHONY : all run_all clean distclean
 
-# Variable to store days implemented
-DAYS := $(basename $(notdir $(wildcard src/day*.cpp)))
-
 # Build rules
-all : $(DAYS)
+all : $(EXES)
+
+% : %/%.cpp
 
 # Execution rules
 run_all : all
-	@make $(addprefix run_,$(DAYS))
+	@make $(addprefix run_,$(EXES))
 
 run_% : %
 	@echo "Running $<"
 	@printf "Part 1: "
-	@./$< < input/$<.txt
+	@./$< < src/$</input.txt
 	@printf "Part 2: "
-	@./$< part2 < input/$<.txt
+	@./$< part2 < src/$</input.txt
 
 # Special rules for certain days :)
-day4 : util/lib/md5.o day4.o
+day4 : util/lib/md5.cpp day4.cpp
 
 # Cleanup
 clean :
