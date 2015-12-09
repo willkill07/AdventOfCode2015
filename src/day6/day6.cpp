@@ -36,10 +36,10 @@ int main (int argc, char* argv []) {
   while (std::getline (std::cin, input))
     rules.push_back (buildFromLine (input, part2));
   int threads { (int)std::thread::hardware_concurrency() };
-  auto task = [&] (unsigned id) {
+  auto task = [&] (int id) {
     int count { 0 };
-    for (unsigned int x { id }; x < 1000; x += threads) {
-      for (unsigned int y { 0 }; y < 1000; ++y) {
+    for (int x { id }; x < 1000; x += threads) {
+      for (int y { 0 }; y < 1000; ++y) {
         int light { 0 };
         for (auto && r : rules)
           r (light, x, y);
