@@ -13,12 +13,12 @@ using Callback = std::function <Int()>;
 
 struct Gate {
   Callback fn;
-  std::string val1, val2;
+  std::string wire1, wire2;
   bool memoized { false };
   Int value;
-  Gate (std::string v1, std::string v2, Callback f) : fn { f }, val1 { v1 }, val2 { v2 } { }
-  Gate (std::string v1, Callback f) : Gate (v1, { }, f) { };
-  Gate (Int val) : memoized { true }, value { val } { };
+  Gate (std::string w1, std::string w2, Callback f) : fn { f }, wire1 { w1 }, wire2 { w2 } { }
+  Gate (std::string w1, Callback f) : Gate (w1, { }, f) { };
+  Gate (Int v) : memoized { true }, value { v } { };
 };
 
 struct Circuit {
@@ -46,21 +46,21 @@ struct Circuit {
     if (std::regex_match (line, m, ASSIGN_OP)) {
       std::string out { m [2] };
       lookup.emplace (out, Gate { m [1], [&, out] () {
-        return get (lookup.at (out).val1);
+        return get (lookup.at (out).wire1);
       } });
     } else if (std::regex_match (line, m, NOT_OP)) {
       std::string out { m [2] };
       lookup.emplace (out, Gate { m [1], [&, out] () {
-        return ~get (lookup.at (out).val1);
+        return ~get (lookup.at (out).wire1);
       } });
     } else if (std::regex_match (line, m, BINARY_OP)) {
       std::string op { m [2] }, out { m [4] };
       lookup.emplace (out, Gate { m [1], m [3], [&, out, op] () {
         Gate & g { lookup.at (out) };
-        return ((op.compare ("AND") == 0) ? (get (g.val1) & get (g.val2)) :
-                ((op.compare ("OR") == 0) ? (get (g.val1) | get (g.val2)) :
-                 ((op.compare ("LSHIFT") == 0) ? (get (g.val1) << get (g.val2)) :
-                  ((get (g.val1) >> get (g.val2))))));
+        return ((op.compare ("AND") == 0) ? (get (g.wire1) & get (g.wire2)) :
+                ((op.compare ("OR") == 0) ? (get (g.wire1) | get (g.wire2)) :
+                 ((op.compare ("LSHIFT") == 0) ? (get (g.wire1) << get (g.wire2)) :
+                  ((get (g.wire1) >> get (g.wire2))))));
       } });
     }
   }
