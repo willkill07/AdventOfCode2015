@@ -4,7 +4,7 @@
 #include <string>
 #include "timer.hpp"
 
-static const std::regex PARSE { "(\\d+)x(\\d+)x(\\d+)" };
+static const std::regex PARSE { R"((\d+)x(\d+)x(\d+))" };
 
 int main (int argc, char* argv []) {
   bool part2 { argc == 2 };
