@@ -29,7 +29,9 @@ int main (int argc, char* argv[]) {
     dist.insert ({ get (m[1], m[2]) , val });
   }
   std::vector <City> order { std::begin (p), std::end (p) };
-  auto comp = [part2] (int a, int b) { return (part2) ? std::max (a, b) : std::min (a, b); };
+  auto comp = [part2] (int a, int b) {
+    return (part2) ? std::max (a, b) : std::min (a, b);
+  };
   int d { (part2) ? 0 : std::numeric_limits <int>::max() };
   do {
     auto prev = std::begin (order);

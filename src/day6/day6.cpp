@@ -22,7 +22,9 @@ ActionRule buildFromLine (std::string line, bool part2) {
   int v[4];
   auto start = m.begin();
   std::advance (start, 3);
-  std::transform (start, m.end(), v, [] (auto s) { return std::stoi (s); });
+  std::transform (start, m.end(), v, [] (auto s) {
+      return std::stoi (s);
+    });
   return [a,v,part2] (int &state, int x, int y) {
     if (x >= v[0] && y >= v[1] && x <= v[2] && y <= v[3])
       state = (!part2 ? (a == ON || (a == TOGGLE && state == 0)) : std::max (state + a, 0));
