@@ -6,7 +6,7 @@
 int main (int argc, char* argv []) {
   Timer t;
   bool part2 { argc == 2 };
-	const std::string Z { "000000" };
+  const std::string Z { "000000" };
   std::string input;
   std::cin >> input;
   int index { 1 }, off { 0 };
