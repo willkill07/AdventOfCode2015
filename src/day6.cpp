@@ -7,7 +7,7 @@
 #include <vector>
 #include "timer.hpp"
 
-static const std::regex PARSER { "(turn off|turn on|toggle) (\\d+),(\\d+) through (\\d+),(\\d+)" };
+static const std::regex PARSER { R"((turn (off|on)|toggle) (\d+),(\d+) through (\d+),(\d+))" };
 
 enum Action {
   ON = 1, OFF = -1, TOGGLE = 2
@@ -18,14 +18,14 @@ using ActionRule = std::function <void (int&, int, int)>;
 ActionRule buildFromLine (std::string line, bool part2) {
   std::smatch m;
   std::regex_search (line, m, PARSER);
-  Action a = ((m [1].compare ("toggle") == 0) ? TOGGLE : ((m [1].str().find ("on") != std::string::npos) ? ON : OFF));
-  int v[4];
-  auto start = m.begin();
-  std::advance (start, 2);
-  std::transform (start, m.end(), v, [] (auto & s) { return std::stoi (s.str()); });
+  Action a = ((m[1] == "toggle") ? TOGGLE : ((m[2] == "on") ? ON : OFF));
+	int v[4];
+	auto start = m.begin();
+	std::advance (start, 3);
+	std::transform (start, m.end(), v, [] (auto s) { return std::stoi (s); });
   return [a,v,part2] (int &state, int x, int y) {
     if (x >= v[0] && y >= v[1] && x <= v[2] && y <= v[3])
-      state = ((!part2) ? ((a == ON || (a == TOGGLE && state == 0)) ? 1 : 0) : std::max (state + a, 0));
+      state = (!part2 ? (a == ON || (a == TOGGLE && state == 0)) : std::max (state + a, 0));
   };
 }
 
@@ -36,10 +36,10 @@ int main (int argc, char* argv []) {
   std::string input;
   while (std::getline (std::cin, input))
     rules.push_back (buildFromLine (input, part2));
-  unsigned int threadCount { std::thread::hardware_concurrency() };
-  auto task = [&] (unsigned threadID) {
+  int threads { (int)std::thread::hardware_concurrency() };
+  auto task = [&] (unsigned id) {
     int count { 0 };
-    for (unsigned int x { threadID }; x < 1000; x += threadCount) {
+    for (unsigned int x { id }; x < 1000; x += threads) {
       for (unsigned int y { 0 }; y < 1000; ++y) {
         int light { 0 };
         for (auto && r : rules)
@@ -49,12 +49,12 @@ int main (int argc, char* argv []) {
     }
     return count;
   };
-  std::vector <std::future <int> > threads;
-  for (int tID { 0 }; tID < threadCount; ++tID)
-    threads.push_back (std::async (task, tID));
-  int totalCount { 0 };
-  for (auto && futureVal : threads)
-    totalCount += futureVal.get();
-  std::cout << totalCount << std::endl;
+  std::vector <std::future <int>> tasks { (size_t)threads };
+  int count { threads };
+	for (auto & t : tasks)
+		t = std::async (task, --count);
+  for (auto & ret : tasks)
+    count += ret.get();
+  std::cout << count << std::endl;
   return 0;
 }

@@ -57,9 +57,9 @@ struct Circuit {
       std::string op { m [2] }, out { m [4] };
       lookup.emplace (out, Gate { m [1], m [3], [&, out, op] () {
         Gate & g { lookup.at (out) };
-        return ((op.compare ("AND") == 0) ? (get (g.wire1) & get (g.wire2)) :
-                ((op.compare ("OR") == 0) ? (get (g.wire1) | get (g.wire2)) :
-                 ((op.compare ("LSHIFT") == 0) ? (get (g.wire1) << get (g.wire2)) :
+        return ((op == "AND") ? (get (g.wire1) & get (g.wire2)) :
+                ((op == "OR") ? (get (g.wire1) | get (g.wire2)) :
+                 ((op == "LSHIFT") ? (get (g.wire1) << get (g.wire2)) :
                   ((get (g.wire1) >> get (g.wire2))))));
       } });
     }
