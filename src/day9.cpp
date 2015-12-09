@@ -12,7 +12,7 @@ using City = std::string;
 using Road = std::pair <City, City>;
 
 Road get (City a, City b) {
-  return (a.compare (b) >= 0) ? std::make_pair (a, b) : std::make_pair (b, a);
+  return (a.compare (b) >= 0) ? Road { a, b } : Road { b, a };
 }
 
 int main (int argc, char* argv[]) {
