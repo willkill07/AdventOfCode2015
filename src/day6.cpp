@@ -19,10 +19,10 @@ ActionRule buildFromLine (std::string line, bool part2) {
   std::smatch m;
   std::regex_search (line, m, PARSER);
   Action a = ((m[1] == "toggle") ? TOGGLE : ((m[2] == "on") ? ON : OFF));
-	int v[4];
-	auto start = m.begin();
-	std::advance (start, 3);
-	std::transform (start, m.end(), v, [] (auto s) { return std::stoi (s); });
+  int v[4];
+  auto start = m.begin();
+  std::advance (start, 3);
+  std::transform (start, m.end(), v, [] (auto s) { return std::stoi (s); });
   return [a,v,part2] (int &state, int x, int y) {
     if (x >= v[0] && y >= v[1] && x <= v[2] && y <= v[3])
       state = (!part2 ? (a == ON || (a == TOGGLE && state == 0)) : std::max (state + a, 0));
@@ -51,8 +51,8 @@ int main (int argc, char* argv []) {
   };
   std::vector <std::future <int>> tasks { (size_t)threads };
   int count { threads };
-	for (auto & t : tasks)
-		t = std::async (task, --count);
+  for (auto & t : tasks)
+    t = std::async (task, --count);
   for (auto & ret : tasks)
     count += ret.get();
   std::cout << count << std::endl;
