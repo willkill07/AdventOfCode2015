@@ -10,6 +10,7 @@
 using City = std::string;
 using Road = std::pair <City, City>;
 using FnType = int const & (*)(int const &, int const &);
+
 int main (int argc, char* argv[]) {
   bool part2 { argc == 2 };
   std::map <Road, int> dist;
