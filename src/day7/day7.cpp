@@ -4,12 +4,10 @@
 #include <regex>
 #include "timer.hpp"
 
-static const std::regex ASSIGN_OP { "(\\w+) -> (\\w+)" };
-static const std::regex NOT_OP { "NOT (\\w+) -> (\\w+)" };
-static const std::regex BINARY_OP { "(\\w+) (AND|OR|LSHIFT|RSHIFT) (\\w+) -> (\\w+)" };
-
 using Int = std::uint16_t;
 using Callback = std::function <Int()>;
+
+static const std::regex ASSIGN_OP { R"((\w+) -> (\w+))" }, NOT_OP { R"(NOT (\w+) -> (\w+))" } ,BINARY_OP { R"((\w+) (AND|OR|(L|R)SHIFT) (\w+) -> (\w+))" };
 
 struct Gate {
   Callback fn;
@@ -45,21 +43,21 @@ struct Circuit {
     std::smatch m;
     if (std::regex_match (line, m, ASSIGN_OP)) {
       std::string out { m [2] };
-      lookup.emplace (out, Gate { m [1], [&, out] () {
+      lookup.emplace (out, Gate { m[1], [&, out] () {
         return get (lookup.at (out).wire1);
       } });
     } else if (std::regex_match (line, m, NOT_OP)) {
-      std::string out { m [2] };
-      lookup.emplace (out, Gate { m [1], [&, out] () {
+      std::string out { m[2] };
+      lookup.emplace (out, Gate { m[1], [&, out] () {
         return ~get (lookup.at (out).wire1);
       } });
     } else if (std::regex_match (line, m, BINARY_OP)) {
-      std::string op { m [2] }, out { m [4] };
-      lookup.emplace (out, Gate { m [1], m [3], [&, out, op] () {
+      std::string op { m[2] }, out { m[5] };
+      lookup.emplace (out, Gate { m[1], m[4], [&, out, op] () {
         Gate & g { lookup.at (out) };
-        return ((op.compare ("AND") == 0) ? (get (g.wire1) & get (g.wire2)) :
-                ((op.compare ("OR") == 0) ? (get (g.wire1) | get (g.wire2)) :
-                 ((op.compare ("LSHIFT") == 0) ? (get (g.wire1) << get (g.wire2)) :
+        return ((op == "AND") ? (get (g.wire1) & get (g.wire2)) :
+                ((op == "OR") ? (get (g.wire1) | get (g.wire2)) :
+                 ((op == "LSHIFT") ? (get (g.wire1) << get (g.wire2)) :
                   ((get (g.wire1) >> get (g.wire2))))));
       } });
     }
