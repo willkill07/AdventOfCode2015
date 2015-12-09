@@ -17,13 +17,13 @@ All implementations are written in C++(11/14)
 
 Day | Lines | Source Lines | Total Bytes | Non WS Bytes | Time (s) | Source
 ----|-------|--------------|-------------|--------------|----------|-------
-1 | 18 | 12 | 367 | 257 | 0.0032 | [day1.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day1/day1.cpp)
-2 | 22 | 13 | 656 | 515 | 0.0068 | [day2.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day2/day2.cpp)
+1 | 18 | 12 | 367 | 257 | 0.0038 | [day1.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day1/day1.cpp)
+2 | 22 | 13 | 656 | 515 | 0.0053 | [day2.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day2/day2.cpp)
 3 | 30 | 19 | 675 | 512 | 0.0071 | [day3.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day3/day3.cpp)
-4 | 17 | 10 | 498 | 394 | 0.4852 | [day4.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day4/day4.cpp)
-5 | 17 | 9 | 626 | 515 | 0.0535 | [day5.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day5/day5.cpp)
-6 | 61 | 40 | 1714 | 1292 | 0.4715 | [day6.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day6/day6.cpp)
-7 | 78 | 54 | 2217 | 1598 | 0.0116 | [day7.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day7/day7.cpp)
-8 | 27 | 13 | 855 | 666 | 0.0059 | [day8.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day8/day8.cpp)
-9 | 44 | 27 | 1255 | 978 | 0.0821 | [day9.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day9/day9.cpp)
-**TOTAL** | **314** | **197** | **8863** | **6727** | **1.1269** |
+4 | 17 | 10 | 498 | 394 | 0.4435 | [day4.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day4/day4.cpp)
+5 | 17 | 9 | 626 | 515 | 0.0551 | [day5.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day5/day5.cpp)
+6 | 61 | 40 | 1714 | 1292 | 0.4791 | [day6.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day6/day6.cpp)
+7 | 78 | 54 | 2217 | 1598 | 0.0120 | [day7.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day7/day7.cpp)
+8 | 27 | 13 | 855 | 666 | 0.0058 | [day8.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day8/day8.cpp)
+9 | 36 | 23 | 1070 | 844 | 0.0831 | [day9.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day9/day9.cpp)
+**TOTAL** | **306** | **193** | **8678** | **6593** | **1.0948** |
