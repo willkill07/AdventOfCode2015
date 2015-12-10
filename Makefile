@@ -19,7 +19,7 @@ all : $(RULES)
 runall : all
 	make $(addprefix run_,$(RULES))
 
-day4 : md5.cpp day4.cpp
+day04 : md5.cpp day04.cpp
 
 run_% :	%
 	@echo "Running $<"
