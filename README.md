@@ -44,14 +44,14 @@ for i in `seq 40`;do s=`fold -w1<<<$s|uniq -c|tr -d '\n '`;done;wc -c<<<$s
 
  Day | Lines | Code | Bytes | Chars | Time | Source | Headers
 :---:|:-----:|:----:|:-----:|:-----:| ----:|:------:|:-------
-1|18|12|367|257|0.0032|[day1.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day1/day1.cpp)|`iostream`
-2|22|13|656|515|0.0054|[day2.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day2/day2.cpp)|`algorithm` `iostream` `regex` `string`
-3|30|19|675|512|0.0070|[day3.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day3/day3.cpp)|`iostream` `map` `tuple`
-4|17|10|498|394|0.4022|[day4.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day4/day4.cpp)|`iostream` `string`
-5|17|9|626|515|0.0543|[day5.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day5/day5.cpp)|`iostream` `regex` `string`
-6|61|40|1714|1292|0.4681|[day6.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day6/day6.cpp)|`functional` `future` `iostream` `iterator` `regex` `string` `vector`
-7|78|54|2217|1598|0.0119|[day7.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day7/day7.cpp)|`iostream` `map` `regex` `string`
-8|27|13|855|666|0.0059|[day8.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day8/day8.cpp)|`iostream` `iterator` `numeric` `regex` `string`
-9|36|23|1070|844|0.0782|[day9.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day9/day9.cpp)|`iostream` `limits` `map` `numeric` `set` `string` `vector`
-10|25|15|759|593|0.0663|[day10.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day10/day10.cpp)|`algorithm` `functional` `iostream` `string` `vector`
-**TOTAL**|**331**|**208**|**9437**|**7186**|**1.1025**| | `algorithm` `functional` `future` `iostream` `iterator` `limits` `map` `numeric` `regex` `set` `string` `tuple`
+1|18|12|367|257|0.0031|[day1.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day1/day1.cpp)|`iostream`
+2|22|13|656|515|0.0052|[day2.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day2/day2.cpp)|`algorithm` `iostream` `regex` `string`
+3|30|19|675|512|0.0071|[day3.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day3/day3.cpp)|`iostream` `map` `tuple`
+4|17|10|498|394|0.4139|[day4.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day4/day4.cpp)|`iostream` `string`
+5|17|9|626|515|0.0528|[day5.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day5/day5.cpp)|`iostream` `regex` `string`
+6|61|40|1714|1292|0.4648|[day6.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day6/day6.cpp)|`functional` `future` `iostream` `iterator` `regex` `string` `vector`
+7|78|54|2217|1598|0.0116|[day7.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day7/day7.cpp)|`iostream` `map` `regex` `string`
+8|27|13|855|666|0.0058|[day8.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day8/day8.cpp)|`iostream` `iterator` `numeric` `regex` `string`
+9|36|23|1070|844|0.0750|[day9.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day9/day9.cpp)|`iostream` `limits` `map` `numeric` `set` `string` `vector`
+10|23|13|745|585|0.0839|[day10.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day10/day10.cpp)|`algorithm` `functional` `iostream` `iterator` `vector`
+**TOTAL**|**329**|**206**|**9423**|**7178**|**1.1232**| | `algorithm` `functional` `future` `iostream` `iterator` `limits` `map` `numeric` `regex` `set` `string` `tuple`
