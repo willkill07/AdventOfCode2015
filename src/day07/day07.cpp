@@ -6,6 +6,7 @@
 
 using Int = std::uint16_t;
 using Callback = std::function <Int()>;
+class Line : public std::string { friend std::istream & operator>> (std::istream & i, Line & l) { return std::getline (i, l); } };
 
 static const std::regex ASSIGN_OP { R"((\w+) -> (\w+))" }, NOT_OP { R"(NOT (\w+) -> (\w+))" } ,BINARY_OP { R"((\w+) (AND|OR|(L|R)SHIFT) (\w+) -> (\w+))" };
 
@@ -22,7 +23,7 @@ struct Gate {
 struct Circuit {
   std::map <std::string, Gate> lookup;
 
-  void set (std::string key, Int v) {
+  void  set (std::string key, Int v) {
     lookup.at (key) = Gate { v };
   }
 
@@ -39,7 +40,7 @@ struct Circuit {
     }
   }
 
-  void parseLine (std::string line) {
+  void operator() (std::string line) {
     std::smatch m;
     if (std::regex_match (line, m, ASSIGN_OP)) {
       std::string out { m [2] };
@@ -65,12 +66,9 @@ struct Circuit {
 };
 
 int main (int argc, char* argv []) {
-  Timer t;
   bool part2 { argc == 2 };
   Circuit c;
-  std::string line;
-  while (std::getline (std::cin, line))
-    c.parseLine (line);
+  std::for_each (std::istream_iterator <Line> { std::cin }, { }, std::ref (c));
   if (part2)
     c.set ("b", 956);
   std::cout << c.get ("a") << std::endl;
