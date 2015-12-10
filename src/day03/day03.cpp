@@ -17,14 +17,11 @@ Pos& apply (Pos& p, char c) {
 
 int main (int argc, char* argv[]) {
   bool part2 { argc == 2 };
-  std::map <Pos, int> places;
+  std::map <Pos, int> p;
   Pos p1 { 0, 0 }, p2 { 0, 0 };
-  bool first { true };
-  char input;
-  while (std::cin >> input) {
-    ++places [apply ((first ? p1 : p2), input)];
-    first = (part2 ? !first : first);
-  }
-  std::cout << places.size() << std::endl;
+  bool santa { true };
+  for (char c; std::cin >> c; santa ^= part2)
+    ++p [apply ((santa ? p1 : p2), c)];
+  std::cout << p.size() << std::endl;
   return 0;
 }
