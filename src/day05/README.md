@@ -19,8 +19,6 @@ For example:
 
 How many strings are nice?
 
-Your puzzle answer was `238`.
-
 --- Part Two ---
 ----------------
 

@@ -13,8 +13,6 @@ For example:
 -   `^>v<` delivers presents to `4` houses in a square, including twice to the house at his starting/ending location.
 -   `^v^v^v^v^v` delivers a bunch of presents to some very lucky children at only `2` houses.
 
-Your puzzle answer was `2565`.
-
 --- Part Two ---
 ----------------
 
@@ -29,4 +27,3 @@ For example:
 -   `^v` delivers presents to `3` houses, because Santa goes north, and then Robo-Santa goes south.
 -   `^>v<` now delivers presents to `3` houses, and Santa and Robo-Santa end up back where they started.
 -   `^v^v^v^v^v` now delivers presents to `11` houses, with Santa going one direction and Robo-Santa going the other.
-

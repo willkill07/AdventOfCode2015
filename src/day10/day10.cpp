@@ -13,9 +13,7 @@ int main (int argc, char* argv[]) {
     std::vector <char> o;
     for (auto c = std::begin (s); c != std::end (s); ) {
       auto l = std::find_if (c, std::end (s), [c] (char o) { return *c != o; });
-      o.push_back (l - c);
-      o.push_back (*c);
-      c = l;
+      o.push_back (l - c), o.push_back (*c), c = l;
     }
     s = std::move (o);
   }
