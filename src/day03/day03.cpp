@@ -2,6 +2,7 @@
 #include <map>
 #include <tuple>
 #include "timer.hpp"
+#include "io.hpp"
 
 using Pos = std::tuple <int, int>;
 
@@ -20,8 +21,10 @@ int main (int argc, char* argv[]) {
   std::map <Pos, int> p;
   Pos p1 { 0, 0 }, p2 { 0, 0 };
   bool santa { true };
-  for (char c; std::cin >> c; santa ^= part2)
+  for (char c : io::as_string (std::cin)) {
     ++p [apply ((santa ? p1 : p2), c)];
+    santa ^= part2;
+  }
   std::cout << p.size() << std::endl;
   return 0;
 }

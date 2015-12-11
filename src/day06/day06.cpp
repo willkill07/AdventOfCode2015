@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include "timer.hpp"
+#include "io.hpp"
 
 using ActionRule = std::function <void (int&, int, int)>;
 
@@ -22,9 +23,7 @@ ActionRule buildFromLine (std::string line, bool part2) {
   int v[4];
   auto start = m.begin();
   std::advance (start, 3);
-  std::transform (start, m.end(), v, [] (auto s) {
-      return std::stoi (s);
-    });
+  std::transform (start, m.end(), v, io::to_int);
   return [a,v,part2] (int &state, int x, int y) {
     if (x >= v[0] && y >= v[1] && x <= v[2] && y <= v[3])
       state = (!part2 ? (a == ON || (a == TOGGLE && state == 0)) : std::max (state + a, 0));
@@ -34,8 +33,7 @@ ActionRule buildFromLine (std::string line, bool part2) {
 int main (int argc, char* argv []) {
   bool part2 { argc == 2 };
   std::vector <ActionRule> rules;
-  std::string input;
-  while (std::getline (std::cin, input))
+  for (auto input : io::by_line { std::cin })
     rules.push_back (buildFromLine (input, part2));
   int threads { (int)std::thread::hardware_concurrency() };
   auto task = [&] (int id) {

@@ -59,14 +59,14 @@ for i in `seq 40`;do s=`fold -w1<<<$s|uniq -c|tr -d '\n '`;done;echo ${#s}
 
  Day | Lines | Code | Bytes | Chars | Time | Source | Headers
 :---:|:-----:|:----:|:-----:|:-----:| ----:|:------:|:-------
-01|18|12|367|257|0.0031|[day01.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day01/day01.cpp)|`iostream`
-02|22|13|656|515|0.0052|[day02.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day02/day02.cpp)|`algorithm` `iostream` `regex` `string`
-03|27|17|616|467|0.0070|[day03.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day03/day03.cpp)|`iostream` `map` `tuple`
-04|17|10|498|394|0.4311|[day04.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day04/day04.cpp)|`iostream` `string`
-05|17|9|626|515|0.0569|[day05.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day05/day05.cpp)|`iostream` `regex` `string`
-06|61|40|1714|1292|0.4679|[day06.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day06/day06.cpp)|`functional` `future` `iostream` `iterator` `regex` `string` `vector`
-07|76|52|2335|1700|0.0059|[day07.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day07/day07.cpp)|`iostream` `map` `regex` `string`
-08|27|13|855|666|0.0059|[day08.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day08/day08.cpp)|`iostream` `iterator` `numeric` `regex` `string`
-09|36|23|1070|844|0.0812|[day09.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day09/day09.cpp)|`iostream` `limits` `map` `numeric` `set` `string` `vector`
-10|23|14|676|507|0.0560|[day10.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day10/day10.cpp)|`algorithm` `iostream` `iterator` `vector`
-**TOTAL**|**324**|**203**|**9413**|**7157**|**1.1202**| | `iostream`&nbsp;<sup>**`10`**</sup> `string`&nbsp;<sup>**`7`**</sup> `regex`&nbsp;<sup>**`5`**</sup> `map`&nbsp;<sup>**`3`**</sup> `iterator`&nbsp;<sup>**`3`**</sup> `vector`&nbsp;<sup>**`3`**</sup> `numeric`&nbsp;<sup>**`2`**</sup> `algorithm`&nbsp;<sup>**`2`**</sup> `limits`&nbsp;<sup>**`1`**</sup> `future`&nbsp;<sup>**`1`**</sup> `set`&nbsp;<sup>**`1`**</sup> `tuple`&nbsp;<sup>**`1`**</sup> `functional`&nbsp;<sup>**`1`**</sup>
+01|18|11|393|283|0.0050|[day01.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day01/day01.cpp)|`iostream`
+02|22|12|624|490|0.0052|[day02.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day02/day02.cpp)|`algorithm` `iostream` `regex` `string`
+03|30|18|656|497|0.0077|[day03.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day03/day03.cpp)|`iostream` `map` `tuple`
+04|16|8|510|408|0.4371|[day04.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day04/day04.cpp)|`iostream` `string`
+05|17|8|630|517|0.0528|[day05.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day05/day05.cpp)|`iostream` `regex` `string`
+06|59|38|1679|1272|0.4867|[day06.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day06/day06.cpp)|`functional` `future` `iostream` `iterator` `regex` `string` `vector`
+07|76|51|2203|1592|0.0059|[day07.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day07/day07.cpp)|`iostream` `map` `regex` `string`
+08|28|13|804|622|0.0062|[day08.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day08/day08.cpp)|`iostream` `iterator` `numeric` `regex` `string`
+09|36|23|1070|844|0.0786|[day09.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day09/day09.cpp)|`iostream` `limits` `map` `numeric` `set` `string` `vector`
+10|24|14|676|508|0.0716|[day10.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day10/day10.cpp)|`algorithm` `iostream` `iterator` `vector`
+**TOTAL**|**326**|**196**|**9245**|**7033**|**1.1568**| | `iostream`&nbsp;<sup>**`10`**</sup> `string`&nbsp;<sup>**`7`**</sup> `regex`&nbsp;<sup>**`5`**</sup> `map`&nbsp;<sup>**`3`**</sup> `iterator`&nbsp;<sup>**`3`**</sup> `vector`&nbsp;<sup>**`3`**</sup> `numeric`&nbsp;<sup>**`2`**</sup> `algorithm`&nbsp;<sup>**`2`**</sup> `limits`&nbsp;<sup>**`1`**</sup> `future`&nbsp;<sup>**`1`**</sup> `set`&nbsp;<sup>**`1`**</sup> `tuple`&nbsp;<sup>**`1`**</sup> `functional`&nbsp;<sup>**`1`**</sup>
