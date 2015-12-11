@@ -15,19 +15,17 @@ namespace io {
     };
   }
 
-  std::sregex_iterator
-  re_search (const std::string & str, const std::regex & re) {
+  std::sregex_iterator re_search (const std::string & str, const std::regex & re) {
     return { std::begin (str), std::end (str), re };
   }
 
-  std::string
-  as_string (std::istream& is) {
+  std::string as_string (std::istream& is) {
     return { std::istream_iterator <char> { is }, { } };
   }
 
-  class
-  by_line {
+  class by_line {
     std::istream& is;
+
   public:
     using iter = std::istream_iterator <detail::line>;
 
@@ -42,14 +40,12 @@ namespace io {
     }
   };
 
-  by_line::iter
-  as_line (std::istream& is) {
+  by_line::iter as_line (std::istream& is) {
     return { is };
   }
 
   template <typename T>
-  std::istream_iterator <T>
-  as (std::istream& is) {
+  std::istream_iterator <T> as (std::istream& is) {
     return { is };
   }
 
