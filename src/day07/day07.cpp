@@ -6,9 +6,9 @@
 #include "io.hpp"
 
 using Int = std::uint16_t;
-using Callback = std::function <Int()>;
+using Callback = std::function <Int (Int, Int)>;
 
-static const std::regex ASSIGN_OP { R"((\w+) -> (\w+))" }, NOT_OP { R"(NOT (\w+) -> (\w+))" } ,BINARY_OP { R"((\w+) (AND|OR|(L|R)SHIFT) (\w+) -> (\w+))" };
+static const std::regex ASSIGN_OP { R"((\w+) -> (\w+))" }, NOT_OP { R"(NOT (\w+) -> (\w+))" }, BINARY_OP { R"((\w+) (AND|OR|LSHIFT|RSHIFT) (\w+) -> (\w+))" };
 
 struct Gate {
   Callback fn;
@@ -16,7 +16,7 @@ struct Gate {
   bool memoized { false };
   Int value;
   Gate (std::string w1, std::string w2, Callback f) : fn { f }, wire1 { w1 }, wire2 { w2 } { }
-  Gate (std::string w1, Callback f) : Gate (w1, { }, f) { };
+  Gate (std::string w1, Callback f) : Gate (w1, w1, f) { };
   Gate (Int v) : memoized { true }, value { v } { };
 };
 
@@ -34,7 +34,7 @@ struct Circuit {
       auto & d = lookup.at (value);
       if (d.memoized)
         return d.value;
-      d.value = d.fn();
+      d.value = d.fn (get (d.wire1), get (d.wire2));
       d.memoized = true;
       return d.value;
     }
@@ -43,24 +43,15 @@ struct Circuit {
   void operator() (std::string line) {
     std::smatch m;
     if (std::regex_match (line, m, ASSIGN_OP)) {
-      std::string out { m [2] };
-      lookup.emplace (out, Gate { m[1], [&, out] () {
-        return get (lookup.at (out).wire1);
-      } });
+      lookup.emplace (m.str (2), Gate { m.str (1), [] (Int a, Int b) { return a; } });
     } else if (std::regex_match (line, m, NOT_OP)) {
-      std::string out { m[2] };
-      lookup.emplace (out, Gate { m[1], [&, out] () {
-        return ~get (lookup.at (out).wire1);
-      } });
+      lookup.emplace (m.str (2), Gate { m.str (1) , [] (Int a, Int b) { return ~a; } });
     } else if (std::regex_match (line, m, BINARY_OP)) {
-      std::string op { m[2] }, out { m[5] };
-      lookup.emplace (out, Gate { m[1], m[4], [&, out, op] () {
-        Gate & g { lookup.at (out) };
-        return ((op == "AND") ? (get (g.wire1) & get (g.wire2)) :
-                ((op == "OR") ? (get (g.wire1) | get (g.wire2)) :
-                 ((op == "LSHIFT") ? (get (g.wire1) << get (g.wire2)) :
-                  ((get (g.wire1) >> get (g.wire2))))));
-      } });
+      lookup.emplace (m.str (4), Gate { m.str (1), m.str (3),
+            ((m.str (2) == "AND") ? [] (Int a, Int b) { return a & b; } :
+             ((m.str (2) == "OR") ? [] (Int a, Int b) { return a | b; } :
+              ((m.str (2) == "LSHIFT") ? [] (Int a, Int b) { return a << b; } :
+               [] (Int a, Int b) { return a >> b; }))) });
     }
   }
 };
@@ -68,7 +59,7 @@ struct Circuit {
 int main (int argc, char* argv []) {
   bool part2 { argc == 2 };
   Circuit c;
-  std::for_each (io::as_line (std::cin), { }, std::ref (c));
+	std::for_each (io::as_line (std::cin), { }, std::ref (c));
   if (part2)
     c.set ("b", 956);
   std::cout << c.get ("a") << std::endl;

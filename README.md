@@ -59,14 +59,14 @@ for i in `seq 40`;do s=`fold -w1<<<$s|uniq -c|tr -d '\n '`;done;echo ${#s}
 
  Day | Lines | Code | Bytes | Chars | Time | Source | Headers
 :---:|:-----:|:----:|:-----:|:-----:| ----:|:------:|:-------
-01|18|11|393|283|0.0052|[day01.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day01/day01.cpp)|`iostream` *`timer.hpp`* *`io.hpp`*
-02|22|12|624|490|0.0052|[day02.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day02/day02.cpp)|`algorithm` `iostream` `regex` `string` *`timer.hpp`* *`io.hpp`*
-03|30|18|656|497|0.0078|[day03.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day03/day03.cpp)|`iostream` `map` `tuple` *`timer.hpp`* *`io.hpp`*
-04|16|8|510|408|0.4622|[day04.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day04/day04.cpp)|`iostream` `string` *`md5.hpp`* *`timer.hpp`* *`io.hpp`*
-05|17|8|630|517|0.0577|[day05.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day05/day05.cpp)|`iostream` `string` `regex` *`timer.hpp`* *`io.hpp`*
-06|59|38|1679|1272|0.4771|[day06.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day06/day06.cpp)|`functional` `future` `iostream` `iterator` `regex` `string` `vector` *`timer.hpp`* *`io.hpp`*
-07|76|51|2203|1592|0.0062|[day07.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day07/day07.cpp)|`iostream` `map` `string` `regex` *`timer.hpp`* *`io.hpp`*
-08|27|13|752|586|0.0065|[day08.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day08/day08.cpp)|`iostream` `iterator` `numeric` `regex` `string` *`timer.hpp`* *`io.hpp`*
-09|36|23|1070|844|0.0766|[day09.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day09/day09.cpp)|`iostream` `limits` `map` `numeric` `set` `string` `vector` *`timer.hpp`*
-10|24|14|676|508|0.0582|[day10.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day10/day10.cpp)|`algorithm` `iostream` `iterator` `vector` *`timer.hpp`* *`io.hpp`*
-**TOTAL**|**325**|**196**|**9193**|**6997**|**1.1627**| | *`timer.hpp`*&nbsp;<sup>**`10`**</sup> `iostream`&nbsp;<sup>**`10`**</sup> *`io.hpp`*&nbsp;<sup>**`9`**</sup> `string`&nbsp;<sup>**`7`**</sup> `regex`&nbsp;<sup>**`5`**</sup> `map`&nbsp;<sup>**`3`**</sup> `vector`&nbsp;<sup>**`3`**</sup> `iterator`&nbsp;<sup>**`3`**</sup> `algorithm`&nbsp;<sup>**`2`**</sup> `numeric`&nbsp;<sup>**`2`**</sup> `limits`&nbsp;<sup>**`1`**</sup> `future`&nbsp;<sup>**`1`**</sup> `tuple`&nbsp;<sup>**`1`**</sup> `set`&nbsp;<sup>**`1`**</sup> *`md5.hpp`*&nbsp;<sup>**`1`**</sup> `functional`&nbsp;<sup>**`1`**</sup>
+01|18|11|393|283|0.0050|[day01.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day01/day01.cpp)|`iostream` *`timer.hpp`* *`io.hpp`*
+02|22|12|624|490|0.0054|[day02.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day02/day02.cpp)|`algorithm` `iostream` `regex` `string` *`timer.hpp`* *`io.hpp`*
+03|30|18|656|497|0.0079|[day03.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day03/day03.cpp)|`iostream` `map` `tuple` *`timer.hpp`* *`io.hpp`*
+04|16|8|510|408|0.4281|[day04.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day04/day04.cpp)|`iostream` `string` *`md5.hpp`* *`timer.hpp`* *`io.hpp`*
+05|17|8|630|517|0.0530|[day05.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day05/day05.cpp)|`iostream` `string` `regex` *`timer.hpp`* *`io.hpp`*
+06|59|38|1679|1272|0.4751|[day06.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day06/day06.cpp)|`functional` `future` `iostream` `iterator` `regex` `string` `vector` *`timer.hpp`* *`io.hpp`*
+07|67|45|2061|1510|0.0059|[day07.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day07/day07.cpp)|`iostream` `map` `string` `regex` *`timer.hpp`* *`io.hpp`*
+08|27|13|752|586|0.0058|[day08.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day08/day08.cpp)|`iostream` `iterator` `numeric` `regex` `string` *`timer.hpp`* *`io.hpp`*
+09|36|23|1070|844|0.0983|[day09.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day09/day09.cpp)|`iostream` `limits` `map` `numeric` `set` `string` `vector` *`timer.hpp`*
+10|24|14|676|508|0.0552|[day10.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day10/day10.cpp)|`algorithm` `iostream` `iterator` `vector` *`timer.hpp`* *`io.hpp`*
+**TOTAL**|**316**|**190**|**9051**|**6915**|**1.1397**| | *`timer.hpp`*&nbsp;<sup>**`10`**</sup> `iostream`&nbsp;<sup>**`10`**</sup> *`io.hpp`*&nbsp;<sup>**`9`**</sup> `string`&nbsp;<sup>**`7`**</sup> `regex`&nbsp;<sup>**`5`**</sup> `map`&nbsp;<sup>**`3`**</sup> `vector`&nbsp;<sup>**`3`**</sup> `iterator`&nbsp;<sup>**`3`**</sup> `algorithm`&nbsp;<sup>**`2`**</sup> `numeric`&nbsp;<sup>**`2`**</sup> `limits`&nbsp;<sup>**`1`**</sup> `future`&nbsp;<sup>**`1`**</sup> `tuple`&nbsp;<sup>**`1`**</sup> `set`&nbsp;<sup>**`1`**</sup> *`md5.hpp`*&nbsp;<sup>**`1`**</sup> `functional`&nbsp;<sup>**`1`**</sup>
