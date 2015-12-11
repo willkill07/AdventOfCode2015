@@ -44,6 +44,27 @@ namespace io {
     return { is };
   }
 
+	template <typename T>
+	class reverser {
+		typename T::reverse_iterator b,e;
+
+	public:
+		reverser (T& data) : b { data.rbegin() }, e { data.rend() } { }
+
+		typename T::reverse_iterator begin() {
+			return b;
+		}
+		typename T::reverse_iterator begin() const {
+			return b;
+		}
+		typename T::reverse_iterator end() {
+			return e;
+		}
+		typename T::reverse_iterator end() const {
+			return e;
+		}
+	};
+
   template <typename T>
   std::istream_iterator <T> as (std::istream& is) {
     return { is };
