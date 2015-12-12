@@ -58,7 +58,7 @@ struct Circuit {
 int main (int argc, char* argv []) {
   bool part2 { argc == 2 };
   Circuit c;
-	std::for_each (io::as_line (std::cin), { }, std::ref (c));
+  std::for_each (io::as_line (std::cin), { }, std::ref (c));
   if (part2)
     c.set ("b", 956);
   std::cout << c.get ("a") << std::endl;
