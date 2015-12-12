@@ -22,8 +22,7 @@ int main (int argc, char* argv[]) {
   Pos p1 { 0, 0 }, p2 { 0, 0 };
   bool santa { true };
   for (char c : io::as_string (std::cin)) {
-    ++p [apply ((santa ? p1 : p2), c)];
-    santa ^= part2;
+    ++p [apply (((santa ^= part2) ? p1 : p2), c)];
   }
   std::cout << p.size() << std::endl;
   return 0;

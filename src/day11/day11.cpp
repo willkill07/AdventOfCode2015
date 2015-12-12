@@ -18,8 +18,7 @@ bool valid (const std::string & pw) {
         l = c;
     }
     three = three || (((pp + 1) == p) && ((p + 1) == c));
-    pp = p;
-    p = c;
+    pp = p, p = c;
   }
   return two && three;
 }

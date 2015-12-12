@@ -34,8 +34,7 @@ struct Circuit {
       auto & d = lookup.at (value);
       if (d.memoized)
         return d.value;
-      d.value = d.fn (get (d.wire1), get (d.wire2));
-      d.memoized = true;
+      d.value = d.fn (get (d.wire1), get (d.wire2)), d.memoized = true;
       return d.value;
     }
   }
