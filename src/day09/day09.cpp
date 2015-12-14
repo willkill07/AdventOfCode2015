@@ -21,7 +21,7 @@ int main (int argc, char* argv[]) {
   std::string c1, c2, junk;
   while (std::cin >> c1 >> junk >> c2 >> junk >> val) {
     size_t h1 { hash (c1) }, h2 { hash (c2) };
-    p.insert (h1), p.insert (h2), dist.emplace (h1 ^ h2, val);
+    p.insert (h1), p.insert (h2), dist [h1 ^ h2] = val;
   }
 
   std::vector <size_t> order { std::begin (p), std::end (p) };
