@@ -40,7 +40,7 @@ int main (int argc, char* argv[]) {
           leaders = { (int)(&d - &deer[0]) }, lead = d.dist;
       else if (d.dist == lead)
         leaders.push_back (&d - &deer[0]);
-      for (const auto &name : leaders)
+      for (const auto & name : leaders)
         ++deer[name].points;
     }
   }
