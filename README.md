@@ -59,17 +59,18 @@ for i in `seq 40`;do s=`fold -w1<<<$s|uniq -c|tr -d '\n '`;done;echo ${#s}
 
  Day | Lines | Code | Bytes | Chars | Time | Source | Headers
 :---:|:-----:|:----:|:-----:|:-----:| ----:|:------:|:-------
-01|15|9|364|270|0.0055|[day01.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day01/day01.cpp)|`iostream` *`timer.hpp`* *`io.hpp`*
-02|22|12|624|490|0.0060|[day02.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day02/day02.cpp)|`algorithm` `iostream` `regex` `string` *`timer.hpp`* *`io.hpp`*
-03|29|17|647|493|0.0090|[day03.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day03/day03.cpp)|`iostream` `map` `tuple` *`timer.hpp`* *`io.hpp`*
-04|15|8|504|406|0.4500|[day04.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day04/day04.cpp)|`iostream` `string` *`md5.hpp`* *`timer.hpp`* *`io.hpp`*
-05|17|8|630|517|0.0576|[day05.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day05/day05.cpp)|`iostream` `string` `regex` *`timer.hpp`* *`io.hpp`*
-06|38|21|1078|797|0.1290|[day06.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day06/day06.cpp)|`cstdlib` `iostream` `iterator` `regex` `string` `valarray` *`timer.hpp`* *`io.hpp`*
-07|66|44|2056|1510|0.0066|[day07.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day07/day07.cpp)|`iostream` `map` `string` `regex` *`timer.hpp`* *`io.hpp`*
-08|27|13|752|586|0.0070|[day08.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day08/day08.cpp)|`iostream` `iterator` `numeric` `regex` `string` *`timer.hpp`* *`io.hpp`*
-09|36|20|1081|856|0.0118|[day09.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day09/day09.cpp)|`iostream` `limits` `unordered_map` `numeric` `set` `string` `vector` *`timer.hpp`*
-10|22|12|664|508|0.0592|[day10.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day10/day10.cpp)|`algorithm` `iostream` `iterator` `vector` *`timer.hpp`* *`io.hpp`*
-11|40|26|923|644|0.0209|[day11.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day11/day11.cpp)|`iostream` `string` *`timer.hpp`* *`io.hpp`*
-12|37|27|1058|721|0.0281|[day12.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day12/day12.cpp)|`iostream` `stack` `string` *`timer.hpp`* *`io.hpp`*
-14|25|15|829|662|0.0006|[day14.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day14/day14.cpp)|`iostream` `regex` `string` *`timer.hpp`* *`io.hpp`*
-**TOTAL**|**389**|**232**|**11210**|**8460**|**0.7913**| | *`timer.hpp`*&nbsp;<sup>**`13`**</sup> `iostream`&nbsp;<sup>**`13`**</sup> *`io.hpp`*&nbsp;<sup>**`12`**</sup> `string`&nbsp;<sup>**`10`**</sup> `regex`&nbsp;<sup>**`6`**</sup> `iterator`&nbsp;<sup>**`3`**</sup> `numeric`&nbsp;<sup>**`2`**</sup> `algorithm`&nbsp;<sup>**`2`**</sup> `map`&nbsp;<sup>**`2`**</sup> `vector`&nbsp;<sup>**`2`**</sup> `stack`&nbsp;<sup>**`1`**</sup> `limits`&nbsp;<sup>**`1`**</sup> `set`&nbsp;<sup>**`1`**</sup> `unordered_map`&nbsp;<sup>**`1`**</sup> `cstdlib`&nbsp;<sup>**`1`**</sup> `tuple`&nbsp;<sup>**`1`**</sup> `valarray`&nbsp;<sup>**`1`**</sup> *`md5.hpp`*&nbsp;<sup>**`1`**</sup>
+01|15|9|364|270|0.0049|[day01.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day01/day01.cpp)|`iostream` *`timer.hpp`* *`io.hpp`*
+02|22|12|624|490|0.0053|[day02.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day02/day02.cpp)|`algorithm` `iostream` `regex` `string` *`timer.hpp`* *`io.hpp`*
+03|29|17|647|493|0.0076|[day03.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day03/day03.cpp)|`iostream` `map` `tuple` *`timer.hpp`* *`io.hpp`*
+04|15|8|504|406|0.4383|[day04.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day04/day04.cpp)|`iostream` `string` *`md5.hpp`* *`timer.hpp`* *`io.hpp`*
+05|17|8|630|517|0.0528|[day05.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day05/day05.cpp)|`iostream` `string` `regex` *`timer.hpp`* *`io.hpp`*
+06|38|21|1078|797|0.1199|[day06.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day06/day06.cpp)|`cstdlib` `iostream` `iterator` `regex` `string` `valarray` *`timer.hpp`* *`io.hpp`*
+07|66|44|2056|1510|0.0058|[day07.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day07/day07.cpp)|`iostream` `map` `string` `regex` *`timer.hpp`* *`io.hpp`*
+08|27|13|752|586|0.0059|[day08.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day08/day08.cpp)|`iostream` `iterator` `numeric` `regex` `string` *`timer.hpp`* *`io.hpp`*
+09|39|22|1222|975|0.0123|[day09.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day09/day09.cpp)|`iostream` `limits` `unordered_map` `numeric` `regex` `set` `string` `vector` *`timer.hpp`* *`io.hpp`*
+10|22|12|664|508|0.0610|[day10.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day10/day10.cpp)|`algorithm` `iostream` `iterator` `vector` *`timer.hpp`* *`io.hpp`*
+11|40|26|923|644|0.0186|[day11.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day11/day11.cpp)|`iostream` `string` *`timer.hpp`* *`io.hpp`*
+12|37|27|1058|721|0.0265|[day12.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day12/day12.cpp)|`iostream` `stack` `string` *`timer.hpp`* *`io.hpp`*
+13|37|22|1269|1011|0.0144|[day13.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day13/day13.cpp)|`iostream` `limits` `unordered_map` `numeric` `regex` `set` `string` `vector` *`timer.hpp`* *`io.hpp`*
+14|53|33|1619|1204|0.0008|[day14.cpp](https://github.com/willkill07/adventofcode/blob/master/src/day14/day14.cpp)|`algorithm` `iostream` `string` `regex` `vector` *`timer.hpp`* *`io.hpp`*
+**TOTAL**|**457**|**274**|**13410**|**10132**|**0.7741**| | *`io.hpp`*&nbsp;<sup>**`14`**</sup> *`timer.hpp`*&nbsp;<sup>**`14`**</sup> `iostream`&nbsp;<sup>**`14`**</sup> `string`&nbsp;<sup>**`11`**</sup> `regex`&nbsp;<sup>**`8`**</sup> `vector`&nbsp;<sup>**`4`**</sup> `algorithm`&nbsp;<sup>**`3`**</sup> `numeric`&nbsp;<sup>**`3`**</sup> `iterator`&nbsp;<sup>**`3`**</sup> `limits`&nbsp;<sup>**`2`**</sup> `unordered_map`&nbsp;<sup>**`2`**</sup> `set`&nbsp;<sup>**`2`**</sup> `map`&nbsp;<sup>**`2`**</sup> *`md5.hpp`*&nbsp;<sup>**`1`**</sup> `cstdlib`&nbsp;<sup>**`1`**</sup> `tuple`&nbsp;<sup>**`1`**</sup> `valarray`&nbsp;<sup>**`1`**</sup> `stack`&nbsp;<sup>**`1`**</sup>
