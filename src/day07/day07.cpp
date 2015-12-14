@@ -1,7 +1,7 @@
 #include <iostream>
 #include <map>
-#include <string>
 #include <regex>
+#include <string>
 #include "timer.hpp"
 #include "io.hpp"
 

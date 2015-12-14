@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <iostream>
-#include <string>
 #include <regex>
+#include <string>
 #include <vector>
 #include "timer.hpp"
 #include "io.hpp"
@@ -45,8 +45,8 @@ int main (int argc, char* argv[]) {
     }
   }
   int winner { part2
-      ? std::max_element (std::begin (deer), std::end (deer), COMPARE_BY (points))->points
-      : std::max_element (std::begin (deer), std::end (deer), COMPARE_BY (dist))->dist
+    ? std::max_element (std::begin (deer), std::end (deer), COMPARE_BY (points))->points
+    : std::max_element (std::begin (deer), std::end (deer), COMPARE_BY (dist))->dist
   };
   std::cout << winner << std::endl;
   return 0;
