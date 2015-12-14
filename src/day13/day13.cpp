@@ -1,10 +1,10 @@
 #include <iostream>
 #include <limits>
-#include <unordered_map>
 #include <numeric>
 #include <regex>
 #include <set>
 #include <string>
+#include <unordered_map>
 #include <vector>
 #include "timer.hpp"
 #include "io.hpp"
@@ -17,8 +17,7 @@ int main (int argc, char* argv[]) {
   std::unordered_map <size_t, int> dist;
   std::set <size_t> p;
   for (const auto & line : io::by_line (std::cin)) {
-    std::smatch m;
-    std::regex_match (line, m, PARSE);
+    std::smatch m { io::regex_parse (line, PARSE) };
     size_t h1 { hash (m.str (1)) }, h2 { hash (m.str (4)) };
     int val { ((m.str (2) == "gain") ? 1 : -1) * std::stoi (m.str (3)) };
     p.insert (h1), p.insert (h2), dist [h1 ^ h2] += val;

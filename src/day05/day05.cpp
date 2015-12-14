@@ -1,6 +1,6 @@
 #include <iostream>
-#include <string>
 #include <regex>
+#include <string>
 #include "timer.hpp"
 #include "io.hpp"
 

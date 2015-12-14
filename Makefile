@@ -1,9 +1,8 @@
 CC := clang++
 CXX := clang++
 CPPFLAGS := -Iutil/include
-CXXFLAGS := -O3 -march=native -std=c++14 -Wall -pedantic
+CXXFLAGS := -O3 -march=native -std=c++14 -Wall -Wextra -Werror -Wno-unused-parameter -pedantic -pedantic-errors
 
-# Variable to store days implemented
 FILES := $(wildcard src/day*/day*.cpp)
 DAYS := $(wildcard src/day*)
 RULES := $(notdir $(FILES:%.cpp=%))
@@ -23,10 +22,10 @@ day04 : md5.cpp day04.cpp
 
 run_% :	%
 	@echo "Running $<"
-	@printf "Part 1: "
+	@printf "  Part 1: \n    "
 	@./$< < src/$</input.txt
-	@printf "Part 2: "
+	@printf "  Part 2: \n    "
 	@./$< part2 < src/$</input.txt
-
+	@printf "\n"
 clean:
 	@-rm -vf $(RULES)

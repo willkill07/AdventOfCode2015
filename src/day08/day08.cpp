@@ -22,6 +22,6 @@ struct Str {
 
 int main (int argc, char* argv[]) {
   bool part2 { argc == 2 };
-  std::cout << std::accumulate (io::as<std::string> (std::cin), { }, 0, Str { part2 }) << std::endl;
+  std::cout << std::accumulate (io::as <std::string> (std::cin), { }, 0, Str { part2 }) << std::endl;
   return 0;
 }
