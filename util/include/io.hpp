@@ -44,26 +44,26 @@ namespace io {
     return { is };
   }
 
-	template <typename T>
-	class reverser {
-		typename T::reverse_iterator b,e;
+  template <typename T>
+  class reverser {
+    typename T::reverse_iterator b,e;
 
-	public:
-		reverser (T& data) : b { data.rbegin() }, e { data.rend() } { }
+  public:
+    reverser (T& data) : b { data.rbegin() }, e { data.rend() } { }
 
-		typename T::reverse_iterator begin() {
-			return b;
-		}
-		typename T::reverse_iterator begin() const {
-			return b;
-		}
-		typename T::reverse_iterator end() {
-			return e;
-		}
-		typename T::reverse_iterator end() const {
-			return e;
-		}
-	};
+    typename T::reverse_iterator begin() {
+      return b;
+    }
+    typename T::reverse_iterator begin() const {
+      return b;
+    }
+    typename T::reverse_iterator end() {
+      return e;
+    }
+    typename T::reverse_iterator end() const {
+      return e;
+    }
+  };
 
   template <typename T>
   std::istream_iterator <T> as (std::istream& is) {
@@ -72,6 +72,12 @@ namespace io {
 
   int to_int (const std::string & s) {
     return std::stoi (s);
+  }
+
+  std::smatch regex_parse (const std::string & str, const std::regex re) {
+    std::smatch res;
+    std::regex_match (str, res, re);
+    return std::move (res);
   }
 }
 

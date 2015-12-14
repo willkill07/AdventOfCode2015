@@ -7,14 +7,14 @@
 struct
 Timer
 {
-	using Timing = std::chrono::high_resolution_clock;
+  using Timing = std::chrono::high_resolution_clock;
   using Point = std::chrono::time_point <Timing>;
 
   Point begin;
 
   Timer()
-		: begin { Timing::now() }
-		{ }
+    : begin { Timing::now() }
+    { }
 
   ~Timer() {
     Point end { Timing::now() };
