@@ -14,7 +14,7 @@ const int TIME { 2503 };
 struct Reindeer {
   int speed { 0 }, go { 0 }, rest { 0 }, dist { 0 }, points { 0 };
   explicit Reindeer() {}
-  Reindeer(int _s, int _g, int _r) : speed { _s }, go { _g }, rest { _r } { }
+  Reindeer (int _s, int _g, int _r) : speed { _s }, go { _g }, rest { _r } { }
   void tick (int t) {
     if (t % (go + rest) < go) dist += speed;
   }
@@ -34,11 +34,12 @@ int main (int argc, char* argv[]) {
     if (part2) {
       std::vector <int> leaders;
       int lead { 0 };
-      for (const auto & d : deer)
+      for (const auto & d : deer) {
         if (d.dist > lead)
-          leaders = { (int)(&d - &deer[0]) }, lead = d.dist;
-      else if (d.dist == lead)
-        leaders.push_back (&d - &deer[0]);
+          leaders.clear(), lead = d.dist;
+        if (d.dist == lead)
+          leaders.push_back (&d - &deer[0]);
+      }
       for (const auto & name : leaders)
         ++deer[name].points;
     }
