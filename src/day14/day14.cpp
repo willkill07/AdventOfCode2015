@@ -6,9 +6,10 @@
 #include "timer.hpp"
 #include "io.hpp"
 
-const static std::regex PARSE { R"(\w+ can fly (\d+) km/s for (\d+) seconds, but then must rest for (\d+) seconds.)" };
+#define COMPARE_BY(X) [] (const auto & d1, const auto & d2) { return d1 . X < d2 . X; }
 
-const int TIME = 2503;
+const static std::regex PARSE { R"(\w+ can fly (\d+) km/s for (\d+) seconds, but then must rest for (\d+) seconds.)" };
+const int TIME { 2503 };
 
 struct Reindeer {
   int speed { 0 }, go { 0 }, rest { 0 }, dist { 0 }, points { 0 };
@@ -29,21 +30,23 @@ int main (int argc, char* argv[]) {
     deer.emplace_back (std::stoi (m.str (1)), std::stoi (m.str (2)), std::stoi (m.str (3)));
   }
   for (int t { 0 }; t < TIME; ++t) {
-    for (auto &d : deer)
+    for (auto & d : deer)
       d.tick (t);
-    std::vector <int> leaders;
-    int lead { 0 };
-    for (const auto &d : deer)
-      if (d.dist > lead)
-        leaders = { (int)(&d - &deer[0]) }, lead = d.dist;
+    if (part2) {
+      std::vector <int> leaders;
+      int lead { 0 };
+      for (const auto & d : deer)
+        if (d.dist > lead)
+          leaders = { (int)(&d - &deer[0]) }, lead = d.dist;
       else if (d.dist == lead)
         leaders.push_back (&d - &deer[0]);
-    for (const auto &name : leaders)
-      ++deer[name].points;
+      for (const auto &name : leaders)
+        ++deer[name].points;
+    }
   }
   int winner { part2
-    ? std::max_element (std::begin (deer), std::end (deer), [] (const auto & d1, const auto & d2) { return d1.points < d2.points; })->points
-    : std::max_element (std::begin (deer), std::end (deer), [] (const auto & d1, const auto & d2) { return d1.dist < d2.dist; })->dist
+      ? std::max_element (std::begin (deer), std::end (deer), COMPARE_BY (points))->points
+      : std::max_element (std::begin (deer), std::end (deer), COMPARE_BY (dist))->dist
   };
   std::cout << winner << std::endl;
   return 0;
