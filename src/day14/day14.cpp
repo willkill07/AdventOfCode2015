@@ -25,8 +25,7 @@ int main (int argc, char* argv[]) {
   std::vector <Reindeer> deer;
 
   for (const auto & line : io::by_line { std::cin }) {
-    std::smatch m;
-    std::regex_match (line, m, PARSE);
+    std::smatch m { io::regex_parse (line, PARSE) };
     deer.emplace_back (std::stoi (m.str (1)), std::stoi (m.str (2)), std::stoi (m.str (3)));
   }
   for (int t { 0 }; t < TIME; ++t) {
