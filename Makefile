@@ -1,9 +1,8 @@
 CC := clang++
 CXX := clang++
 CPPFLAGS := -Iutil/include
-CXXFLAGS := -O3 -march=native -std=c++14 -Wall -pedantic
+CXXFLAGS := -O3 -march=native -std=c++14 -Wall -Wextra -Werror -Wno-unused-parameter -pedantic -pedantic-errors
 
-# Variable to store days implemented
 FILES := $(wildcard src/day*/day*.cpp)
 DAYS := $(wildcard src/day*)
 RULES := $(notdir $(FILES:%.cpp=%))

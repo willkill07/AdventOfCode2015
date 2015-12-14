@@ -9,7 +9,7 @@ int main (int argc, char* argv[]) {
   int sum { 0 }, value { 0 };
   std::stack <int> data;
   std::string input { io::as_string (std::cin) };
-  for (int i { 0 }; i < input.size(); ++i) {
+  for (size_t i { 0 }; i < input.size(); ++i) {
     char c { input [i] };
     switch (c) {
     case '{':
