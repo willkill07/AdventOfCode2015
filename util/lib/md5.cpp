@@ -345,7 +345,7 @@ std::string MD5::hexdigest() const
   buffer [32] = '\0';
   for (int i=0; i<16; i++) {
     buffer [i*2] = LOOKUP [digest[i] >> 4];
-    buffer [i*2 + 1] = LOOKUP [digest[i] & 0xFF];
+    buffer [i*2 + 1] = LOOKUP [digest[i] & 0xF];
   }
   return std::string { buffer };
 }
