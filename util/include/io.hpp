@@ -23,6 +23,22 @@ namespace io {
     return { std::istream_iterator <char> { is }, { } };
   }
 
+  class by_match {
+    std::sregex_iterator bi, ei;
+
+  public:
+    by_match (const std::string & str, const std::regex & re)
+      : bi { re_search (str, re) }, ei { } { }
+
+    std::sregex_iterator begin() {
+      return bi;
+    }
+
+    std::sregex_iterator end() {
+      return ei;
+    }
+  };
+
   class by_line {
     std::istream& is;
 
