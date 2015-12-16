@@ -29,3 +29,17 @@ Note: `s` needs to contain the input string
 ```bash
 for i in `seq 40`;do s=`fold -w1<<<$s|uniq -c|tr -d '\n '`;done;echo ${#s}
 ```
+
+### Day 16: Abuse of `grep`
+
+#### Part 1: (150 chars)
+
+```bash
+egrep -v 'children: [^3]|cats: [^7]|samoyeds: [^2]|pomeranians: [^3]|akitas: [^0]|vizslas: [^0]|goldfish: [^5]|trees: [^3]|cars: [^2]|perfumes: [^1]'
+```
+
+#### Part 2: (161 chars)
+
+```bash
+egrep -v 'children: [^3]|cats: [0-7]|samoyeds: [^2]|pomeranians: [^0-3]|akitas: [^0]|vizslas: [^0]|goldfish: (10|[5-9])|trees: [0-3]|cars: [^2]|perfumes: [^1],'
+```

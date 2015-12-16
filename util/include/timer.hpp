@@ -16,10 +16,15 @@ Timer
     : begin { Timing::now() }
     { }
 
-  ~Timer() {
+  double current () {
     Point end { Timing::now() };
-    std::cout << "    time: " << std::chrono::duration <double> { end - begin }.count() << "s" << std::endl;
+    return std::chrono::duration <double> { end - begin }.count();
   }
+
+  ~Timer() {
+    std::cout << "    time: " << current() << "s" << std::endl;
+  }
+
 };
 
 Timer t;
