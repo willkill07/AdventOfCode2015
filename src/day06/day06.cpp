@@ -1,8 +1,6 @@
-#include <cstdlib>
+#include <functional>
 #include <iostream>
-#include <iterator>
 #include <regex>
-#include <string>
 #include <valarray>
 #include "timer.hpp"
 #include "io.hpp"
@@ -16,19 +14,13 @@ enum Action {
 int main (int argc, char* argv []) {
   bool part2 { argc == 2 };
   std::valarray <int> lights (1000000);
-  int v[4];
   for (const auto & line : io::by_line { std::cin }) {
     std::smatch m { io::regex_parse (line, PARSER) };
     Action a = ((m.str (1) == "toggle") ? TOGGLE : ((m.str (2) == "on") ? ON : OFF));
-    auto start = m.begin();
-    std::advance (start, 3);
-    std::transform (start, m.end(), v, io::to_int);
-    for (int y { 0 }; y < 1000; ++y)
-      for (int x { 0 }; x < 1000; ++x)
-        if (x >= v[0] && y >= v[1] && x <= v[2] && y <= v[3]) {
-          int i { y * 1000 + x };
-          lights[i] = (!part2 ? (a == ON || (a == TOGGLE && lights[i] == 0)) : std::max (lights[i] + a, 0));
-        }
+    int x1 { std::stoi (m[3]) }, y1 { std::stoi (m[4]) }, x2 { std::stoi (m[5]) }, y2 { std::stoi (m[6]) };
+    for (int y { y1 }; y <= y2; ++y)
+      for (int x { x1 }; x <= x2; ++x)
+        lights [x + y * 1000] = (!part2 ? (a == ON || (a == TOGGLE && lights [x + y * 1000] == 0)) : std::max (lights [x + y * 1000] + a, 0));
   }
   std::cout << lights.sum() << std::endl;
   return 0;
