@@ -1,27 +1,30 @@
+#include <array>
 #include <algorithm>
 #include <iostream>
-#include <iterator>
-#include <map>
+#include <limits>
 #include <vector>
 #include "timer.hpp"
 #include "io.hpp"
 
-bool process (int num, const std::vector <int> & con) {
-  int sum { 0 };
-  for (int i { 0 }; num != 0; num >>= 1, ++i)
-    sum += ((num & 0x1) ? con [i] : 0);
-  return (sum == 150);
-}
+const int TARGET { 150 };
 
 int main (int argc, char* argv[]) {
-  bool part2 { argc == 2};
-  int valid { 0 };
+  bool part2 { argc == 2 };
   std::vector <int> con;
-  std::map <int, int> counts;
+  std::array <int, TARGET + 1> best, ways;
+  std::fill (std::begin (best), std::end (best), std::numeric_limits <int>::max() - 1);
   std::copy (std::istream_iterator <int> { std::cin }, { }, std::back_inserter (con));
-  for (int i = 1; i < (1 << con.size()) - 1; ++i)
-    if (process (i, con))
-      ++valid, ++counts [__builtin_popcount (i)];
-  std::cout << (part2 ? std::begin (counts)->second : valid) << std::endl;
+  std::sort (con.rbegin(), con.rend());
+  ways[0] = 1, best[0] = 0;
+  for (auto c : con)
+    for (int rem { TARGET }; rem >= c; --rem)
+      if (part2) {
+        if (best[rem - c] + 1 < best[rem])
+          best[rem] = best[rem-c] + 1, ways[rem] = 0;
+        if (best[rem - c] + 1 == best[rem])
+          ways[rem] += ways [rem - c];
+      } else
+        ways[rem] += ways[rem - c];
+  std::cout <<  ways [TARGET] << std::endl;
   return 0;
 }
