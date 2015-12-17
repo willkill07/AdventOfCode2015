@@ -9,7 +9,8 @@
 bool process (int num, const std::vector <int> & con) {
   int sum { 0 };
   for (int i { 0 }; num != 0; num >>= 1, ++i)
-    sum += ((num & 0x1) ? con [i] : 0);
+    if ((sum += ((num & 0x1) ? con [i] : 0)) > 150)
+			return false;
   return (sum == 150);
 }
 
