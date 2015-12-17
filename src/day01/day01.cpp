@@ -1,6 +1,5 @@
 #include <iostream>
 #include "timer.hpp"
-#include "io.hpp"
 
 int main (int argc, char* argv[]) {
   bool part2 { argc == 2 };
