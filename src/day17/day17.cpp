@@ -10,7 +10,7 @@ bool process (int num, const std::vector <int> & con) {
   int sum { 0 };
   for (int i { 0 }; num != 0; num >>= 1, ++i)
     if ((sum += ((num & 0x1) ? con [i] : 0)) > 150)
-			return false;
+      return false;
   return (sum == 150);
 }
 
@@ -20,6 +20,7 @@ int main (int argc, char* argv[]) {
   std::vector <int> con;
   std::map <int, int> counts;
   std::copy (std::istream_iterator <int> { std::cin }, { }, std::back_inserter (con));
+  std::sort (con.rbegin(), con.rend());
   for (int i = 1; i < (1 << con.size()) - 1; ++i)
     if (process (i, con))
       ++valid, ++counts [__builtin_popcount (i)];
