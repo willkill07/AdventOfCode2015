@@ -22,7 +22,7 @@ Timer
   }
 
   ~Timer() {
-		printf ("    time: %0.8lfs\n", current());
+    printf ("    time: %0.8lfs\n", current());
   }
 
 };

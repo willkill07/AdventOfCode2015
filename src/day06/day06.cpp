@@ -1,4 +1,3 @@
-#include <functional>
 #include <iostream>
 #include <regex>
 #include <valarray>
