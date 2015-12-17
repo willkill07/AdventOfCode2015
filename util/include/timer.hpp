@@ -22,7 +22,7 @@ Timer
   }
 
   ~Timer() {
-    std::cout << "    time: " << current() << "s" << std::endl;
+		printf ("    time: %0.8lfs\n", current());
   }
 
 };

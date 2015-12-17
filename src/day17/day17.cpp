@@ -12,7 +12,7 @@ const int TARGET { 150 };
 int count (const std::vector <int> & c) {
   std::vector <int> dp (TARGET + 1); dp [0] = 1;
   for (int n : c)
-    for (int i { TARGET }; i >= n;  dp [i--] += dp [i - n]);
+    for (int i { TARGET }; i >= n;  dp [i] += dp [i - n], --i);
   return dp [TARGET];
 }
 
