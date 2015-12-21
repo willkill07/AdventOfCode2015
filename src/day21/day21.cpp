@@ -10,8 +10,8 @@ const static std::regex PARSE_FILE { R"([^\d]+(\d+)[^\d]+(\d+)[^\d]+(\d+))" };
 struct Item { int c{0}, d{0}, a{0}; };
 struct Player { int hp{100}, d{0}, a{0}; };
 const static std::array <Item,5> WEAPONS {{{8,4,0},{10,5,0},{25,6,0},{40,7,0},{74,8,0}}};
-const static std::array <Item,6> ARMOR {{{0,0,0},{13,0,1},{31,0,2},{53,0,3},{75,0,4},{102,0,5}}};
-const static std::array <Item,7> RINGS {{{0,0,0},{25,1,0},{50,2,0},{100,3,0},{20,0,1},{40,0,2},{80,0,3}}};
+const static std::array <Item,6> ARMOR {{{13,0,1},{31,0,2},{53,0,3},{75,0,4},{102,0,5}}};
+const static std::array <Item,7> RINGS {{{25,1,0},{50,2,0},{100,3,0},{20,0,1},{40,0,2},{80,0,3}}};
 
 int main (int argc, char* argv[]) {
   bool part2 { argc == 2 };
@@ -25,9 +25,7 @@ int main (int argc, char* argv[]) {
       for (auto r1 : RINGS)
         for (auto r2 : RINGS)
           if (r1.c != r2.c || r1.c == 0) {
-            Player self { 100, w.d + a.d + r1.d + r2.d, w.a + a.a + r1.a + r2.a };
-            auto hits = [](auto & att, auto & def) { return std::ceil (def.hp / std::max (1, att.d - def.a)); };
-            if (hits (self, boss) <= hits (boss, self))
+            if (boss.hp * std::max (1, boss.d - (w.a + a.a + r1.a + r2.a)) <= 100 * std::max (1, (w.d + a.d + r1.d + r2.d) - boss.a))
               minCost = std::min (minCost, w.c + a.c + r1.c + r2.c);
             else
               maxCost = std::max (maxCost, w.c + a.c + r1.c + r2.c);

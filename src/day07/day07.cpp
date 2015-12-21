@@ -1,5 +1,5 @@
 #include <iostream>
-#include <map>
+#include <unordered_map>
 #include <regex>
 #include <string>
 #include "timer.hpp"
@@ -21,7 +21,7 @@ struct Gate {
 };
 
 struct Circuit {
-  std::map <std::string, Gate> lookup;
+  std::unordered_map <std::string, Gate> lookup;
 
   void  set (std::string key, Int v) {
     lookup.at (key) = Gate { v };
