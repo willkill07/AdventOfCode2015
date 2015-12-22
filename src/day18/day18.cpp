@@ -6,8 +6,7 @@
 
 const size_t N { 100 };
 const size_t SPAN { N + 2 };
-using Array = std::array <int, SPAN>;
-using Grid = std::array <Array, SPAN>;
+using Grid = std::array <std::array <int, SPAN>, SPAN>;
 static Grid grid[2], temp;
 
 int sum (const Grid & a) {
