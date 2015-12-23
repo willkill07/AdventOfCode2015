@@ -1,14 +1,3 @@
-[Advent of Code](/)
-===================
-
-willkill07 <span class="star-count">46\*</span>
-
--   [\[About\]](/about)
--   [\[Stats\]](/stats)
--   [\[Leaderboard\]](/leaderboard)
--   [\[Settings\]](/settings)
--   [\[Log out\]](/auth/logout)
-
 --- Day 23: Opening the Turing Lock ---
 ---------------------------------------
 
@@ -36,19 +25,7 @@ For example, this program sets `a` to `2`, because the `jio` instruction causes 
 
 What is *the value in register `b`* when the program in your puzzle input is finished executing?
 
-Your puzzle answer was `184`.
-
 --- Part Two ---
 ----------------
 
 The unknown benefactor is *very* thankful for releasi-- er, helping little Jane Marie with her computer. Definitely not to distract you, what is the value in register `b` after the program is finished executing if register `a` starts as `1` instead?
-
-Your puzzle answer was `231`.
-
-Both parts of this puzzle are complete! They provide two gold stars: \*\*
-
-At this point, you should [return to your advent calendar](/) and try another puzzle.
-
-If you still want to see it, you can [get your puzzle input](/day/23/input).
-
-You can also <span class="share">\[Share<span class="share-content">on [Twitter](https://twitter.com/intent/tweet?text=I%27ve+completed+%22Opening+the+Turing+Lock%22+%2D+Day+23+%2D+Advent+of+Code&url=http%3A%2F%2Fadventofcode%2Ecom%2Fday%2F23&related=ericwastl&hashtags=AdventOfCode) [Google+](https://plus.google.com/share?url=http%3A%2F%2Fadventofcode%2Ecom%2Fday%2F23) [Reddit](http://www.reddit.com/submit?url=http%3A%2F%2Fadventofcode%2Ecom%2Fday%2F23&title=I%27ve+completed+%22Opening+the+Turing+Lock%22+%2D+Day+23+%2D+Advent+of+Code)</span>\]</span> this puzzle.
