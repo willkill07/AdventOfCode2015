@@ -1,12 +1,8 @@
 #include <iostream>
 #include <string>
-#include <thread>
-#include <vector>
 #include "md5.hpp"
 #include "timer.hpp"
 #include "io.hpp"
-
-const int CHUNK { 100 }, THREADS { 2 };
 
 int main (int argc, char* argv []) {
   bool part2 { argc == 2 };
