@@ -25,7 +25,7 @@ bool valid (const std::string & pw) {
 
 std::string& next (std::string & pw) {
   do {
-    for (char & c : io::reverser <std::string> (pw))
+    for (char & c : io::reverser (pw))
       if (next_letter (c) != 'a')
         break;
   } while (!valid (pw));

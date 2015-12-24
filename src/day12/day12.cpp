@@ -29,7 +29,7 @@ int main (int argc, char* argv[]) {
             value = value * 10 + (input [i + 1] - '0');
           sum = (minus ? sum - value : sum + value );
         }
-				minus = false;
+        minus = false;
     }
   }
   std::cout << sum << std::endl;
