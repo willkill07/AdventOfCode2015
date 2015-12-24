@@ -14,7 +14,7 @@ int sum (const Grid & a) {
 }
 
 int main (int argc, char* argv[]) {
-  bool part2 { argc == 2};
+  bool part2 { argc == 2 && strncmp (argv[1], "part2", 5) == 0 };
   size_t curr { 1 }, prev { 0 };
   {
     size_t x { 0 }, y { 0 };

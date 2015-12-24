@@ -21,7 +21,7 @@ struct Str {
 };
 
 int main (int argc, char* argv[]) {
-  bool part2 { argc == 2 };
+  bool part2 { argc == 2 && strncmp (argv[1], "part2", 5) == 0 };
   std::cout << std::accumulate (io::as <std::string> (std::cin), { }, 0, Str { part2 }) << std::endl;
   return 0;
 }

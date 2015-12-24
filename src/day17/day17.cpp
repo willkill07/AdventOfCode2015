@@ -9,7 +9,7 @@
 const int TARGET { 150 };
 
 int main (int argc, char* argv[]) {
-  bool part2 { argc == 2 };
+  bool part2 { argc == 2 && strncmp (argv[1], "part2", 5) == 0 };
   std::vector <int> con;
   std::array <int, TARGET + 1> best, ways;
   std::fill (std::begin (best), std::end (best), std::numeric_limits <int>::max() - 1);

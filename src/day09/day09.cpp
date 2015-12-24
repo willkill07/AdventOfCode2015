@@ -15,7 +15,7 @@ static const std::regex PARSE { R"((\w+) to (\w+) = (\d+))" };
 static std::hash <std::string> hash;
 
 int main (int argc, char* argv[]) {
-  bool part2 { argc == 2 };
+  bool part2 { argc == 2 && strncmp (argv[1], "part2", 5) == 0 };
   std::unordered_map <size_t, int> dist;
   std::set <size_t> p;
   for (const auto & line : io::by_line (std::cin)) {

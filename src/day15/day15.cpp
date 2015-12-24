@@ -33,7 +33,7 @@ void for_all (int r, int n, std::function <void (int*)> f) {
 }
 
 int main (int argc, char* argv[]) {
-  bool part2 { argc == 2 };
+  bool part2 { argc == 2 && strncmp (argv[1], "part2", 5) == 0 };
   int count { 0 }, max { 0 };
   std::vector <Ingredient> ingredients;
   for (const auto & line : io::by_line { std::cin }) {

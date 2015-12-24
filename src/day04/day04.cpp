@@ -5,7 +5,7 @@
 #include "io.hpp"
 
 int main (int argc, char* argv []) {
-  bool part2 { argc == 2 };
+  bool part2 { argc == 2 && strncmp (argv[1], "part2", 5) == 0 };
   std::string input { io::as_string (std::cin) };
   int index { 0 }, off { 0 };
   while ((part2 && off < 6) || (!part2 && off < 5))
