@@ -8,7 +8,7 @@
 
 int64_t check (const std::vector <int> & nums, int target) {
   size_t min { 1 };
-  while (std::accumulate (nums.rbegin(), nums.rbegin() + ++min, 0) <= target);
+  while (std::accumulate (nums.rbegin(), nums.rbegin() + min++, 0) <= target);
   std::vector <size_t> ind (min);
   for (size_t r { min }; true; ind.resize (++r)) {
     util::combination comb { nums.size(), r };
