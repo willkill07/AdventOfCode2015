@@ -17,7 +17,7 @@ Pos& apply (Pos& p, char c) {
 }
 
 int main (int argc, char* argv[]) {
-  bool part2 { argc == 2 };
+  bool part2 { argc == 2 && strncmp (argv[1], "part2", 5) == 0 };
   std::map <Pos, int> p;
   Pos p1 { 0, 0 }, p2 { 0, 0 };
   bool santa { true };

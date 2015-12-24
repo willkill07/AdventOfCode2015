@@ -8,7 +8,7 @@
 static const std::regex PARSE { R"((\d+)x(\d+)x(\d+))" };
 
 int main (int argc, char* argv []) {
-  bool part2 { argc == 2 };
+  bool part2 { argc == 2 && strncmp (argv[1], "part2", 5) == 0 };
   int total { 0 }, b[3];
   std::smatch m;
   for (auto line : io::by_line { std::cin }) {

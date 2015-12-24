@@ -25,7 +25,7 @@ bool valid (const std::string & pw) {
 
 std::string& next (std::string & pw) {
   do {
-    for (char & c : io::reverser <std::string> (pw))
+    for (char & c : io::reverser (pw))
       if (next_letter (c) != 'a')
         break;
   } while (!valid (pw));
@@ -33,7 +33,7 @@ std::string& next (std::string & pw) {
 }
 
 int main (int argc, char* argv[]) {
-  bool part2 { argc == 2 };
+  bool part2 { argc == 2 && strncmp (argv[1], "part2", 5) == 0 };
   std::string pw { io::as_string (std::cin) };
   std::cout << next (part2 ? next (pw) : pw) << std::endl;
   return 0;

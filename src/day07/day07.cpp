@@ -42,9 +42,9 @@ struct Circuit {
   void operator() (std::string line) {
     std::smatch m;
     if (std::regex_match (line, m, ASSIGN_OP)) {
-      lookup.emplace (m.str (2), Gate { m.str (1), [] (Int a, Int b) { return a; } });
+      lookup.emplace (m.str (2), Gate { m.str (1), [] (Int a, Int b) { return b = a; } });
     } else if (std::regex_match (line, m, NOT_OP)) {
-      lookup.emplace (m.str (2), Gate { m.str (1) , [] (Int a, Int b) { return ~a; } });
+      lookup.emplace (m.str (2), Gate { m.str (1) , [] (Int a, Int b) { return b = ~a; } });
     } else if (std::regex_match (line, m, BINARY_OP)) {
       lookup.emplace (m.str (4), Gate { m.str (1), m.str (3),
             ((m.str (2) == "AND") ? [] (Int a, Int b) { return a & b; } :
@@ -56,7 +56,7 @@ struct Circuit {
 };
 
 int main (int argc, char* argv []) {
-  bool part2 { argc == 2 };
+  bool part2 { argc == 2 && strncmp (argv[1], "part2", 5) == 0 };
   Circuit c;
   std::for_each (io::as_line (std::cin), { }, std::ref (c));
   if (part2)

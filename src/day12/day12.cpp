@@ -5,7 +5,7 @@
 #include "io.hpp"
 
 int main (int argc, char* argv[]) {
-  bool part2 { argc == 2 }, minus { false };
+  bool part2 { argc == 2 && strncmp (argv[1], "part2", 5) == 0 }, minus { false };
   int sum { 0 }, value { 0 };
   std::stack <int> data;
   std::string input { io::as_string (std::cin) };
@@ -29,7 +29,7 @@ int main (int argc, char* argv[]) {
             value = value * 10 + (input [i + 1] - '0');
           sum = (minus ? sum - value : sum + value );
         }
-				minus = false;
+        minus = false;
     }
   }
   std::cout << sum << std::endl;

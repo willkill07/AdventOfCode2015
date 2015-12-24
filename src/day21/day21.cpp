@@ -14,7 +14,7 @@ const static std::array <Item,6> ARMOR {{{13,0,1},{31,0,2},{53,0,3},{75,0,4},{10
 const static std::array <Item,7> RINGS {{{25,1,0},{50,2,0},{100,3,0},{20,0,1},{40,0,2},{80,0,3}}};
 
 int main (int argc, char* argv[]) {
-  bool part2 { argc == 2 };
+  bool part2 { argc == 2 && strncmp (argv[1], "part2", 5) == 0 };
   std::smatch m;
   std::string data { io::as_string (std::cin) };
   std::regex_search (data, m, PARSE_FILE);

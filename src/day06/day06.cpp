@@ -11,7 +11,7 @@ enum Action {
 };
 
 int main (int argc, char* argv []) {
-  bool part2 { argc == 2 };
+  bool part2 { argc == 2 && strncmp (argv[1], "part2", 5) == 0 };
   std::valarray <int> lights (1000000);
   for (const auto & line : io::by_line { std::cin }) {
     std::smatch m { io::regex_parse (line, PARSER) };

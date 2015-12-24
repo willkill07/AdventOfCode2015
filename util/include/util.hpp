@@ -2,6 +2,7 @@
 #define _WILLIAM_KILLIAN_UTIL_HPP_
 
 #include <algorithm>
+#include <string>
 #include <vector>
 
 namespace util {
@@ -25,6 +26,19 @@ namespace util {
     }
   };
 
+  constexpr uint64_t hash (const char* str) {
+    uint64_t ret { 0xCBF29CE484222325ull };
+    while(*str) ret ^= *(str++), ret *= 0x100000001B3ull;
+    return ret;
+  }
+
+  constexpr uint64_t hash (const std::string & str) {
+    return hash (str.c_str());
+  }
+}
+
+constexpr uint64_t operator "" _hash (const char* p, size_t) {
+  return util::hash (p);
 }
 
 #endif

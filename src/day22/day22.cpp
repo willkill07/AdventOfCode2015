@@ -65,7 +65,7 @@ void round (bool part2, Game g, int spell, short & best) {
 }
 
 int main (int argc, char* argv[]) {
-  bool part2 { argc == 2};
+  bool part2 { argc == 2 && strncmp (argv[1], "part2", 5) == 0 };
   std::smatch m;
   short best { std::numeric_limits <short>::max() };
   std::string input { io::as_string (std::cin) };

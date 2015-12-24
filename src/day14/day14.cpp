@@ -21,7 +21,7 @@ struct Reindeer {
 };
 
 int main (int argc, char* argv[]) {
-  bool part2 { argc == 2 };
+  bool part2 { argc == 2 && strncmp (argv[1], "part2", 5) == 0 };
   std::vector <Reindeer> deer;
 
   for (const auto & line : io::by_line { std::cin }) {

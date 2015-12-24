@@ -8,7 +8,7 @@
 
 int64_t check (const std::vector <int> & nums, int target) {
   size_t min { 1 };
-  while (std::accumulate (nums.rbegin(), nums.rbegin() + ++min, 0) <= target);
+  while (std::accumulate (nums.rbegin(), nums.rbegin() + min++, 0) <= target);
   std::vector <size_t> ind (min);
   for (size_t r { min }; true; ind.resize (++r)) {
     util::combination comb { nums.size(), r };
@@ -24,7 +24,7 @@ int64_t check (const std::vector <int> & nums, int target) {
 }
 
 int main (int argc, char* argv[]) {
-  bool part2 { argc == 2 };
+  bool part2 { argc == 2 && strncmp (argv[1], "part2", 5) == 0 };
   const int BUCKETS { part2 ? 4 : 3 };
   std::vector <int> nums;
   std::copy (io::as <int> (std::cin), { }, std::back_inserter (nums));
