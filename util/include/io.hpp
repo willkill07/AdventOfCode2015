@@ -7,56 +7,48 @@
 #include <regex>
 
 namespace io {
+
   namespace detail {
     class line : public std::string {
-      friend std::istream & operator>> (std::istream & i, line & l) {
-        return std::getline (i, l);
-      }
+      friend std::istream & operator>> (std::istream & i, line & l);
     };
   }
+  using line = detail::line;
 
-  std::sregex_iterator re_search (const std::string & str, const std::regex & re) {
-    return { std::begin (str), std::end (str), re };
-  }
+  std::sregex_iterator re_search (const std::string & str, const std::regex & re);
 
-  std::string as_string (std::istream& is) {
-    return { std::istream_iterator <char> { is }, { } };
-  }
+  std::string as_string (std::istream& is);
 
   class by_match {
     std::sregex_iterator bi, ei;
 
   public:
-    by_match (const std::string & str, const std::regex & re)
-      : bi { re_search (str, re) }, ei { } { }
-
-    std::sregex_iterator begin() {
-      return bi;
-    }
-
-    std::sregex_iterator end() {
-      return ei;
-    }
+    by_match (const std::string & str, const std::regex & re);
+    std::sregex_iterator begin();
+    std::sregex_iterator end();
   };
 
-  class by_line {
-    std::istream& is;
-
+  template <typename T>
+  class by_impl {
+    std::istream & is;
   public:
-    using iter = std::istream_iterator <detail::line>;
-
-    by_line (std::istream & i) : is { i } { }
-
-    iter begin() {
+    using iterator = std::istream_iterator <T>;
+    by_impl (std::istream & i) : is { i } { }
+    iterator begin() {
       return { is };
     }
-
-    iter end() {
+    iterator end () {
       return { };
     }
   };
 
-  by_line::iter as_line (std::istream& is) {
+  template <typename T>
+  by_impl<T> by (std::istream & is) {
+    return { is };
+  }
+
+  template <typename T>
+  typename by_impl<T>::iterator as (std::istream & is) {
     return { is };
   }
 
@@ -86,20 +78,9 @@ namespace io {
     return { data };
   }
 
-  template <typename T>
-  std::istream_iterator <T> as (std::istream& is) {
-    return { is };
-  }
+  int to_int (const std::string & s);
 
-  int to_int (const std::string & s) {
-    return std::stoi (s);
-  }
-
-  std::smatch regex_parse (const std::string & str, const std::regex re) {
-    std::smatch res;
-    std::regex_match (str, res, re);
-    return std::move (res);
-  }
+  std::smatch regex_parse (const std::string & str, const std::regex & re);
 }
 
 #endif

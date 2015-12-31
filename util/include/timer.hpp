@@ -18,15 +18,11 @@ Timer
 
   double current () {
     Point end { Timing::now() };
-    return std::chrono::duration <double> { end - begin }.count();
+    return std::chrono::duration <double, std::milli> { end - begin }.count();
   }
 
-  ~Timer() {
-    printf ("    time: %0.8lfs\n", current());
-  }
+  ~Timer() { }
 
 };
-
-Timer t;
 
 #endif
