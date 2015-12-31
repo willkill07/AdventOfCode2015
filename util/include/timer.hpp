@@ -21,12 +21,8 @@ Timer
     return std::chrono::duration <double> { end - begin }.count();
   }
 
-  ~Timer() {
-    printf ("    time: %0.8lfs\n", current());
-  }
+  ~Timer() { }
 
 };
-
-Timer t;
 
 #endif
