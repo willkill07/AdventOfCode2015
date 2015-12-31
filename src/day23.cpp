@@ -10,7 +10,7 @@ using Ptr = std::vector <Inst>::const_iterator;
 Day23::Day23 () : Solution { "day23" } { }
 
 void Day23::solve (bool part2) {
-	const static std::regex PARSE { R"((\w+) (a|b|[-+\d]+)(, ([-+\d]+))?)" };
+  const static std::regex PARSE { R"((\w+) (a|b|[-+\d]+)(, ([-+\d]+))?)" };
   int a { part2 }, b { 0 };
   auto getRef = [&] (const std::string & s) -> int & { return (s == "a") ? a : b; };
   std::vector <Inst> ins; Ptr pc;

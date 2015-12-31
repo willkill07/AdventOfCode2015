@@ -12,7 +12,7 @@ using FnType = int const & (*)(int const &, int const &);
 Day09::Day09 () : Solution { "day09" } { }
 
 void Day09::solve (bool part2) {
-	static const std::regex PARSE { R"((\w+) to (\w+) = (\d+))" };
+  static const std::regex PARSE { R"((\w+) to (\w+) = (\d+))" };
   std::unordered_map <size_t, int> dist;
   std::set <size_t> p;
   for (const auto & line : io::by_line (ifs)) {

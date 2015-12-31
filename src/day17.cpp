@@ -8,7 +8,7 @@
 Day17::Day17 () : Solution { "day17" } { }
 
 void Day17::solve (bool part2) {
-	const int TARGET { 150 };
+  const int TARGET { 150 };
   std::vector <int> con;
   static std::array <int, TARGET + 1> best, ways;
   std::fill (std::begin (best), std::end (best), std::numeric_limits <int>::max() - 1);

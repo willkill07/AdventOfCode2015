@@ -18,8 +18,8 @@ struct Reindeer {
 
 void Day14::solve (bool part2) {
   const static std::regex PARSE { R"(\w+ can fly (\d+) km/s for (\d+) seconds, but then must rest for (\d+) seconds.)" };
-	const int TIME { 2503 };
-	std::vector <Reindeer> deer;
+  const int TIME { 2503 };
+  std::vector <Reindeer> deer;
   for (const auto & line : io::by_line { ifs }) {
     std::smatch m { io::regex_parse (line, PARSE) };
     deer.emplace_back (std::stoi (m.str (1)), std::stoi (m.str (2)), std::stoi (m.str (3)));
@@ -41,8 +41,8 @@ void Day14::solve (bool part2) {
     }
   }
   int winner { part2
-    ? std::max_element (std::begin (deer), std::end (deer), COMPARE_BY (points))->points
-    : std::max_element (std::begin (deer), std::end (deer), COMPARE_BY (dist))->dist
-  };
+      ? std::max_element (std::begin (deer), std::end (deer), COMPARE_BY (points))->points
+      : std::max_element (std::begin (deer), std::end (deer), COMPARE_BY (dist))->dist
+      };
   std::cout << winner << std::endl;
 }

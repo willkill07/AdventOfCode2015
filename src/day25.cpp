@@ -15,7 +15,7 @@ uint64_t modExp (uint64_t b, uint64_t e, uint64_t m) {
 Day25::Day25 () : Solution { "day25" } { }
 
 void Day25::solve (bool part2) {
-	if (part2)
+  if (part2)
     std::cout << "Happy Advent of Code :)" << std::endl;
   else {
     std::smatch m { io::regex_parse (io::as_string (ifs), std::regex { R"([^\d\s]+(\d+)[^\d\s]+(\d+)[^\d\s]+)" }) };

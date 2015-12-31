@@ -9,8 +9,8 @@ enum Action {
 };
 
 void Day06::solve (bool part2) {
-	static const std::regex PARSER { R"((turn (off|on)|toggle) (\d+),(\d+) through (\d+),(\d+))" };
-	std::valarray <int> lights (1000000);
+  static const std::regex PARSER { R"((turn (off|on)|toggle) (\d+),(\d+) through (\d+),(\d+))" };
+  std::valarray <int> lights (1000000);
   for (const auto & line : io::by_line { ifs }) {
     std::smatch m { io::regex_parse (line, PARSER) };
     Action a = ((m.str (1) == "toggle") ? TOGGLE : ((m.str (2) == "on") ? ON : OFF));

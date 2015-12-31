@@ -6,14 +6,14 @@
 #include <string>
 
 class Solution {
-	std::string name;
+  std::string name;
 protected:
-	std::ifstream ifs;
-	virtual void solve (bool part2) = 0;
+  std::ifstream ifs;
+  virtual void solve (bool part2) = 0;
 public:
-	Solution (std::string n);
-	void timeSolve (bool part2);
-	std::string getDay ();
+  Solution (std::string n);
+  void timeSolve (bool part2);
+  std::string getDay ();
 };
 
 class Day01 : public Solution { public: Day01(); protected: void solve (bool); };

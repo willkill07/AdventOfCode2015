@@ -10,7 +10,7 @@
 Day13::Day13 () : Solution { "day13" } { }
 
 void Day13::solve (bool part2) {
-	static const std::regex PARSE { R"((\w+) would (gain|lose) (\d+) happiness units by sitting next to (\w+).)" };
+  static const std::regex PARSE { R"((\w+) would (gain|lose) (\d+) happiness units by sitting next to (\w+).)" };
   std::unordered_map <size_t, int> dist;
   std::set <size_t> p;
   for (const auto & line : io::by_line (ifs)) {

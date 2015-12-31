@@ -22,11 +22,11 @@ public:
       return true;
     mana -= COST [spell], c += COST [spell];
     switch (spell) {
-      case 0: b_hp -= 4; break;
-      case 1: b_hp -= 2, p_hp += 2; break;
-      case 2: if (ts <= 0) ts = 6; else return true; break;
-      case 3: if (tp <= 0) tp = 6; else return true; break;
-      case 4: if (tr <= 0) tr = 5; else return true; break;
+    case 0: b_hp -= 4; break;
+    case 1: b_hp -= 2, p_hp += 2; break;
+    case 2: if (ts <= 0) ts = 6; else return true; break;
+    case 3: if (tp <= 0) tp = 6; else return true; break;
+    case 4: if (tr <= 0) tr = 5; else return true; break;
     }
     return false;
   }

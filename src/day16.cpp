@@ -23,6 +23,6 @@ void Day16::solve (bool part2) {
   for (const std::string & line : io::by_line { ifs })
     if (std::accumulate (io::re_search (line, ITEM), { }, true, [&] (bool v, const auto &m) { return v && check (m.str (1), std::stoi (m.str (2)), part2); })) {
       std::cout << io::re_search (line, NUMBER)->str (1) << std::endl;
-			return;
-		}
+      return;
+    }
 }

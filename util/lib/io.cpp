@@ -1,9 +1,9 @@
 #include "io.hpp"
 
 namespace io {
-	std::istream & detail::operator>> (std::istream & i, detail::line & l) {
-		return std::getline (i, l);
-	}
+  std::istream & detail::operator>> (std::istream & i, detail::line & l) {
+    return std::getline (i, l);
+  }
 
   std::sregex_iterator re_search (const std::string & str, const std::regex & re) {
     return { std::begin (str), std::end (str), re };
@@ -13,32 +13,32 @@ namespace io {
     return { std::istream_iterator <char> { is }, { } };
   }
 
-	by_match::by_match (const std::string & str, const std::regex & re)
-      : bi { re_search (str, re) }, ei { } { }
+  by_match::by_match (const std::string & str, const std::regex & re)
+    : bi { re_search (str, re) }, ei { } { }
 
-	std::sregex_iterator by_match::begin() {
-		return bi;
-	}
+  std::sregex_iterator by_match::begin() {
+    return bi;
+  }
 
-	std::sregex_iterator by_match::end() {
-		return ei;
-	}
+  std::sregex_iterator by_match::end() {
+    return ei;
+  }
 
-	by_line::by_line (std::istream & i) : is { i } { }
+  by_line::by_line (std::istream & i) : is { i } { }
 
-	by_line::iter by_line::begin() {
-		return { is };
-	}
+  by_line::iter by_line::begin() {
+    return { is };
+  }
 
-	by_line::iter by_line::end() {
-		return { };
-	}
+  by_line::iter by_line::end() {
+    return { };
+  }
 
   by_line::iter as_line (std::istream& is) {
     return { is };
   }
 
-	int to_int (const std::string & s) {
+  int to_int (const std::string & s) {
     return std::stoi (s);
   }
 

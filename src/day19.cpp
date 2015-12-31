@@ -7,7 +7,7 @@ Day19::Day19 () : Solution { "day19" } { }
 
 void Day19::solve (bool part2) {
   const static std::regex PARSE { R"((\w+) => (\w+))" };
-	size_t pos { 0 }, res { 0 };
+  size_t pos { 0 }, res { 0 };
   std::string mol;
   std::smatch m;
   std::unordered_set <std::string> set;

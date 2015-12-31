@@ -9,10 +9,10 @@ using Pos = std::tuple <int, int>;
 
 Pos& apply (Pos& p, char c) {
   switch (c) {
-    case '<': --std::get<1> (p); break;
-    case '>': ++std::get<1> (p); break;
-    case 'v': --std::get<0> (p); break;
-    case '^': ++std::get<0> (p); break;
+  case '<': --std::get<1> (p); break;
+  case '>': ++std::get<1> (p); break;
+  case 'v': --std::get<0> (p); break;
+  case '^': ++std::get<0> (p); break;
   }
   return p;
 }

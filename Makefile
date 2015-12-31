@@ -12,7 +12,7 @@ advent : $(OBJECTS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $^ -o $@
 
 run : advent
-	@./adcent
+	@./$<
 
 clean:
 	@-rm -vf $(OBJECTS)
