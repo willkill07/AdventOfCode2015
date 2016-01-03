@@ -12,9 +12,7 @@ uint64_t modExp (uint64_t b, uint64_t e, uint64_t m) {
   return x;
 }
 
-Day25::Day25 () : Solution { "day25" } { }
-
-void Day25::solve (bool part2) {
+void Day25::solve (bool part2, std::ifstream & ifs) {
   if (part2)
     std::cout << "Happy Advent of Code :)" << std::endl;
   else {

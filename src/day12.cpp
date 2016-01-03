@@ -2,9 +2,7 @@
 #include "Solution.hpp"
 #include "io.hpp"
 
-Day12::Day12 () : Solution { "day12" } { }
-
-void Day12::solve (bool part2) {
+void Day12::solve (bool part2, std::ifstream & ifs) {
   bool minus { false };
   int sum { 0 }, value { 0 };
   std::stack <int> data;

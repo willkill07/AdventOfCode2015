@@ -5,8 +5,6 @@
 #include "io.hpp"
 #include "util.hpp"
 
-Day16::Day16 () : Solution { "day16" } { }
-
 using FnType = std::function <bool (int, int)>;
 using MapType = std::unordered_map <uint64_t, std::pair <int, FnType>>;
 
@@ -19,7 +17,7 @@ bool check (const std::string & key, int val, bool part2) {
   return (part2 ? data.second : EQ) (val, data.first);
 }
 
-void Day16::solve (bool part2) {
+void Day16::solve (bool part2, std::ifstream & ifs) {
   for (const std::string & line : io::by_line { ifs })
     if (std::accumulate (io::re_search (line, ITEM), { }, true, [&] (bool v, const auto &m) { return v && check (m.str (1), std::stoi (m.str (2)), part2); })) {
       std::cout << io::re_search (line, NUMBER)->str (1) << std::endl;

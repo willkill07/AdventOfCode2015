@@ -1,18 +1,20 @@
 CC := clang++
 CXX := clang++
-CPPFLAGS := -Iutil/include
-CXXFLAGS := -O3 -march=native -std=c++14 -Wall -Wextra -Werror -pedantic -pedantic-errors
+CPPFLAGS := -Iutil/include -std=c++14 -MMD -O3 -march=native
+CXXFLAGS := -emit-llvm -Wall -Wextra -Werror -pedantic -pedantic-errors
 FILES := $(wildcard src/*.cpp)  $(wildcard util/lib/*.cpp)
 OBJECTS := $(FILES:.cpp=.o)
-vpath %.cpp util/lib
+DEPENDS := $(FILES:.cpp=.d)
 
-.PHONY : advent run
+.PHONY : run clean
 
 advent : $(OBJECTS)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $^ -o $@
+	$(CXX) $(CPPFLAGS) $^ -o $@
 
 run : advent
 	@./$<
 
 clean:
 	@-rm -vf $(OBJECTS)
+
+-include $(DEPENDS)

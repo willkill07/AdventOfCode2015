@@ -2,13 +2,11 @@
 #include "Solution.hpp"
 #include "io.hpp"
 
-Day06::Day06 () : Solution { "day06" } { }
-
 enum Action {
   ON = 1, OFF = -1, TOGGLE = 2
 };
 
-void Day06::solve (bool part2) {
+void Day06::solve (bool part2, std::ifstream & ifs) {
   static const std::regex PARSER { R"((turn (off|on)|toggle) (\d+),(\d+) through (\d+),(\d+))" };
   std::valarray <int> lights (1000000);
   for (const auto & line : io::by_line { ifs }) {

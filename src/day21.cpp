@@ -9,9 +9,7 @@ const static std::array <Item,5> WEAPONS {{{8,4,0},{10,5,0},{25,6,0},{40,7,0},{7
 const static std::array <Item,6> ARMOR {{{13,0,1},{31,0,2},{53,0,3},{75,0,4},{102,0,5}}};
 const static std::array <Item,7> RINGS {{{25,1,0},{50,2,0},{100,3,0},{20,0,1},{40,0,2},{80,0,3}}};
 
-Day21::Day21 () : Solution { "day21" } { }
-
-void Day21::solve (bool part2) {
+void Day21::solve (bool part2, std::ifstream & ifs) {
   std::smatch m;
   std::string data { io::as_string (ifs) };
   std::regex_search (data, m, std::regex { R"([^\d]+(\d+)[^\d]+(\d+)[^\d]+(\d+))" });

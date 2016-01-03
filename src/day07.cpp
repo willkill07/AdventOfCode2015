@@ -2,8 +2,6 @@
 #include "Solution.hpp"
 #include "io.hpp"
 
-Day07::Day07 () : Solution { "day07" } { }
-
 const std::regex ASSIGN_OP { R"((\w+) -> (\w+))" }, NOT_OP { R"(NOT (\w+) -> (\w+))" }, BINARY_OP { R"((\w+) (AND|OR|LSHIFT|RSHIFT) (\w+) -> (\w+))" };
 
 using Int = std::uint16_t;
@@ -54,7 +52,7 @@ struct Circuit {
   }
 };
 
-void Day07::solve (bool part2) {
+void Day07::solve (bool part2, std::ifstream & ifs) {
   Circuit c;
   std::for_each (io::as_line (ifs), { }, std::ref (c));
   if (part2)

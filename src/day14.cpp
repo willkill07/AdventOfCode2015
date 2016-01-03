@@ -5,8 +5,6 @@
 
 #define COMPARE_BY(X) [] (const auto & d1, const auto & d2) { return d1 . X < d2 . X; }
 
-Day14::Day14 () : Solution { "day14" } { }
-
 struct Reindeer {
   int speed { 0 }, go { 0 }, rest { 0 }, dist { 0 }, points { 0 };
   explicit Reindeer() {}
@@ -16,7 +14,7 @@ struct Reindeer {
   }
 };
 
-void Day14::solve (bool part2) {
+void Day14::solve (bool part2, std::ifstream & ifs) {
   const static std::regex PARSE { R"(\w+ can fly (\d+) km/s for (\d+) seconds, but then must rest for (\d+) seconds.)" };
   const int TIME { 2503 };
   std::vector <Reindeer> deer;

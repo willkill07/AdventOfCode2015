@@ -1,8 +1,6 @@
 #include "Solution.hpp"
 #include "io.hpp"
 
-Day11::Day11 () : Solution { "day11" } { }
-
 char & next_letter (char & c) {
   return (c = (c == 'z' ? 'a' : c + 1 + (c == 'h' || c == 'n' || c == 'k')));
 }
@@ -32,7 +30,7 @@ std::string& next (std::string & pw) {
   return pw;
 }
 
-void Day11::solve (bool part2) {
+void Day11::solve (bool part2, std::ifstream & ifs) {
   std::string pw { io::as_string (ifs) };
   std::cout << next (part2 ? next (pw) : pw) << std::endl;
 }

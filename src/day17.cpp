@@ -5,9 +5,7 @@
 #include "Solution.hpp"
 #include "io.hpp"
 
-Day17::Day17 () : Solution { "day17" } { }
-
-void Day17::solve (bool part2) {
+void Day17::solve (bool part2, std::ifstream & ifs) {
   const int TARGET { 150 };
   std::vector <int> con;
   static std::array <int, TARGET + 1> best, ways;

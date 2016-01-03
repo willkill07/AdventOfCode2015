@@ -28,9 +28,7 @@ void for_all (int r, int n, std::function <void (int*)> f) {
   });
 }
 
-Day15::Day15 () : Solution { "day15" } { }
-
-void Day15::solve (bool part2) {
+void Day15::solve (bool part2, std::ifstream & ifs) {
   const static std::regex PARSE { R"(\w+: capacity (-?\d+), durability (-?\d+), flavor (-?\d+), texture (-?\d+), calories (-?\d+))" };
   int count { 0 }, max { 0 };
   std::vector <Ingredient> ingredients;

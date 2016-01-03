@@ -4,9 +4,7 @@
 #include "Solution.hpp"
 #include "io.hpp"
 
-Day10::Day10 () : Solution { "day10" } { }
-
-void Day10::solve (bool part2) {
+void Day10::solve (bool part2, std::ifstream & ifs) {
   std::vector <char> s;
   std::transform (io::as<char> (ifs), { }, std::back_inserter (s), [] (char c) { return c - '0'; });
   for (int i { 0 }; i < (part2 ? 50 : 40); ++i) {

@@ -7,9 +7,7 @@
 #include "io.hpp"
 #include "util.hpp"
 
-Day13::Day13 () : Solution { "day13" } { }
-
-void Day13::solve (bool part2) {
+void Day13::solve (bool part2, std::ifstream & ifs) {
   static const std::regex PARSE { R"((\w+) would (gain|lose) (\d+) happiness units by sitting next to (\w+).)" };
   std::unordered_map <size_t, int> dist;
   std::set <size_t> p;

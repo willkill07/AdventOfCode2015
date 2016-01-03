@@ -3,8 +3,6 @@
 #include "Solution.hpp"
 #include "io.hpp"
 
-Day22::Day22 () : Solution { "day22" } { }
-
 class Game {
   short c { 0 }, mana { 500 }, p_hp { 50 }, b_hp { 0 };
   char p_p { 0 }, b_p { 0 }, ts { 0 }, tp { 0 }, tr { 0 };
@@ -63,7 +61,7 @@ void round (bool part2, Game g, int spell, short & best) {
     round (part2, g, i, best);
 }
 
-void Day22::solve (bool part2) {
+void Day22::solve (bool part2, std::ifstream & ifs) {
   std::smatch m;
   short best { std::numeric_limits <short>::max() };
   std::string input { io::as_string (ifs) };

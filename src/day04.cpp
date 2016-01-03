@@ -2,13 +2,11 @@
 #include "io.hpp"
 #include "md5.hpp"
 
-Day04::Day04 () : Solution { "day04" } { }
-
 int countZeros (const md5sum_t & sum) {
   return __builtin_ctz (((sum[0] & 0xF0F0F0F0) >> 4) | ((sum[0] & 0x0F0F0F0F) << 4)) >> 2;
 }
 
-void Day04::solve (bool part2) {
+void Day04::solve (bool part2, std::ifstream & ifs) {
   std::string input { io::as_string (ifs) };
   int index { 0 }, off { 0 }, length { (int)input.size() };
   input.resize (192);

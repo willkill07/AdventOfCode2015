@@ -3,8 +3,6 @@
 #include "io.hpp"
 #define FORALL(X,Y) for (size_t Y { 1 }; Y <= N; ++Y) for (size_t X { 1 }; X <= N; ++X)
 
-Day18::Day18 () : Solution { "day18" } { }
-
 const size_t N { 100 };
 const size_t SPAN { N + 2 };
 using Grid = std::array <std::array <int, SPAN>, SPAN>;
@@ -14,7 +12,7 @@ int sum (const Grid & a) {
   int s { 0 }; FORALL(x,y) s += a[y][x]; return s;
 }
 
-void Day18::solve (bool part2) {
+void Day18::solve (bool part2, std::ifstream & ifs) {
   size_t curr { 1 }, prev { 0 };
   {
     size_t x { 0 }, y { 0 };

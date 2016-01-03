@@ -2,9 +2,7 @@
 #include "Solution.hpp"
 #include "io.hpp"
 
-Day20::Day20 () : Solution { "day20" } { }
-
-void Day20::solve (bool part2) {
+void Day20::solve (bool part2, std::ifstream & ifs) {
   static std::array <int, 1000000> points;
   int sum { std::stoi (io::as_string (ifs)) }, weight { part2 ? 11 : 10 };
   size_t elf { 1 };

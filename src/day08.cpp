@@ -3,8 +3,6 @@
 #include "Solution.hpp"
 #include "io.hpp"
 
-Day08::Day08 () : Solution { "day08" } { }
-
 static const std::regex REDUCE { R"(\\(\\|\"|x[0-9a-f]{2}))" }, EXPAND { R"(\"|\\)" };
 
 struct Str {
@@ -19,6 +17,6 @@ struct Str {
   }
 };
 
-void Day08::solve (bool part2) {
+void Day08::solve (bool part2, std::ifstream & ifs) {
   std::cout << std::accumulate (io::as <std::string> (ifs), { }, 0, Str { part2 }) << std::endl;
 }

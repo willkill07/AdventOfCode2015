@@ -18,7 +18,7 @@ Timer
 
   double current () {
     Point end { Timing::now() };
-    return std::chrono::duration <double> { end - begin }.count();
+    return std::chrono::duration <double, std::milli> { end - begin }.count();
   }
 
   ~Timer() { }
