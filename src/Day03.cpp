@@ -15,7 +15,7 @@ Pos& apply (Pos& p, char c) {
   return p;
 }
 
-void Day03::solve (bool part2, std::ifstream & ifs) {
+template <> void solve <Day03> (bool part2, std::istream & ifs) {
   std::map <Pos, int> p;
   Pos p1 { 0, 0 }, p2 { 0, 0 };
   bool santa { true };

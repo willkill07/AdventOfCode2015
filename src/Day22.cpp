@@ -61,7 +61,7 @@ void round (bool part2, Game g, int spell, short & best) {
     round (part2, g, i, best);
 }
 
-void Day22::solve (bool part2, std::ifstream & ifs) {
+template <> void solve<Day22> (bool part2, std::istream & ifs) {
   short best { std::numeric_limits <short>::max() };
   std::string line { io::as_string (ifs) };
   std::smatch m { io::regex_parse (line, std::regex { R"([^:]+: (\d+)\s+[^:]+: (\d+)\s+)" }) };

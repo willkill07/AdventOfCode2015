@@ -14,7 +14,7 @@ struct Reindeer {
   }
 };
 
-void Day14::solve (bool part2, std::ifstream & ifs) {
+template <> void solve <Day14> (bool part2, std::istream & ifs) {
   const static std::regex PARSE { R"(\w+ can fly (\d+) km/s for (\d+) seconds, but then must rest for (\d+) seconds.)" };
   const int TIME { 2503 };
   std::vector <Reindeer> deer;

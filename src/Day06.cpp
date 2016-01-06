@@ -6,8 +6,8 @@ enum Action {
   ON = 1, OFF = -1, TOGGLE = 2
 };
 
-void Day06::solve (bool part2, std::ifstream & ifs) {
-  static const std::regex PARSER { R"((turn (off|on)|toggle) (\d+),(\d+) through (\d+),(\d+))" };
+template <> void solve <Day06> (bool part2, std::istream & ifs) {
+  static const std::regex PARSER { R"((turn (on|off)|toggle) (\d+),(\d+) \w+ (\d+),(\d+))" };
   static std::array <std::array <int, 1000>, 1000> lights;
   for (auto && line : io::by <io::line> (ifs)) {
     std::smatch m { io::regex_parse (line, PARSER) };

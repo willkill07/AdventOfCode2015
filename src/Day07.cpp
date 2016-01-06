@@ -52,7 +52,7 @@ struct Circuit {
   }
 };
 
-void Day07::solve (bool part2, std::ifstream & ifs) {
+template <> void solve <Day07> (bool part2, std::istream & ifs) {
   Circuit c;
   std::for_each (io::as <io::line> (ifs), { }, std::ref (c));
   if (part2)

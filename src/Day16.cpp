@@ -19,7 +19,7 @@ bool check (const std::string & key, int val, bool part2) {
   return (part2 ? data.second : EQ) (val, data.first);
 }
 
-void Day16::solve (bool part2, std::ifstream & ifs) {
+template <> void solve <Day16> (bool part2, std::istream & ifs) {
   for (auto && line : io::by <io::line> (ifs)) {
     bool invalid { false };
     for (auto && m : io::by_match (line, ITEM))

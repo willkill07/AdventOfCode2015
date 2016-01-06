@@ -2,7 +2,7 @@
 #include "Solution.hpp"
 #include "io.hpp"
 
-void Day10::solve (bool part2, std::ifstream & ifs) {
+template <> void solve <Day10> (bool part2, std::istream & ifs) {
   std::vector <char> s, o;
   for (auto && c : io::by <char> (ifs))
     s.push_back (c - '0');

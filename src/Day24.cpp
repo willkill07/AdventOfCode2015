@@ -22,7 +22,7 @@ int64_t check (const std::vector <int> & nums, int target) {
   return 0;
 }
 
-void Day24::solve (bool part2, std::ifstream & ifs) {
+template<> void solve <Day24> (bool part2, std::istream & ifs) {
   const int BUCKETS { part2 ? 4 : 3 };
   std::vector <int> nums;
   std::copy (io::as <int> (ifs), { }, std::back_inserter (nums));

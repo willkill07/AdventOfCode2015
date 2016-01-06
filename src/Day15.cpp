@@ -28,8 +28,8 @@ void for_all (int r, int n, std::function <void (int*)> f) {
   });
 }
 
-void Day15::solve (bool part2, std::ifstream & ifs) {
-  const static std::regex PARSE { R"(\w+: capacity (-?\d+), durability (-?\d+), flavor (-?\d+), texture (-?\d+), calories (-?\d+))" };
+template <> void solve <Day15> (bool part2, std::istream & ifs) {
+  const static std::regex PARSE { R"(\w+: \w+ (-?\d+), \w+ (-?\d+), \w+ (-?\d+), \w+ (-?\d+), \w+ (-?\d+))" };
   int count { 0 }, max { 0 };
   std::vector <Ingredient> ingredients;
   for (auto && line : io::by <io::line> (ifs)) {

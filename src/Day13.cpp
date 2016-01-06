@@ -14,8 +14,8 @@ int lookup_id (const std::string & city) {
   return (lookup [city] = 1 << shift++);
 }
 
-void Day13::solve (bool part2, std::ifstream & ifs) {
-  static const std::regex PARSE { R"((\w+) would (gain|lose) (\d+) happiness units by sitting next to (\w+).)" };
+template <> void solve <Day13> (bool part2, std::istream & ifs) {
+  static const std::regex PARSE { R"((\w+) would (\w+) (\d+) happiness units by sitting next to (\w+).)" };
   std::unordered_map <int, int> dist;
   std::set <int> p;
   for (auto && line : io::by <io::line> (ifs)) {

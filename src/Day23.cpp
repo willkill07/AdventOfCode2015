@@ -7,7 +7,7 @@
 using Inst = std::pair <int, std::function <void()>>;
 using Ptr = std::vector <Inst>::const_iterator;
 
-void Day23::solve (bool part2, std::ifstream & ifs) {
+template <> void solve <Day23> (bool part2, std::istream & ifs) {
   const static std::regex PARSE { R"((\w+) (a|b|[-+\d]+)(, ([-+\d]+))?)" };
   int a { part2 }, b { 0 };
   auto getRef = [&] (auto && s) -> int & { return (s == "a") ? a : b; };

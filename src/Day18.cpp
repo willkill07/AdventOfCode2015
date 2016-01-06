@@ -12,7 +12,7 @@ int sum (const Grid & a) {
   int s { 0 }; FORALL(x,y) s += a[y][x]; return s;
 }
 
-void Day18::solve (bool part2, std::ifstream & ifs) {
+template <> void solve <Day18> (bool part2, std::istream & ifs) {
   size_t curr { 1 }, prev { 0 };
   {
     size_t x { 0 }, y { 0 };

@@ -16,7 +16,7 @@ int get_id (const std::string & city) {
   return (lookup [city] = 1 << shift++);
 }
 
-void Day09::solve (bool part2, std::ifstream & ifs) {
+template <> void solve <Day09> (bool part2, std::istream & ifs) {
   static const std::regex PARSE { R"((\w+) to (\w+) = (\d+))" };
   std::unordered_map <int, int> dist;
   std::set <int> p;

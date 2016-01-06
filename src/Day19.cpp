@@ -3,7 +3,7 @@
 #include "Solution.hpp"
 #include "io.hpp"
 
-void Day19::solve (bool part2, std::ifstream & ifs) {
+template <> void solve <Day19> (bool part2, std::istream & ifs) {
   const static std::regex PARSE { R"((\w+) => (\w+))" };
   size_t pos { 0 }, res { 0 };
   std::string mol;

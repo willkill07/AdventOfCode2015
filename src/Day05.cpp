@@ -36,7 +36,7 @@ int nicer (const std::string & str) {
   return pair && post;
 }
 
-void Day05::solve (bool part2, std::ifstream & ifs) {
+template <> void solve <Day05> (bool part2, std::istream & ifs) {
   static const std::regex PAIR { "R((..).*\1)" }, POST { R"((.).\1)" };
   int niceCount { 0 };
   for (auto && line : io::by <io::line> (ifs))

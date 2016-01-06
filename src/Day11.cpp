@@ -29,7 +29,7 @@ std::string next (std::string pw) {
   return pw;
 }
 
-void Day11::solve (bool part2, std::ifstream & ifs) {
+template <> void solve <Day11> (bool part2, std::istream & ifs) {
   std::string pw { io::as_string (ifs) };
   std::cout << next (part2 ? next (pw) : pw) << std::endl;
 }

@@ -1,6 +1,6 @@
 #include "Solution.hpp"
 
-void Day01::solve (bool part2, std::ifstream & ifs) {
+template <> void solve <Day01> (bool part2, std::istream & ifs) {
   int ud [2] { 0, 0 }, count { 0 };
   for (char c; (!part2 || ud[0] >= ud[1]) && ifs >> c; ++count)
     ++ud [c - '('];

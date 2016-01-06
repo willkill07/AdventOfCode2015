@@ -2,7 +2,7 @@
 #include "Solution.hpp"
 #include "io.hpp"
 
-void Day02::solve (bool part2, std::ifstream & ifs) {
+template <> void solve <Day02> (bool part2, std::istream & ifs) {
   static const std::regex PARSE { R"((\d+)x(\d+)x(\d+))" };
   int total { 0 }, b[3];
   std::smatch m;
