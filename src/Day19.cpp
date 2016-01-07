@@ -3,14 +3,14 @@
 #include "Solution.hpp"
 #include "io.hpp"
 
-template <> void solve <Day19> (bool part2, std::istream & ifs) {
+template <> void solve <Day19> (bool part2, std::istream & is, std::ostream & os) {
   const static std::regex PARSE { R"((\w+) => (\w+))" };
   size_t pos { 0 }, res { 0 };
   std::string mol;
   std::smatch m;
   std::unordered_set <std::string> set;
   std::unordered_multimap <std::string, std::string> rules;
-  for (auto && line : io::by <io::line> (ifs))
+  for (auto && line : io::by <io::line> (is))
     if (std::regex_match (line, m, PARSE))
       rules.emplace (m.str (part2 ? 2 : 1), m.str (part2 ? 1 : 2));
     else if (line.size() > 2)
@@ -24,5 +24,5 @@ template <> void solve <Day19> (bool part2, std::istream & ifs) {
       for (auto && r : rules)
         if (pos = mol.find (r.first, 0), pos != std::string::npos)
           mol.replace (pos, r.first.length(), r.second), ++res;
-  std::cout << res << std::endl;
+  os << res << std::endl;
 }

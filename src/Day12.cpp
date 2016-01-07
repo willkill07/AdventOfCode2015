@@ -2,11 +2,11 @@
 #include "Solution.hpp"
 #include "io.hpp"
 
-template <> void solve <Day12> (bool part2, std::istream & ifs) {
+template <> void solve <Day12> (bool part2, std::istream & is, std::ostream & os) {
   bool minus { false };
   int sum { 0 }, value { 0 };
   std::stack <int> data;
-  std::string input { io::as_string (ifs) };
+  std::string input { io::as_string (is) };
   for (size_t i { 0 }; i < input.size(); ++i) {
     char c { input [i] };
     switch (c) {
@@ -30,5 +30,5 @@ template <> void solve <Day12> (bool part2, std::istream & ifs) {
       minus = false;
     }
   }
-  std::cout << sum << std::endl;
+  os << sum << std::endl;
 }

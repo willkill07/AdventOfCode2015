@@ -61,12 +61,12 @@ void round (bool part2, Game g, int spell, short & best) {
     round (part2, g, i, best);
 }
 
-template <> void solve<Day22> (bool part2, std::istream & ifs) {
+template <> void solve <Day22> (bool part2, std::istream & is, std::ostream & os) {
   short best { std::numeric_limits <short>::max() };
-  std::string line { io::as_string (ifs) };
+  std::string line { io::as_string (is) };
   std::smatch m { io::regex_parse (line, std::regex { R"([^:]+: (\d+)\s+[^:]+: (\d+)\s+)" }) };
   Game g { (char)std::stoi (m.str (1)), (char)std::stoi (m.str (2)) };
   for (int i { 0 }; i < 5; ++i)
     round (part2, g, i, best);
-  std::cout << best << std::endl;
+  os << best << std::endl;
 }

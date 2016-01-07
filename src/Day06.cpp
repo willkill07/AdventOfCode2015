@@ -6,10 +6,10 @@ enum Action {
   ON = 1, OFF = -1, TOGGLE = 2
 };
 
-template <> void solve <Day06> (bool part2, std::istream & ifs) {
+template <> void solve <Day06> (bool part2, std::istream & is, std::ostream & os) {
   static const std::regex PARSER { R"((turn (on|off)|toggle) (\d+),(\d+) \w+ (\d+),(\d+))" };
   static std::array <std::array <int, 1000>, 1000> lights;
-  for (auto && line : io::by <io::line> (ifs)) {
+  for (auto && line : io::by <io::line> (is)) {
     std::smatch m { io::regex_parse (line, PARSER) };
     Action a = ((m.str (1) == "toggle") ? TOGGLE : ((m.str (2) == "on") ? ON : OFF));
     int x1 { std::stoi (m[3]) }, y1 { std::stoi (m[4]) }, x2 { std::stoi (m[5]) }, y2 { std::stoi (m[6]) };
@@ -21,5 +21,5 @@ template <> void solve <Day06> (bool part2, std::istream & ifs) {
   for (auto && row : lights)
     for (auto && l : row)
       sum += l;
-  std::cout << sum << std::endl;
+  os << sum << std::endl;
 }

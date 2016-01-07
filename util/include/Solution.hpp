@@ -16,10 +16,10 @@ enum Day {
 std::string asString (Day d);
 
 template <Day DAY>
-void solve (bool part2, std::istream & ifs) {
-  std::cout << asString (DAY) << " part " << (part2 ? '2' : '1') << " is not implemented";
-  if (ifs.bad())
-    std::cout << " and input file does not exist" << std::endl;
+void solve (bool part2, std::istream & is, std::ostream & os) {
+  os << asString (DAY) << " part " << (part2 ? '2' : '1') << " is not implemented";
+  if (is.bad())
+    os << " and input file does not exist" << std::endl;
 };
 
 #endif

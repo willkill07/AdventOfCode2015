@@ -28,11 +28,11 @@ void for_all (int r, int n, std::function <void (int*)> f) {
   });
 }
 
-template <> void solve <Day15> (bool part2, std::istream & ifs) {
+template <> void solve <Day15> (bool part2, std::istream & is, std::ostream & os) {
   const static std::regex PARSE { R"(\w+: \w+ (-?\d+), \w+ (-?\d+), \w+ (-?\d+), \w+ (-?\d+), \w+ (-?\d+))" };
   int count { 0 }, max { 0 };
   std::vector <Ingredient> ingredients;
-  for (auto && line : io::by <io::line> (ifs)) {
+  for (auto && line : io::by <io::line> (is)) {
     std::smatch m { io::regex_parse (line, PARSE) };
     ingredients.emplace_back (std::valarray <int> { std::stoi (m[1]), std::stoi (m[2]), std::stoi (m[3]), std::stoi (m[4]) }, std::stoi (m[5]));
     ++count;
@@ -42,7 +42,7 @@ template <> void solve <Day15> (bool part2, std::istream & ifs) {
     for (int i { 0 }; i < count; ++i)
       res.data += counts[i] * ingredients[i].data, res.calories += counts[i] * ingredients[i].calories;
     if (!part2 || res.calories == 500)
-      max = std::max (max, std::accumulate (std::begin (res.data), std::end (res.data), 1, [] (int p, int v) { return p * std::max (v, 0); }));
+      max = std::max (max, std::accumulate (std::cbegin (res.data), std::cend (res.data), 1, [] (int p, int v) { return p * std::max (v, 0); }));
   });
-  std::cout << max << std::endl;
+  os << max << std::endl;
 }

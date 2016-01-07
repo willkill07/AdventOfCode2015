@@ -9,9 +9,9 @@ bool isvowel (char c) {
 
 bool nice (const std::string & str) {
   bool pair { false };
-  auto c = std::begin (str);
+  auto && c = std::cbegin (str);
   int vowels { isvowel (*c) };
-  for (++c; c != std::end (str); ++c) {
+  for (++c; c != std::cend (str); ++c) {
     if ((*c == 'b' || *c == 'd' || *c == 'q' || *c == 'y') && (*(c - 1) == *c - 1))
       return false;
     vowels += isvowel (*c);
@@ -27,7 +27,7 @@ int nicer (const std::string & str) {
     l.fill (std::numeric_limits <char>::max ());
   lookup [str[0] - 'a'][str[1] - 'a'] = 1;
   char i { 2 };
-  for (auto c = std::begin (str) + 2; c != std::end (str); ++c, ++i) {
+  for (auto && c = std::cbegin (str) + 2; c != std::cend (str); ++c, ++i) {
     char& index = lookup [*(c - 1) - 'a'][*c - 'a'];
     if (post |= (*c == *(c - 2)), pair |= (index < i - 1), pair && post)
       return true;
@@ -36,10 +36,10 @@ int nicer (const std::string & str) {
   return pair && post;
 }
 
-template <> void solve <Day05> (bool part2, std::istream & ifs) {
+template <> void solve <Day05> (bool part2, std::istream & is, std::ostream & os) {
   static const std::regex PAIR { "R((..).*\1)" }, POST { R"((.).\1)" };
   int niceCount { 0 };
-  for (auto && line : io::by <io::line> (ifs))
+  for (auto && line : io::by <io::line> (is))
     niceCount += (!part2 ? nice (line) : nicer (line));
-  std::cout << niceCount << std::endl;
+  os << niceCount << std::endl;
 }

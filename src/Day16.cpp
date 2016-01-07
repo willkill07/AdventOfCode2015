@@ -19,13 +19,13 @@ bool check (const std::string & key, int val, bool part2) {
   return (part2 ? data.second : EQ) (val, data.first);
 }
 
-template <> void solve <Day16> (bool part2, std::istream & ifs) {
-  for (auto && line : io::by <io::line> (ifs)) {
+template <> void solve <Day16> (bool part2, std::istream & is, std::ostream & os) {
+  for (auto && line : io::by <io::line> (is)) {
     bool invalid { false };
     for (auto && m : io::by_match (line, ITEM))
       invalid = invalid || !check (m.str (1), std::stoi (m.str (2)), part2);
     if (!invalid) {
-      std::cout << io::re_search (line, NUMBER)->str (1) << std::endl;
+      os << io::re_search (line, NUMBER)->str (1) << std::endl;
       return;
     }
   }

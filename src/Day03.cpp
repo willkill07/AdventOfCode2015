@@ -15,11 +15,11 @@ Pos& apply (Pos& p, char c) {
   return p;
 }
 
-template <> void solve <Day03> (bool part2, std::istream & ifs) {
+template <> void solve <Day03> (bool part2, std::istream & is, std::ostream & os) {
   std::map <Pos, int> p;
   Pos p1 { 0, 0 }, p2 { 0, 0 };
   bool santa { true };
-  for (char c : io::as_string (ifs))
+  for (auto && c : io::as_string (is))
     ++p [apply (((santa ^= part2) ? p1 : p2), c)];
-  std::cout << p.size() << std::endl;
+  os << p.size() << std::endl;
 }

@@ -8,7 +8,7 @@ char & next_letter (char & c) {
 bool valid (const std::string & pw) {
   bool two { pw[0] == pw[1] }, three { false };
   char last { '\0' };
-  for (auto c = std::begin (pw) + 2; c != std::end (pw); ++c) {
+  for (auto && c = std::cbegin (pw) + 2; c != std::cend (pw); ++c) {
     if (!two && (*c == *(c - 1)) && (last != *c)) {
       if (last == '\0')
         last = *c;
@@ -29,7 +29,7 @@ std::string next (std::string pw) {
   return pw;
 }
 
-template <> void solve <Day11> (bool part2, std::istream & ifs) {
-  std::string pw { io::as_string (ifs) };
-  std::cout << next (part2 ? next (pw) : pw) << std::endl;
+template <> void solve <Day11> (bool part2, std::istream & is, std::ostream & os) {
+  std::string pw { io::as_string (is) };
+  os << next (part2 ? next (pw) : pw) << std::endl;
 }

@@ -12,11 +12,11 @@ int sum (const Grid & a) {
   int s { 0 }; FORALL(x,y) s += a[y][x]; return s;
 }
 
-template <> void solve <Day18> (bool part2, std::istream & ifs) {
+template <> void solve <Day18> (bool part2, std::istream & is, std::ostream & os) {
   size_t curr { 1 }, prev { 0 };
   {
     size_t x { 0 }, y { 0 };
-    for (auto && line : io::by <io::line> (ifs)) {
+    for (auto && line : io::by <io::line> (is)) {
       x = 0, ++y;
       for (auto && c : line)
         grid[curr][y][++x] = ((c == '#') ? 1 : 0);
@@ -32,5 +32,5 @@ template <> void solve <Day18> (bool part2, std::istream & ifs) {
     FORALL(x,y) grid[curr][y][x] = (grid[curr][y][x] == 3 || (grid[prev][y][x] && grid[curr][y][x] == 2));
     part2 && (grid[curr][1][1] = grid[curr][1][N] = grid[curr][N][1] = grid[curr][N][N] = 1);
   }
-  std::cout << sum (grid[curr]) << std::endl;
+  os << sum (grid[curr]) << std::endl;
 }
