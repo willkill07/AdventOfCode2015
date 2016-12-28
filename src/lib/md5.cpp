@@ -115,5 +115,5 @@ md5sum_t md5 (uint8_t* msg, size_t initial_len) {
     II(b, c, d, a, w[ 9], 21, 0xEB86D391);
     h0 += a, h1 += b, h2 += c, h3 += d;
   }
-  return std::move (md5sum_t {{h0, h1, h2, h3}});
+  return md5sum_t {{h0, h1, h2, h3}};
 }
