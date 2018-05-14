@@ -42,7 +42,7 @@ template <> void solve <Day15> (bool part2, std::istream & is, std::ostream & os
     for (int i { 0 }; i < count; ++i)
       res.data += counts[i] * ingredients[i].data, res.calories += counts[i] * ingredients[i].calories;
     if (!part2 || res.calories == 500)
-      max = std::max (max, std::accumulate (std::cbegin (res.data), std::cend (res.data), 1, [] (int p, int v) { return p * std::max (v, 0); }));
+      max = std::max (max, std::accumulate (std::begin (res.data), std::end (res.data), 1, [] (int p, int v) { return p * std::max (v, 0); }));
   });
   os << max << std::endl;
 }

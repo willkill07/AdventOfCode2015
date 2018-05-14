@@ -32,7 +32,7 @@ namespace util {
     return ret;
   }
 
-  constexpr uint64_t hash (const std::string & str) {
+  inline uint64_t hash (const std::string & str) {
     return hash (str.c_str());
   }
 }

@@ -20,6 +20,6 @@ void solve (bool part2, std::istream & is, std::ostream & os) {
   os << asString (DAY) << " part " << (part2 ? '2' : '1') << " is not implemented";
   if (is.bad())
     os << " and input file does not exist" << std::endl;
-};
+}
 
 #endif

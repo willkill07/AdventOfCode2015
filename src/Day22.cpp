@@ -37,14 +37,14 @@ public:
 };
 
 struct GameHash {
-  int64_t operator() (const Game & g1) {
+  int64_t operator() (const Game & g1) const {
     return *(int64_t*)(&g1) ^ (int64_t)*(int*)((int64_t*)&g1 + 1);
   }
 };
 
 struct GameEq {
   static GameHash h;
-  bool operator() (const Game & g1, const Game & g2) {
+  bool operator() (const Game & g1, const Game & g2) const {
     return h(g1) == h(g2);
   }
 };

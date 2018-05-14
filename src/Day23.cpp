@@ -25,6 +25,7 @@ template <> void solve <Day23> (bool part2, std::istream & is, std::ostream & os
       default: return { };
     }
   });
-  for (pc = std::cbegin (ins); pc != std::cend (ins); pc->second())
-    ; os << b << std::endl;
+  for (pc = std::begin (ins); pc != std::end (ins); pc->second())
+    ;
+  os << b << std::endl;
 }
